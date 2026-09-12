@@ -1,15 +1,9 @@
-import { test, expect, type Page } from '@playwright/test';
-import { schemes, viewports } from './matrix';
+import { test, expect } from '@playwright/test';
+import { open, schemes, viewports } from './matrix';
 
 const appStore = 'https://apps.apple.com/app/id6798220310';
 const googlePlay = 'https://play.google.com/store/apps/details?id=com.kirami.app';
 const bannedWords = /\b(detect|diagnose|screen|monitor|cavity|gum disease|oral cancer)\b/i;
-
-async function open(page: Page, scheme: (typeof schemes)[number], viewport: (typeof viewports)[number]) {
-  await page.emulateMedia({ colorScheme: scheme });
-  await page.setViewportSize({ width: viewport.width, height: viewport.height });
-  await page.goto('/');
-}
 
 for (const scheme of schemes) {
   for (const viewport of viewports) {

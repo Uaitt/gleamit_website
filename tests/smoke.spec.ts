@@ -25,7 +25,8 @@ for (const route of routes) {
         });
         expect(overflow, 'horizontal overflow in px').toBe(0);
 
-        await expect(page.locator('script')).toHaveCount(0);
+        await expect(page.locator('script[src]')).toHaveCount(0);
+        await expect(page.locator('script')).toHaveCount(route === '/' ? 1 : 0);
         expect(await context.cookies()).toEqual([]);
       });
     }

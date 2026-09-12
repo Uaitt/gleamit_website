@@ -1,6 +1,6 @@
 # gleamit.app
 
-Public website for [Gleamit](https://github.com/Uaitt/gleamit), the on-device oral hygiene tracker. Static Astro site, plain CSS, no client JavaScript, no analytics, no cookies. Hosted on GitHub Pages at `https://gleamit.app`.
+Public website for [Gleamit](https://github.com/Uaitt/gleamit), the on-device oral hygiene tracker. Static Astro site, plain CSS, no analytics, no cookies. The only client JavaScript is the inline scroll-reveal enhancement on the landing page: no external scripts are ever loaded. Hosted on GitHub Pages at `https://gleamit.app`.
 
 ## Commands
 
@@ -29,4 +29,6 @@ Playwright needs a browser once: `npx playwright install chromium`.
 
 Every push to `main` (and every pull request) runs: type check, build, link check, link-checker tests, Playwright smoke suite. Only pushes to `main` deploy, via `actions/deploy-pages`.
 
-The smoke suite is driven by `tests/routes.ts` (`tests/smoke.spec.ts`, `tests/output.spec.ts`), with `tests/landing.spec.ts` covering the landing page's store badges, nav, trust strip, footer, image formats, Open Graph tags, copy guardrails, tap targets and focus order. Add a route there and it is opened in light and dark at 375px and 1280px, asserting a 200, a visible `h1`, the palette background, no horizontal overflow, no external scripts, no cookies, plus a canonical link and a sitemap entry. Tests only ever look at the served build output, never at Astro internals.
+The smoke suite is driven by `tests/routes.ts` (`tests/smoke.spec.ts`, `tests/output.spec.ts`), with `tests/landing.spec.ts` covering the landing page's store badges, nav, trust strip, footer, image formats, Open Graph tags, copy guardrails, tap targets and focus order. Add a route there and it is opened in light and dark at 375px and 1280px, asserting a 200, a visible `h1`, the palette background, no horizontal overflow, no external scripts, no cookies, plus a canonical link and a sitemap entry.
+
+`tests/features.spec.ts` covers the Bento feature grid and the showcase rows, including the card radius, alt text, the `Features` anchor and the scroll reveal in all three motion states: default, `prefers-reduced-motion`, and JavaScript disabled. Tests only ever look at the served build output, never at Astro internals.

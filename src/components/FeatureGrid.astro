@@ -1,0 +1,74 @@
+---
+import Phone from './Phone.astro';
+import teeth from '../assets/shots/teeth.png';
+
+const big = {
+  icon: '<path d="M7 3h10a2 2 0 0 1 2 2v2a4 4 0 0 1-4 4h-1l-1 10h-2L10 11H9a4 4 0 0 1-4-4V5a2 2 0 0 1 2-2z"/>',
+  title: 'A 32-tooth map that is yours',
+  text: 'Tap a tooth and record what is true: a filling, a crown, an implant, braces, your own notes. Every change is kept in a history you can scroll back through.',
+};
+
+const tiles = [
+  {
+    size: 'sm',
+    icon: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/>',
+    title: '2-minute timer',
+    text: 'Guided by quadrant, with a gentle buzz when it is time to move on.',
+  },
+  {
+    size: 'sm',
+    icon: '<path d="M12 2s5 5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 1-3.5s1 2 2 2c0-3 2-8.5 2-8.5z"/>',
+    title: 'Brushing and floss streaks',
+    text: 'Two brushings a day keep the streak alive. Floss has a streak of its own.',
+  },
+  {
+    size: 'sm',
+    icon: '<rect x="3" y="4" width="18" height="18" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>',
+    title: 'Dentist and appointments',
+    text: 'Contact details, next visit, a reminder the day before.',
+  },
+  {
+    size: 'sm',
+    icon: '<path d="M4 8h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/>',
+    title: 'Smile photos',
+    text: 'A timeline of your smile, any two photos side by side.',
+  },
+  {
+    size: 'wide',
+    icon: '<path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5M9 13h6M9 17h6"/>',
+    title: 'Document vault',
+    text: 'PDFs and X-ray images from your dentist, stored on the device. Gleamit never reads or interprets them.',
+  },
+  {
+    size: 'wide',
+    icon: '<path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/>',
+    title: 'Brushes and heads',
+    text: 'Log replacements and see how long each head lasted. Gleamit nudges you at 90 days.',
+  },
+];
+---
+
+<section id="features">
+  <div class="wrap">
+    <span class="eyebrow">What it keeps track of</span>
+    <h2>A record-keeper for your mouth. Not a coach.</h2>
+    <p class="muted intro">Gleamit shows you what you entered, and nothing more. It never interprets it, and it does not grade you or nag.</p>
+    <div class="bento">
+      <div class="tile big reveal">
+        <div>
+          <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" set:html={big.icon} /></div>
+          <h3>{big.title}</h3>
+          <p>{big.text}</p>
+        </div>
+        <Phone src={teeth} alt="A tooth map with a filling, a crown, an implant and braces recorded in colour" />
+      </div>
+      {tiles.map(({ size, icon, title, text }) => (
+        <div class:list={['tile', size, 'reveal']}>
+          <div class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" set:html={icon} /></div>
+          <h3>{title}</h3>
+          <p>{text}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

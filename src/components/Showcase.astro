@@ -1,0 +1,45 @@
+---
+import Phone from './Phone.astro';
+import streak from '../assets/shots/streak.png';
+import dentist from '../assets/shots/dentist.png';
+import homeDark from '../assets/shots/home_dark.png';
+
+const rows = [
+  {
+    eyebrow: 'Habits',
+    title: 'Twice a day, and the streak grows',
+    text: "A single Home tab shows today's brushings, your floss and the streak. Reminders are yours to set, and you always keep at least two.",
+    src: streak,
+    alt: 'Your Streak: a 27 day brushing streak with every day of August filled in',
+  },
+  {
+    eyebrow: 'Dentist visits',
+    title: 'Everything your dentist asks about, in one place',
+    text: 'Appointments, contact, notes and documents. With Pro, a PDF report of your tooth map, history and habits to hand over at the check-up.',
+    src: dentist,
+    alt: 'The Dentist tab: practice contact details, the last cleaning and the next appointment',
+  },
+  {
+    eyebrow: 'Private by design',
+    title: 'Backup only if you want it, only to your own cloud',
+    text: 'Turn it on and Gleamit writes to a private area of your iCloud Drive or Google Drive. Turn it off and nothing leaves the phone. Export a full zip anytime, free.',
+    src: homeDark,
+    alt: 'The Home tab in dark mode: brushing streak, the timer, a floss card and reminders',
+  },
+];
+---
+
+<section id="showcase">
+  <div class="wrap">
+    {rows.map(({ eyebrow, title, text, src, alt }, index) => (
+      <div class:list={['show', 'reveal', { flip: index % 2 === 1 }]}>
+        <div>
+          <span class="eyebrow">{eyebrow}</span>
+          <h3>{title}</h3>
+          <p>{text}</p>
+        </div>
+        <div class="art"><Phone src={src} alt={alt} /></div>
+      </div>
+    ))}
+  </div>
+</section>

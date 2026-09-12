@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import Phone from '../components/Phone.astro';
 import StoreBadges from '../components/StoreBadges.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import Showcase from '../components/Showcase.astro';
 import teeth from '../assets/shots/teeth.png';
 import home from '../assets/shots/home.png';
 
@@ -17,6 +19,28 @@ const trust = [
 ---
 
 <Base title="Gleamit - Your mouth, tracked privately" description={lead}>
+  <script is:inline>
+    if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.documentElement.classList.add('reveal-on-scroll');
+      addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (!entry.isIntersecting) continue;
+              entry.target.classList.add('in');
+              observer.unobserve(entry.target);
+            }
+          },
+          { threshold: 0.15 },
+        );
+        document.querySelectorAll('.reveal').forEach((el, index) => {
+          el.style.transitionDelay = `${(index % 3) * 60}ms`;
+          observer.observe(el);
+        });
+      });
+    }
+  </script>
+
   <section class="hero">
     <div class="wrap">
       <div>
@@ -46,8 +70,10 @@ const trust = [
     </div>
   </section>
 
-  {/* Anchor targets for the nav until the feature grid (#350) and pricing / FAQ (#351) sections land. */}
-  <span id="features" hidden></span>
+  <FeatureGrid />
+  <Showcase />
+
+  {/* Anchor targets for the nav until the pricing / FAQ (#351) sections land. */}
   <span id="pricing" hidden></span>
   <span id="faq" hidden></span>
 </Base>
