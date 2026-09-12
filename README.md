@@ -1,6 +1,6 @@
 # gleamit.app
 
-Public website for [Gleamit](https://github.com/Uaitt/gleamit), the on-device oral hygiene tracker. Static Astro site, plain CSS, no analytics, no cookies. The only client JavaScript is the inline scroll-reveal enhancement on the landing page: no external scripts are ever loaded. Hosted on GitHub Pages at `https://gleamit.app`.
+Public website for [Gleamit](https://github.com/Uaitt/gleamit), the on-device oral hygiene tracker. Static Astro site, plain CSS, no analytics, no cookies. The only client JavaScript is inline: the theme toggle and the scroll-reveal enhancement on the landing page. No external scripts are ever loaded. Hosted on GitHub Pages at `https://gleamit.app`.
 
 ## Commands
 
@@ -17,7 +17,9 @@ Playwright needs a browser once: `npx playwright install chromium`.
 
 ## Design tokens
 
-`src/styles/global.css` carries the app's `AppTheme` palette as CSS custom properties, light by default and dark under `prefers-color-scheme: dark`. No toggle, no web font: system font stack only.
+`src/styles/global.css` carries the app's `AppTheme` palette as CSS custom properties. The site is the app's palette with two deliberate shifts for the web: the light page background is `#D8E1DD` rather than the app's `#F3F6F8`, and light teal text is `#126E61` rather than `#157C6D`. No web font: system font stack only.
+
+Every visitor opens the site light, whatever `prefers-color-scheme` says. The 48px toggle at the right end of the nav flips `data-theme` on `<html>`, where the dark palette lives, and stores the choice in `localStorage.theme`; an inline script in `<head>` reapplies it before first paint. A second inline script at the end of `<body>` reveals the toggle, which ships `hidden`, and keeps the label, the `theme-color` meta and the App Store badge artwork in step with the theme; a visitor without JavaScript therefore gets a light site and no dead control. No cookies.
 
 ## Screenshots and badges
 
@@ -29,6 +31,6 @@ Playwright needs a browser once: `npx playwright install chromium`.
 
 Every push to `main` (and every pull request) runs: type check, build, link check, link-checker tests, Playwright smoke suite. Only pushes to `main` deploy, via `actions/deploy-pages`.
 
-The smoke suite is driven by `tests/routes.ts` (`tests/smoke.spec.ts`, `tests/output.spec.ts`), with `tests/landing.spec.ts` covering the landing page's store badges, nav, trust strip, footer, image formats, Open Graph tags, copy guardrails, tap targets and focus order. Add a route there and it is opened in light and dark at 375px and 1280px, asserting a 200, a visible `h1`, the palette background, no horizontal overflow, no external scripts, no cookies, plus a canonical link and a sitemap entry.
+The smoke suite is driven by `tests/routes.ts` (`tests/smoke.spec.ts`, `tests/output.spec.ts`), with `tests/landing.spec.ts` covering the landing page's store badges, nav, trust strip, footer, image formats, Open Graph tags, copy guardrails, tap targets and focus order. Add a route there and it is opened at 375px and 1280px with a dark system emulated, asserting a 200, a visible `h1`, the light background and teal text, no horizontal overflow, no external scripts, no cookies, plus a canonical link and a sitemap entry. `tests/landing.spec.ts` also walks the theme journey: light on arrival, dark after the toggle, dark across a reload and a route change, light again after toggling back.
 
 `tests/features.spec.ts` covers the Bento feature grid and the showcase rows, including the card radius, alt text, the `Features` anchor and the scroll reveal in all three motion states: default, `prefers-reduced-motion`, and JavaScript disabled. Tests only ever look at the served build output, never at Astro internals.

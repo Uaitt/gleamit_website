@@ -34,8 +34,13 @@ const footerLinks = [
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#F3F6F8" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#111418" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#D8E1DD" />
+    <script is:inline>
+      document.documentElement.dataset.theme = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light';
+      if (document.documentElement.dataset.theme === 'dark') {
+        document.querySelector('meta[name="theme-color"]').content = '#111418';
+      }
+    </script>
     <meta property="og:site_name" content="Gleamit" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -55,11 +60,17 @@ const footerLinks = [
     <nav aria-label="Main">
       <div class="wrap">
         <a class="brand" href="/"><img src="/icon.svg" alt="" width="32" height="32" /> Gleamit</a>
-        <ul>
-          {navLinks.map((link) => (
-            <li class:list={{ 'always-visible': link.alwaysVisible }}><a href={link.href}>{link.name}</a></li>
-          ))}
-        </ul>
+        <div class="nav-right">
+          <ul>
+            {navLinks.map((link) => (
+              <li class:list={{ 'always-visible': link.alwaysVisible }}><a href={link.href}>{link.name}</a></li>
+            ))}
+          </ul>
+          <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" hidden>
+            <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" /></svg>
+            <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" /></svg>
+          </button>
+        </div>
       </div>
     </nav>
     <main>
@@ -76,5 +87,27 @@ const footerLinks = [
         <span>© {new Date().getFullYear()} Lorenzo Zabot</span>
       </div>
     </footer>
+    <script is:inline>
+      {
+        const root = document.documentElement;
+        const toggle = document.querySelector('.theme-toggle');
+        const themeColor = document.querySelector('meta[name="theme-color"]');
+        const badge = document.querySelector('.badge img.app-store');
+        const reflectTheme = () => {
+          const dark = root.dataset.theme === 'dark';
+          toggle.setAttribute('aria-pressed', String(dark));
+          toggle.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+          themeColor.content = dark ? '#111418' : '#D8E1DD';
+          if (badge) badge.src = dark ? '/badges/app-store-white.svg' : '/badges/app-store-black.svg';
+        };
+        toggle.hidden = false;
+        reflectTheme();
+        toggle.addEventListener('click', () => {
+          root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+          localStorage.setItem('theme', root.dataset.theme);
+          reflectTheme();
+        });
+      }
+    </script>
   </body>
 </html>

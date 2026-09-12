@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { open, schemes, viewports } from './matrix';
+import { open, viewports } from './matrix';
 
 const tiles = [
   'A 32-tooth map that is yours',
@@ -12,46 +12,44 @@ const tiles = [
 ];
 const showcase = ['Habits', 'Dentist visits', 'Private by design'];
 
-for (const scheme of schemes) {
-  for (const viewport of viewports) {
-    test.describe(`features in ${scheme} at ${viewport.width}px`, () => {
-      test.beforeEach(({ page }) => open(page, scheme, viewport));
+for (const viewport of viewports) {
+  test.describe(`features at ${viewport.width}px`, () => {
+    test.beforeEach(({ page }) => open(page, viewport));
 
-      test('the Bento grid shows all seven feature cards', async ({ page }) => {
-        const grid = page.locator('#features .bento');
-        await expect(grid.locator('.tile')).toHaveCount(tiles.length);
-        for (const tile of tiles) {
-          await expect(grid.getByRole('heading', { name: tile })).toBeVisible();
-        }
-      });
-
-      test('Bento cards carry the app card radius', async ({ page }) => {
-        for (const tile of await page.locator('#features .tile').all()) {
-          await expect(tile).toHaveCSS('border-radius', '24px');
-        }
-      });
-
-      test('the three showcase rows are visible with their screenshots', async ({ page }) => {
-        const rows = page.locator('#showcase .show');
-        await expect(rows).toHaveCount(showcase.length);
-        for (const [index, eyebrow] of showcase.entries()) {
-          const row = rows.nth(index);
-          await expect(row.getByText(eyebrow, { exact: true })).toBeVisible();
-          await expect(row.getByRole('heading')).toBeVisible();
-          await expect(row.locator('.phone img')).toBeVisible();
-        }
-      });
-
-      test('neither section overflows horizontally', async ({ page }) => {
-        await page.locator('#showcase').scrollIntoViewIfNeeded();
-        const overflow = await page.evaluate(() => {
-          const root = document.documentElement;
-          return root.scrollWidth - root.clientWidth;
-        });
-        expect(overflow, 'horizontal overflow in px').toBe(0);
-      });
+    test('the Bento grid shows all seven feature cards', async ({ page }) => {
+      const grid = page.locator('#features .bento');
+      await expect(grid.locator('.tile')).toHaveCount(tiles.length);
+      for (const tile of tiles) {
+        await expect(grid.getByRole('heading', { name: tile })).toBeVisible();
+      }
     });
-  }
+
+    test('Bento cards carry the app card radius', async ({ page }) => {
+      for (const tile of await page.locator('#features .tile').all()) {
+        await expect(tile).toHaveCSS('border-radius', '24px');
+      }
+    });
+
+    test('the three showcase rows are visible with their screenshots', async ({ page }) => {
+      const rows = page.locator('#showcase .show');
+      await expect(rows).toHaveCount(showcase.length);
+      for (const [index, eyebrow] of showcase.entries()) {
+        const row = rows.nth(index);
+        await expect(row.getByText(eyebrow, { exact: true })).toBeVisible();
+        await expect(row.getByRole('heading')).toBeVisible();
+        await expect(row.locator('.phone img')).toBeVisible();
+      }
+    });
+
+    test('neither section overflows horizontally', async ({ page }) => {
+      await page.locator('#showcase').scrollIntoViewIfNeeded();
+      const overflow = await page.evaluate(() => {
+        const root = document.documentElement;
+        return root.scrollWidth - root.clientWidth;
+      });
+      expect(overflow, 'horizontal overflow in px').toBe(0);
+    });
+  });
 }
 
 test('the nav Features anchor lands on the feature grid', async ({ page }) => {

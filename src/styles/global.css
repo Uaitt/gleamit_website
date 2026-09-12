@@ -2,8 +2,8 @@
   --teal: #2D9D8B;
   --mint: #46C2C8;
   --teal-strong: #1F8576;
-  --teal-text: #157C6D;
-  --bg: #F3F6F8;
+  --teal-text: #126E61;
+  --bg: #D8E1DD;
   --card: #FFFFFF;
   --soft: #E6ECEA;
   --ink: #17242B;
@@ -15,21 +15,20 @@
   --r-btn: 16px;
   --gutter: clamp(20px, 5vw, 64px);
   --max: 1120px;
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --teal-text: #5FD3C2;
-    --bg: #111418;
-    --card: #1C2126;
-    --soft: #282E33;
-    --ink: #F2F2F2;
-    --muted: #98A2AD;
-    --border: #363D45;
-    --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
-    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.30);
-  }
+[data-theme='dark'] {
+  --teal-text: #5FD3C2;
+  --bg: #111418;
+  --card: #1C2126;
+  --soft: #282E33;
+  --ink: #F2F2F2;
+  --muted: #98A2AD;
+  --border: #363D45;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.30);
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -84,8 +83,28 @@ nav ul a {
   text-decoration: none;
   font-weight: 600;
 }
-nav ul a:hover { background: var(--soft); color: var(--ink); }
+nav ul a:hover { background: var(--card); color: var(--ink); }
 @media (max-width: 720px) { nav ul li:not(.always-visible) { display: none; } }
+.nav-right { display: flex; align-items: center; gap: 6px; }
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--muted);
+  cursor: pointer;
+}
+.theme-toggle[hidden] { display: none; }
+.theme-toggle:hover { background: var(--soft); color: var(--ink); }
+.theme-toggle:focus-visible { outline: 3px solid var(--mint); outline-offset: 3px; }
+.theme-toggle svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.theme-toggle .moon, [data-theme='dark'] .theme-toggle .sun { display: none; }
+[data-theme='dark'] .theme-toggle .moon { display: block; }
 
 .badges { display: flex; flex-wrap: wrap; gap: 12px; }
 .badge { display: inline-flex; border-radius: 10px; transition: transform 0.15s ease; }
