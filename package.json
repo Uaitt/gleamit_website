@@ -1,0 +1,26 @@
+{
+  "name": "gleamit-website",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "node scripts/serve.mjs dist",
+    "check": "astro check",
+    "check:links": "node scripts/check-links.mjs dist",
+    "test:links": "node --test tests/check-links.test.mjs",
+    "test:e2e": "playwright test",
+    "test": "npm run test:links && npm run test:e2e"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@astrojs/sitemap": "^3.7.4",
+    "@playwright/test": "^1.63.0",
+    "astro": "^7.3.1",
+    "node-html-parser": "^9.0.3",
+    "typescript": "^6.0.3"
+  }
+}
