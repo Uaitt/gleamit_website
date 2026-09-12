@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support - Gleamit</title>
+<style>
+:root { --teal: #2D9D8B; --mint: #46C2C8; --teal-text: #157C6D; --bg: #F3F6F8; --card: #FFFFFF; --soft: #E6ECEA; --ink: #17242B; --muted: #566571; --border: #DCE3E6; --gutter: clamp(20px, 5vw, 64px); }
+@media (prefers-color-scheme: dark) { :root { --teal-text: #5FD3C2; --bg: #111418; --card: #1C2126; --soft: #282E33; --ink: #F2F2F2; --muted: #98A2AD; --border: #363D45; } }
+* { box-sizing: border-box; }
+body { margin: 0; font: 400 17px/1.65 -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; color: var(--ink); background: var(--bg); }
+a { color: var(--teal-text); }
+nav { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(12px); background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom: 1px solid var(--border); }
+nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 var(--gutter); }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: var(--ink); text-decoration: none; }
+.brand img { width: 32px; height: 32px; border-radius: 9px; }
+nav ul { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; }
+nav ul a { display: inline-flex; align-items: center; height: 44px; padding: 0 14px; border-radius: 12px; color: var(--muted); text-decoration: none; font-weight: 600; }
+nav ul a[aria-current] { color: var(--ink); background: var(--soft); }
+.page { display: grid; grid-template-columns: 220px minmax(0, 68ch); gap: 56px; padding: 56px 0 96px; }
+.toc { position: sticky; top: 88px; align-self: start; font-size: 15px; }
+.toc a { display: block; padding: 8px 0; color: var(--muted); text-decoration: none; font-weight: 600; }
+.toc a:hover { color: var(--ink); }
+.toc .group { margin-top: 14px; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+@media (max-width: 800px) { .page { grid-template-columns: 1fr; } .toc { position: static; } }
+h1 { font-size: clamp(34px, 5vw, 48px); line-height: 1.1; font-weight: 800; margin: 0 0 8px; }
+h2 { font-size: 28px; font-weight: 800; margin: 48px 0 12px; scroll-margin-top: 90px; }
+h3 { font-size: 20px; font-weight: 700; margin: 28px 0 8px; }
+.lead { font-size: 20px; color: var(--muted); margin: 0 0 24px; }
+.meta { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 22px 24px; margin: 20px 0; }
+.card.note { border-left: 4px solid var(--teal); }
+.platform { display: inline-flex; align-items: center; gap: 8px; padding: 4px 12px; border-radius: 999px; background: color-mix(in srgb, var(--teal) 14%, transparent); color: var(--teal-text); font-weight: 700; font-size: 14px; }
+ol { padding-left: 0; counter-reset: s; list-style: none; }
+ol li { counter-increment: s; position: relative; padding: 10px 0 10px 44px; border-bottom: 1px solid var(--border); }
+ol li:last-child { border-bottom: 0; }
+ol li::before { content: counter(s); position: absolute; left: 0; top: 8px; width: 30px; height: 30px; border-radius: 10px; display: grid; place-items: center; background: linear-gradient(135deg, #2D9D8B, #47B89E); color: #fff; font-weight: 800; font-size: 14px; }
+kbd { font: inherit; font-weight: 700; color: var(--ink); background: var(--soft); padding: 1px 8px; border-radius: 8px; }
+.contact { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.btn { display: inline-flex; align-items: center; min-height: 48px; padding: 0 22px; border-radius: 16px; font-weight: 700; text-decoration: none; background: linear-gradient(135deg, #2D9D8B, #47B89E); color: #fff; box-shadow: 0 8px 20px rgba(45,157,139,.32); }
+footer { border-top: 1px solid var(--border); padding: 32px 0; color: var(--muted); font-size: 15px; }
+footer ul { display: flex; gap: 24px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; }
+footer a { color: var(--muted); text-decoration: none; font-weight: 600; display: inline-flex; min-height: 44px; align-items: center; }
+</style>
+</head>
+<body>
+<nav><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/icon.svg" alt=""> Gleamit</a>
+  <ul><li><a href="index.html#features">Features</a></li><li><a href="index.html#pricing">Pricing</a></li><li><a href="index.html#faq">FAQ</a></li><li><a href="support.html" aria-current="page">Support</a></li></ul>
+</div></nav>
+
+<div class="wrap page">
+  <aside class="toc" aria-label="On this page">
+    <a href="#contact">Contact</a>
+    <div class="group">Android</div>
+    <a href="#android-switch">What the backup switch does</a>
+    <a href="#android-delete">Delete the backup from Google Drive</a>
+    <div class="group">iOS</div>
+    <a href="#ios-switch">What the backup switch does</a>
+    <a href="#ios-delete">Delete the backup from iCloud</a>
+    <div class="group">Everything</div>
+    <a href="#delete-all">Delete all Gleamit data</a>
+  </aside>
+
+  <main>
+    <h1>Support</h1>
+    <p class="lead">Gleamit keeps your data on your phone. This page explains what the app does with your optional cloud backup and how to remove it yourself.</p>
+
+    <h2 id="contact" style="margin-top:0">Contact</h2>
+    <div class="card contact">
+      <div style="flex:1; min-width: 220px"><strong>support@gleamit.app</strong><br><span style="color:var(--muted)">Questions, bug reports, purchase problems. Replies within 3 business days.</span></div>
+      <a class="btn" href="mailto:support@gleamit.app">Email support</a>
+    </div>
+
+    <h2 id="android"><span class="platform">Android</span></h2>
+    <h3 id="android-switch">What the backup switch does</h3>
+    <p>When cloud backup is on, Gleamit uploads a copy of your data to a hidden app-data area of the Google Drive account you picked. Only Gleamit can see that area. It cannot see anything else in your Drive.</p>
+    <div class="card note"><strong>Turning backup off, or disconnecting the account, does not delete the copy already in Drive.</strong> It only stops new uploads. The copy stays in your Drive until you delete it there.</div>
+    <h3 id="android-delete">Delete the backup from Google Drive</h3>
+    <div class="card">
+      <ol>
+        <li>Open the <kbd>Google Drive</kbd> app, or go to <kbd>drive.google.com</kbd> in a browser.</li>
+        <li>Tap the menu (three lines) or your profile picture, then <kbd>Settings</kbd>.</li>
+        <li>Choose <kbd>Manage apps</kbd>. On the web this is under <kbd>Settings → Manage apps</kbd>.</li>
+        <li>Find <kbd>Gleamit</kbd> in the list.</li>
+        <li>Tap <kbd>Options</kbd> next to it, then <kbd>Delete hidden app data</kbd>. Confirm.</li>
+        <li>Optional: choose <kbd>Disconnect from Drive</kbd> to revoke Gleamit's access entirely.</li>
+      </ol>
+    </div>
+    <p style="color:var(--muted)">If you connected more than one Google account over time, repeat these steps in each account.</p>
+
+    <h2 id="ios"><span class="platform">iOS</span></h2>
+    <h3 id="ios-switch">What the backup switch does</h3>
+    <p>When cloud backup is on, Gleamit writes a copy of your data into its own container in your iCloud Drive. The container is hidden from the Files app so it cannot be moved or deleted by accident. iCloud does the uploading, following your iCloud settings.</p>
+    <div class="card note"><strong>Turning backup off does not delete the copy already in iCloud.</strong> It only stops new uploads. The copy stays in your iCloud storage until you delete it there.</div>
+    <h3 id="ios-delete">Delete the backup from iCloud</h3>
+    <div class="card">
+      <ol>
+        <li>Open <kbd>Settings</kbd> on your iPhone.</li>
+        <li>Tap your name at the top, then <kbd>iCloud</kbd>.</li>
+        <li>Tap <kbd>Manage Account Storage</kbd> (on older iOS versions: <kbd>Manage Storage</kbd>).</li>
+        <li>Find <kbd>Gleamit</kbd> in the list of apps using iCloud storage.</li>
+        <li>Tap it, then <kbd>Delete Data from iCloud</kbd>. Confirm.</li>
+      </ol>
+    </div>
+    <p style="color:var(--muted)">On a Mac: <kbd>System Settings → Apple Account → iCloud → Manage → Gleamit → Delete Documents and Data</kbd>.</p>
+
+    <h2 id="delete-all">Delete all Gleamit data</h2>
+    <p>Deleting the app removes everything stored on the phone: sessions, teeth, photos, documents, reminders and settings. If cloud backup was ever on, also follow the platform steps above so no copy remains in your cloud.</p>
+    <p>Your Pro purchase is tied to your App Store or Google Play account, not to the app data. Reinstall and use <kbd>Restore purchases</kbd> to get it back.</p>
+
+    <p class="meta" style="margin-top:48px">Last updated 12 September 2026.</p>
+  </main>
+</div>
+
+<footer><div class="wrap"><ul>
+  <li><a href="privacy.html">Privacy policy</a></li><li><a href="terms.html">Terms</a></li><li><a href="support.html">Support</a></li><li>© 2026 Lorenzo Zabot</li>
+</ul></div></footer>
+</body>
+</html>
