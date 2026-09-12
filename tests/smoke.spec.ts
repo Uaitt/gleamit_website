@@ -1,11 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { routes } from './routes';
-
-const schemes = ['light', 'dark'] as const;
-const viewports = [
-  { name: 'mobile', width: 375, height: 812 },
-  { name: 'desktop', width: 1280, height: 800 },
-] as const;
+import { schemes, viewports } from './matrix';
 
 const pageBackground = { light: 'rgb(243, 246, 248)', dark: 'rgb(17, 20, 24)' };
 

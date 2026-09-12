@@ -83,7 +83,7 @@ nav ul a {
   font-weight: 600;
 }
 nav ul a:hover { background: var(--soft); color: var(--ink); }
-@media (max-width: 720px) { nav ul li:not(.keep) { display: none; } }
+@media (max-width: 720px) { nav ul li:not(.always-visible) { display: none; } }
 
 .badges { display: flex; flex-wrap: wrap; gap: 12px; }
 .badge { display: inline-flex; border-radius: 10px; transition: transform 0.15s ease; }

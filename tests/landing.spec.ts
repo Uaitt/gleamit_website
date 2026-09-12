@@ -1,18 +1,13 @@
 import { test, expect, type Page } from '@playwright/test';
+import { schemes, viewports } from './matrix';
 
 const appStore = 'https://apps.apple.com/app/id6798220310';
 const googlePlay = 'https://play.google.com/store/apps/details?id=com.kirami.app';
 const bannedWords = /\b(detect|diagnose|screen|monitor|cavity|gum disease|oral cancer)\b/i;
 
-const schemes = ['light', 'dark'] as const;
-const viewports = [
-  { width: 375, height: 812 },
-  { width: 1280, height: 800 },
-] as const;
-
-async function open(page: Page, scheme: 'light' | 'dark', viewport: { width: number; height: number }) {
+async function open(page: Page, scheme: (typeof schemes)[number], viewport: (typeof viewports)[number]) {
   await page.emulateMedia({ colorScheme: scheme });
-  await page.setViewportSize(viewport);
+  await page.setViewportSize({ width: viewport.width, height: viewport.height });
   await page.goto('/');
 }
 
@@ -76,14 +71,14 @@ test('hero screenshots are served as AVIF and WebP with dimensions and alt text'
   await expect(pictures).toHaveCount(2);
   for (const picture of await pictures.all()) {
     const avif = picture.locator('source[type="image/avif"]');
-    const webp = picture.locator('source[type="image/webp"]');
     await expect(avif).toHaveCount(1);
-    await expect(webp).toHaveCount(1);
-    for (const source of [avif, webp]) {
-      const url = (await source.getAttribute('srcset'))!.split(/\s+/)[0];
-      expect((await request.get(url)).status()).toBe(200);
-    }
     const img = picture.locator('img');
+    await expect(img).toHaveAttribute('src', /\.webp$/);
+    for (const url of [(await avif.getAttribute('srcset'))!.split(/\s+/)[0], (await img.getAttribute('src'))!]) {
+      const res = await request.get(url);
+      expect(res.status()).toBe(200);
+      expect(res.headers()['content-type']).toMatch(/^image\/(avif|webp)$/);
+    }
     await expect(img).toHaveAttribute('width', /^\d+$/);
     await expect(img).toHaveAttribute('height', /^\d+$/);
     await expect(img).toHaveAttribute('alt', /\S+(\s+\S+){3,}/);

@@ -13,5 +13,5 @@ const { src, alt, class: className, loading = 'lazy' } = Astro.props;
 ---
 
 <div class:list={['phone', className]}>
-  <Picture src={src} formats={['avif', 'webp']} widths={[440, 660]} sizes="270px" alt={alt} loading={loading} />
+  <Picture src={src} formats={['avif']} fallbackFormat="webp" widths={[440, 660]} sizes="(max-width: 900px) 220px, 270px" alt={alt} loading={loading} />
 </div>

@@ -9,10 +9,10 @@ const lead =
   'A 2-minute brushing timer, streaks, a 32-tooth map, smile photos, dentist visits and documents. No account, no server, no ads.';
 
 const trust = [
-  { icon: 'device', text: 'Everything stays on your device' },
-  { icon: 'check', text: 'No account, no Gleamit server' },
-  { icon: 'eye-off', text: 'No ads, no analytics' },
-  { icon: 'cloud', text: 'Optional backup to your own iCloud or Drive' },
+  { icon: '<rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/>', text: 'Everything stays on your device' },
+  { icon: '<circle cx="12" cy="12" r="9"/><path d="M8 12l2.5 2.5L16 9"/>', text: 'No account, no Gleamit server' },
+  { icon: '<path d="M4 4l16 16M9.9 9.9A3 3 0 0 0 14.1 14.1M6.5 6.5C4 8.2 2 12 2 12s4 7 10 7c1.6 0 3-.4 4.3-1M10 5.2C10.6 5.1 11.3 5 12 5c6 0 10 7 10 7s-.8 1.4-2.2 3"/>', text: 'No ads, no analytics' },
+  { icon: '<path d="M3 15a4 4 0 0 0 4 4h11a4 4 0 0 0 .5-8A6 6 0 0 0 7 9a4 4 0 0 0-4 6z"/><path d="M12 12v6M9.5 14.5 12 12l2.5 2.5"/>', text: 'Optional backup to your own iCloud or Drive' },
 ];
 ---
 
@@ -27,8 +27,8 @@ const trust = [
         <p class="fine">Free to use. One optional €9.99 unlock, no subscription.</p>
       </div>
       <div class="hero-art">
-        <Phone class="a" src={teeth} alt="The Teeth tab: a 32-tooth map with a filling and a crown marked" loading="eager" />
-        <Phone class="b" src={home} alt="The Home tab: today's two brushings, floss and a 12-day streak" loading="eager" />
+        <Phone class="a" src={teeth} alt="The Teeth tab: a 32-tooth map with 7 teeth recorded in colour" loading="eager" />
+        <Phone class="b" src={home} alt="The Home tab: a 27-day brushing streak, the brushing timer, floss and reminders" loading="eager" />
       </div>
     </div>
   </section>
@@ -38,12 +38,7 @@ const trust = [
       <ul>
         {trust.map(({ icon, text }) => (
           <li>
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              {icon === 'device' && <><rect x="5" y="2" width="14" height="20" rx="3" /><path d="M11 18h2" /></>}
-              {icon === 'check' && <><circle cx="12" cy="12" r="9" /><path d="M8 12l2.5 2.5L16 9" /></>}
-              {icon === 'eye-off' && <path d="M4 4l16 16M9.9 9.9A3 3 0 0 0 14.1 14.1M6.5 6.5C4 8.2 2 12 2 12s4 7 10 7c1.6 0 3-.4 4.3-1M10 5.2C10.6 5.1 11.3 5 12 5c6 0 10 7 10 7s-.8 1.4-2.2 3" />}
-              {icon === 'cloud' && <><path d="M3 15a4 4 0 0 0 4 4h11a4 4 0 0 0 .5-8A6 6 0 0 0 7 9a4 4 0 0 0-4 6z" /><path d="M12 12v6M9.5 14.5 12 12l2.5 2.5" /></>}
-            </svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true" set:html={icon} />
             {text}
           </li>
         ))}
@@ -51,7 +46,7 @@ const trust = [
     </div>
   </section>
 
-  <!-- Anchor targets for the nav until the feature grid (#350) and pricing / FAQ (#351) sections land. -->
+  {/* Anchor targets for the nav until the feature grid (#350) and pricing / FAQ (#351) sections land. */}
   <span id="features" hidden></span>
   <span id="pricing" hidden></span>
   <span id="faq" hidden></span>

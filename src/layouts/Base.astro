@@ -14,7 +14,7 @@ const navLinks = [
   { name: 'Features', href: '/#features' },
   { name: 'Pricing', href: '/#pricing' },
   { name: 'FAQ', href: '/#faq' },
-  { name: 'Support', href: '/support/', keep: true },
+  { name: 'Support', href: '/support/', alwaysVisible: true },
 ];
 const footerLinks = [
   { name: 'Privacy policy', href: '/privacy/' },
@@ -57,7 +57,7 @@ const footerLinks = [
         <a class="brand" href="/"><img src="/icon.svg" alt="" width="32" height="32" /> Gleamit</a>
         <ul>
           {navLinks.map((link) => (
-            <li class:list={{ keep: link.keep }}><a href={link.href}>{link.name}</a></li>
+            <li class:list={{ 'always-visible': link.alwaysVisible }}><a href={link.href}>{link.name}</a></li>
           ))}
         </ul>
       </div>
