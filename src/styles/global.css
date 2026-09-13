@@ -50,6 +50,7 @@ img, svg { max-width: 100%; }
 .muted { color: var(--muted); }
 .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
 section { padding: clamp(56px, 9vw, 112px) 0; }
+section[id] { scroll-margin-top: 72px; }
 .eyebrow {
   display: inline-block;
   font-weight: 700;
@@ -234,5 +235,5 @@ footer a:hover { color: var(--ink); }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .badge, .tile { transition: none; }
-  .reveal { opacity: 1; transform: none; }
+  .reveal, .reveal-on-scroll .reveal { opacity: 1; transform: none; transition: none; }
 }

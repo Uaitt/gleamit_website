@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { routes } from './routes';
-import { viewports } from './matrix';
+import { horizontalOverflow, viewports } from './matrix';
 import { pageBackground, tealText } from './theme';
 
 for (const route of routes) {
@@ -19,11 +19,7 @@ for (const route of routes) {
         const teal = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--teal-text').trim());
         expect(teal).toBe(tealText.light);
 
-        const overflow = await page.evaluate(() => {
-          const root = document.documentElement;
-          return root.scrollWidth - root.clientWidth;
-        });
-        expect(overflow, 'horizontal overflow in px').toBe(0);
+        expect(await horizontalOverflow(page), 'horizontal overflow in px').toBe(0);
 
         await expect(page.locator('script[src]')).toHaveCount(0);
         await expect(page.locator('script')).toHaveCount(route === '/' ? 3 : 2);

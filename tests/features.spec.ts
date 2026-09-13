@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
-import { open, viewports } from './matrix';
+import { horizontalOverflow, open, settleScroll, toggleDark, viewports } from './matrix';
+import { cardBackground, tealText, tealTextColor } from './theme';
 
 const tiles = [
   'A 32-tooth map that is yours',
@@ -10,7 +11,11 @@ const tiles = [
   'Document vault',
   'Brushes and heads',
 ];
-const showcase = ['Habits', 'Dentist visits', 'Private by design'];
+const showcase = [
+  { eyebrow: 'Habits', heading: 'Twice a day, and the streak grows' },
+  { eyebrow: 'Dentist visits', heading: 'Everything your dentist asks about, in one place' },
+  { eyebrow: 'Private by design', heading: 'Backup only if you want it, only to your own cloud' },
+];
 
 for (const viewport of viewports) {
   test.describe(`features at ${viewport.width}px`, () => {
@@ -33,35 +38,64 @@ for (const viewport of viewports) {
     test('the three showcase rows are visible with their screenshots', async ({ page }) => {
       const rows = page.locator('#showcase .show');
       await expect(rows).toHaveCount(showcase.length);
-      for (const [index, eyebrow] of showcase.entries()) {
+      for (const [index, { eyebrow, heading }] of showcase.entries()) {
         const row = rows.nth(index);
         await expect(row.getByText(eyebrow, { exact: true })).toBeVisible();
-        await expect(row.getByRole('heading')).toBeVisible();
+        await expect(row.getByRole('heading', { name: heading })).toBeVisible();
         await expect(row.locator('.phone img')).toBeVisible();
       }
     });
 
     test('neither section overflows horizontally', async ({ page }) => {
       await page.locator('#showcase').scrollIntoViewIfNeeded();
-      const overflow = await page.evaluate(() => {
-        const root = document.documentElement;
-        return root.scrollWidth - root.clientWidth;
-      });
-      expect(overflow, 'horizontal overflow in px').toBe(0);
+      expect(await horizontalOverflow(page), 'horizontal overflow in px').toBe(0);
+    });
+
+    test('both sections follow the theme toggle into dark', async ({ page }) => {
+      const firstTile = page.locator('#features .tile').first();
+      await expect(firstTile).toHaveCSS('background-color', cardBackground.light);
+
+      await toggleDark(page);
+
+      await expect(firstTile).toHaveCSS('background-color', cardBackground.dark);
+      const teal = await page.evaluate(() => getComputedStyle(document.documentElement).getPropertyValue('--teal-text').trim());
+      expect(teal).toBe(tealText.dark);
+
+      for (const tile of tiles) {
+        await expect(page.locator('#features').getByRole('heading', { name: tile })).toBeVisible();
+      }
+      for (const [index, { eyebrow, heading }] of showcase.entries()) {
+        const row = page.locator('#showcase .show').nth(index);
+        await expect(row.getByText(eyebrow, { exact: true })).toHaveCSS('color', tealTextColor.dark);
+        await expect(row.getByRole('heading', { name: heading })).toBeVisible();
+      }
+      await expect(page.locator('#showcase .show .phone img')).toHaveCount(showcase.length);
+
+      await page.locator('#showcase').scrollIntoViewIfNeeded();
+      expect(await horizontalOverflow(page), 'horizontal overflow in px').toBe(0);
     });
   });
 }
 
-test('the nav Features anchor lands on the feature grid', async ({ page }) => {
+test('the nav Features link points at the feature grid', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('navigation').getByRole('link', { name: 'Features' }).click();
   await expect(page).toHaveURL(/#features$/);
-  await expect
-    .poll(async () => Math.abs((await page.locator('#features').boundingBox())!.y), {
-      message: 'distance from the top edge of the feature grid to the viewport top',
-    })
-    .toBeLessThanOrEqual(1);
 });
+
+for (const viewport of viewports) {
+  test(`the Features anchor lands on the grid, clear of the sticky nav, at ${viewport.width}px`, async ({ page }) => {
+    await page.setViewportSize({ width: viewport.width, height: viewport.height });
+    await page.goto('/#features');
+
+    await settleScroll(page);
+    await expect(page.locator('#features')).toBeInViewport();
+
+    const navBottom = await page.locator('nav').evaluate((el) => el.getBoundingClientRect().bottom);
+    const eyebrowTop = await page.locator('#features .eyebrow').evaluate((el) => el.getBoundingClientRect().top);
+    expect(eyebrowTop, 'the first line of the feature grid must not sit under the sticky nav').toBeGreaterThanOrEqual(navBottom);
+  });
+}
 
 test('every screenshot in the feature and showcase sections has alt text', async ({ page }) => {
   await page.goto('/');
@@ -92,6 +126,17 @@ test.describe('scroll reveal', () => {
       }
     }
     await expect(page.locator('html')).not.toHaveClass(/reveal-on-scroll/);
+  });
+
+  test('turning on reduced motion after load reveals whatever is still hidden', async ({ page }) => {
+    await page.goto('/');
+    const tile = page.locator('#features .tile').last();
+    await expect(tile).toHaveCSS('opacity', '0');
+
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+
+    await expect(tile).toHaveCSS('opacity', '1');
+    await expect(tile).toHaveCSS('transform', 'none');
   });
 
   test('content is visible without the reveal script', async ({ browser }) => {
