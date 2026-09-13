@@ -1,0 +1,63 @@
+---
+const check = '<path d="M5 12l5 5L20 7"/>';
+
+const rows = [
+  { feature: 'Brushing timer, streaks, reminders, floss', free: true, pro: true },
+  { feature: 'Full 32-tooth map with conditions and notes', free: true, pro: true },
+  { feature: 'Dentist contact, appointments, Learn', free: true, pro: true },
+  { feature: 'Cloud backup, full export and import', free: true, pro: true },
+  { feature: 'Tooth history', free: 'Latest entry', pro: 'Full timeline' },
+  { feature: 'Brushes you track at once', free: '1', pro: 'Unlimited' },
+  { feature: 'Brushing history and trends', free: '7 days / 4 weeks', pro: 'Unlimited' },
+  { feature: 'Streak insights', free: 'This month', pro: 'All-time plus patterns' },
+  { feature: 'Smile photos', free: '1', pro: 'Unlimited plus compare' },
+  { feature: 'Document vault', free: '1 file', pro: 'Unlimited' },
+  { feature: 'Dentist PDF report', free: 'Sample preview', pro: true },
+  { feature: 'Custom brush, cleaning and appointment intervals', free: 'Presets', pro: true },
+];
+---
+
+<section id="pricing" class="pricing">
+  <div class="wrap">
+    <div class="head">
+      <span class="eyebrow">Pricing</span>
+      <h2>Free, with one optional unlock</h2>
+      <p class="muted">Everything you need to track your habits is free. Pro adds depth over time. Pay once, keep it forever.</p>
+    </div>
+    <div class="price-card reveal">
+      <div class="price-top">
+        <div>
+          <h3>Gleamit Pro</h3>
+          <p class="muted">One-time purchase. No subscription, no ads, ever.</p>
+        </div>
+        <p class="amount">€9.99<small>once</small></p>
+      </div>
+      <table>
+        <caption class="visually-hidden">What the free app includes and what Gleamit Pro adds</caption>
+        <thead>
+          <tr><th scope="col">Feature</th><th scope="col" class="c">Free</th><th scope="col" class="c">Pro</th></tr>
+        </thead>
+        <tbody>
+          {rows.map(({ feature, free, pro }) => (
+            <tr>
+              <th scope="row">{feature}</th>
+              {[free, pro].map((value, column) => (
+                <td class:list={['c', { pro: column === 1 }]}>
+                  {value === true ? (
+                    <>
+                      <svg class="check" viewBox="0 0 24 24" aria-hidden="true" set:html={check} />
+                      <span class="visually-hidden">Included</span>
+                    </>
+                  ) : (
+                    value
+                  )}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p class="muted note">Price shown in euro. Your store shows the exact amount in your currency, taxes included.</p>
+  </div>
+</section>

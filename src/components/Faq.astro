@@ -1,0 +1,54 @@
+---
+const items = [
+  {
+    question: 'Where is my data?',
+    answer:
+      "On your phone, inside the app's own storage. Gleamit has no servers and no accounts, so there is nowhere else for it to be.",
+  },
+  {
+    question: 'Can you see my data?',
+    answer:
+      "No. There is nothing on our side to look at. The only network calls are the store's purchase check for Pro and, if you switch it on, the backup to your own iCloud or Google Drive.",
+  },
+  {
+    question: 'Is Pro a subscription?',
+    answer:
+      'No. It is a one-time purchase through the App Store or Google Play, and it stays yours. Restore it on a new phone with the same store account.',
+  },
+  {
+    question: 'How do I move to a new phone?',
+    answer:
+      "Use Gleamit's full export to make a zip, then import it on the new phone. This works between Android and iOS too. If cloud backup was on, restore from it on first launch.",
+  },
+  {
+    question: 'Is the backup encrypted?',
+    answer:
+      'Your backup is ordinary files in a private area of your own iCloud Drive or Google Drive. Apple or Google protect them the same way they protect the rest of your cloud storage. Gleamit does not add its own encryption.',
+  },
+  {
+    question: 'Does Gleamit give medical advice?',
+    answer:
+      'No. It records what you enter and shows it back to you. It is not a medical device and it never grades or interprets anything: your dentist does that.',
+  },
+  {
+    question: 'How do I delete everything?',
+    answer:
+      'Delete the app and all data goes with it. If you used cloud backup, remove that copy from your own iCloud Drive or Google Drive too: only you can reach it, so turning backup off in the app leaves it where it is.',
+  },
+];
+---
+
+<section id="faq">
+  <div class="wrap">
+    <div class="faq">
+      <span class="eyebrow">Common questions</span>
+      <h2>Questions people ask</h2>
+      {items.map(({ question, answer }, index) => (
+        <details open={index === 0}>
+          <summary>{question}</summary>
+          <p>{answer}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

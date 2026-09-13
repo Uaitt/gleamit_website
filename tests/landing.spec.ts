@@ -1,10 +1,9 @@
 import { test, expect } from '@playwright/test';
-import { open, viewports } from './matrix';
+import { expectCopyGuardrails, open, viewports } from './matrix';
 import { pageBackground } from './theme';
 
 const appStore = 'https://apps.apple.com/app/id6798220310';
 const googlePlay = 'https://play.google.com/store/apps/details?id=com.kirami.app';
-const bannedWords = /\b(detect|diagnose|screen|monitor|cavity|gum disease|oral cancer)\b/i;
 
 for (const viewport of viewports) {
   test.describe(`landing at ${viewport.width}px`, () => {
@@ -104,12 +103,7 @@ test('Open Graph tags point at the feature graphic', async ({ page, request }) =
 
 test('copy follows the app guardrails', async ({ page }) => {
   await page.goto('/');
-  const text = await page.locator('body').innerText();
-  const alts = await page.locator('img[alt]').evaluateAll((els) => els.map((el) => el.getAttribute('alt')));
-  const copy = [text, ...alts].join('\n');
-  expect(copy).not.toMatch(bannedWords);
-  expect(copy).not.toContain('—');
-  expect(copy).not.toContain('–');
+  await expectCopyGuardrails(page);
 });
 
 test('keyboard focus is visible and follows the reading order', async ({ page }) => {

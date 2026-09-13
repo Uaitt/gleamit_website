@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { horizontalOverflow, open, settleScroll, toggleDark, viewports } from './matrix';
+import { expectAnchorClearsNav, horizontalOverflow, open, toggleDark, viewports } from './matrix';
 import { cardBackground, tealText, tealTextColor } from './theme';
 
 const tiles = [
@@ -86,14 +86,7 @@ test('the nav Features link points at the feature grid', async ({ page }) => {
 for (const viewport of viewports) {
   test(`the Features anchor lands on the grid, clear of the sticky nav, at ${viewport.width}px`, async ({ page }) => {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
-    await page.goto('/#features');
-
-    await settleScroll(page);
-    await expect(page.locator('#features')).toBeInViewport();
-
-    const navBottom = await page.locator('nav').evaluate((el) => el.getBoundingClientRect().bottom);
-    const eyebrowTop = await page.locator('#features .eyebrow').evaluate((el) => el.getBoundingClientRect().top);
-    expect(eyebrowTop, 'the first line of the feature grid must not sit under the sticky nav').toBeGreaterThanOrEqual(navBottom);
+    await expectAnchorClearsNav(page, 'features');
   });
 }
 

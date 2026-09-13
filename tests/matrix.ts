@@ -1,4 +1,4 @@
-import type { Page } from '@playwright/test';
+import { expect, type Page } from '@playwright/test';
 
 export const viewports = [
   { name: 'mobile', width: 375, height: 812 },
@@ -28,4 +28,25 @@ export async function settleScroll(page: Page) {
 
 export async function horizontalOverflow(page: Page) {
   return page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+}
+
+/** Opens `/#id` and asserts the section's first line is not hidden under the sticky nav. */
+export async function expectAnchorClearsNav(page: Page, id: string) {
+  await page.goto(`/#${id}`);
+  await settleScroll(page);
+  await expect(page.locator(`#${id}`)).toBeInViewport();
+
+  const navBottom = await page.locator('nav').evaluate((el) => el.getBoundingClientRect().bottom);
+  const eyebrowTop = await page.locator(`#${id} .eyebrow`).evaluate((el) => el.getBoundingClientRect().top);
+  expect(eyebrowTop, `the first line of #${id} must not sit under the sticky nav`).toBeGreaterThanOrEqual(navBottom);
+}
+
+/** The app's copy guardrails: banned words from CONTEXT.md, and no em or en dashes. */
+export async function expectCopyGuardrails(page: Page) {
+  const text = await page.locator('body').innerText();
+  const alts = await page.locator('img[alt]').evaluateAll((els) => els.map((el) => el.getAttribute('alt')));
+  const copy = [text, ...alts].join('\n');
+  expect(copy).not.toMatch(/\b(detect|diagnose|screen|monitor|cavity|gum disease|oral cancer)\b/i);
+  expect(copy).not.toContain('—');
+  expect(copy).not.toContain('–');
 }

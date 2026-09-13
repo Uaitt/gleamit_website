@@ -4,6 +4,8 @@ import Phone from '../components/Phone.astro';
 import StoreBadges from '../components/StoreBadges.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
 import Showcase from '../components/Showcase.astro';
+import Pricing from '../components/Pricing.astro';
+import Faq from '../components/Faq.astro';
 import teeth from '../assets/shots/teeth.png';
 import home from '../assets/shots/home.png';
 
@@ -72,8 +74,6 @@ const trust = [
 
   <FeatureGrid />
   <Showcase />
-
-  {/* Anchor targets for the nav until the pricing / FAQ (#351) sections land. */}
-  <span id="pricing" hidden></span>
-  <span id="faq" hidden></span>
+  <Pricing />
+  <Faq />
 </Base>
