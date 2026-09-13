@@ -1,15 +1,18 @@
 ---
-import type { MarkdownHeading } from 'astro';
-
-interface Props {
-  headings: MarkdownHeading[];
+export interface TocEntry {
+  slug: string;
+  text: string;
 }
 
-const { headings } = Astro.props;
+interface Props {
+  entries: TocEntry[];
+}
+
+const { entries } = Astro.props;
 ---
 
 <ul class="toc-list">
-  {headings.map((heading) => (
-    <li><a href={`#${heading.slug}`}>{heading.text}</a></li>
+  {entries.map((entry) => (
+    <li><a href={`#${entry.slug}`}>{entry.text}</a></li>
   ))}
 </ul>

@@ -1,12 +1,102 @@
 ---
-import Base from '../layouts/Base.astro';
+import TextPage from '../layouts/TextPage.astro';
+
+const description = 'Get help with Gleamit, and delete the optional backup from your own Google Drive or iCloud.';
+
+const sections = [
+  { depth: 2, slug: 'contact', text: 'Contact' },
+  { depth: 2, slug: 'android', text: 'Android' },
+  { depth: 2, slug: 'ios', text: 'iOS' },
+  { depth: 2, slug: 'delete-all', text: 'Delete all Gleamit data' },
+];
 ---
 
-<Base title="Support - Gleamit" description="Get help with Gleamit and manage your own cloud backup.">
-  <section class="hero">
-    <div class="wrap">
-      <h1>Support</h1>
-      <p class="lead">Write to <a href="mailto:support@gleamit.app">support@gleamit.app</a>. You get a reply within 3 business days.</p>
+<TextPage title="Support" description={description} eyebrow="Help" sections={sections}>
+  <p class="lead" slot="masthead">
+    Gleamit keeps your data on your phone. This page explains what the app does with your optional cloud backup, and how
+    to remove it yourself.
+  </p>
+
+  <h2 id="contact">Contact</h2>
+  <div class="card contact" id="contact-card">
+    <div>
+      <strong>support@gleamit.app</strong>
+      <p class="muted">Questions, bug reports, purchase problems. You get a reply within 3 business days.</p>
     </div>
-  </section>
-</Base>
+    <a class="btn" href="mailto:support@gleamit.app">Email support</a>
+  </div>
+
+  <h2 id="android"><span class="platform">Android</span></h2>
+
+  <h3 id="android-switch">What the backup switch does</h3>
+  <p>
+    When cloud backup is on, Gleamit uploads a copy of your data to a private app area of the Google Drive account you
+    picked. Only Gleamit can see that area, and it cannot see anything else in your Drive.
+  </p>
+  <p class="card note">
+    <strong>Turning backup off in Gleamit, or disconnecting the Google account in Gleamit, does not delete the copy
+    already in Drive.</strong> It only stops new uploads. The copy stays in your Drive until you delete it there.
+  </p>
+
+  <h3 id="android-delete">Delete the backup from Google Drive</h3>
+  <div class="card">
+    <ol class="steps">
+      <li>Open the <kbd>Google Drive</kbd> app, or go to <kbd>drive.google.com</kbd> in a browser.</li>
+      <li>Tap the menu (three lines) or your profile picture, then <kbd>Settings</kbd>.</li>
+      <li>Choose <kbd>Manage apps</kbd>.</li>
+      <li>Find <kbd>Gleamit</kbd> in the list.</li>
+      <li>Tap <kbd>Options</kbd> next to it, then <kbd>Delete hidden app data</kbd>. Confirm.</li>
+    </ol>
+  </div>
+  <p class="muted">
+    <kbd>Disconnect from Drive</kbd>, in the same menu, is the other way round: it takes Gleamit's access away and deletes
+    the copy with it.
+  </p>
+  <p class="muted">If you connected more than one Google account over time, repeat these steps in each account.</p>
+
+  <h2 id="ios"><span class="platform">iOS</span></h2>
+
+  <h3 id="ios-switch">What the backup switch does</h3>
+  <p>
+    When cloud backup is on, Gleamit writes a copy of your data into a private area of your iCloud Drive, hidden from the
+    Files app so it cannot be moved or deleted by accident. iCloud does the uploading, following your iCloud settings.
+  </p>
+  <p class="card note">
+    <strong>Turning backup off does not delete the copy already in iCloud.</strong> It only stops new uploads. The copy
+    stays in your iCloud storage until you delete it there.
+  </p>
+
+  <h3 id="ios-delete">Delete the backup from iCloud on your iPhone</h3>
+  <div class="card">
+    <ol class="steps">
+      <li>Open <kbd>Settings</kbd> on your iPhone.</li>
+      <li>Tap your name at the top to open <kbd>Apple Account</kbd>, then <kbd>iCloud</kbd>.</li>
+      <li>Tap <kbd>Manage Account Storage</kbd>. On older iOS versions this is <kbd>Manage Storage</kbd>.</li>
+      <li>Find <kbd>Gleamit</kbd> in the list of apps using iCloud storage.</li>
+      <li>Tap it, then <kbd>Delete Data from iCloud</kbd>. Confirm.</li>
+    </ol>
+  </div>
+
+  <h3 id="ios-delete-mac">Delete the backup from a Mac</h3>
+  <div class="card">
+    <ol class="steps">
+      <li>Open <kbd>System Settings</kbd>, then <kbd>Apple Account</kbd> at the top.</li>
+      <li>Click <kbd>iCloud</kbd>, then <kbd>Manage</kbd>.</li>
+      <li>Find <kbd>Gleamit</kbd> in the list.</li>
+      <li>Click it, then <kbd>Delete Documents and Data</kbd>. Confirm.</li>
+    </ol>
+  </div>
+  <h2 id="delete-all">Delete all Gleamit data</h2>
+  <p>
+    Deleting the app removes everything stored on the phone: brushing sessions, teeth, photos, documents, reminders and
+    settings. There is no Gleamit account and no Gleamit server, so nothing of yours is held by us to delete.
+  </p>
+  <p>
+    Your own cloud storage is the one place a copy outlives the app. If cloud backup was ever on, follow the platform
+    steps above as well, so nothing is left in your Google Drive or your iCloud.
+  </p>
+  <p>
+    Your Pro purchase is tied to your App Store or Google Play account, not to the app data. Reinstall Gleamit and tap
+    <kbd>Restore purchase</kbd> to get it back.
+  </p>
+</TextPage>

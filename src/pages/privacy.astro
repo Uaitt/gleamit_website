@@ -1,9 +1,9 @@
 ---
 import { getEntry } from 'astro:content';
-import Text from '../layouts/Text.astro';
+import Legal from '../layouts/Legal.astro';
 
 const entry = await getEntry('legal', 'privacy');
 if (!entry) throw new Error('Missing src/content/legal/privacy.md');
 ---
 
-<Text entry={entry} />
+<Legal entry={entry} />

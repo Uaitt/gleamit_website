@@ -10,6 +10,11 @@ export async function open(page: Page, viewport: (typeof viewports)[number]) {
   await page.goto('/');
 }
 
+/** The ToC the text layout shows at this width: the sticky one on desktop, the collapsible one on mobile. */
+export function toc(page: Page, width: number) {
+  return page.locator(width > 900 ? '.toc-wide' : '.toc-narrow');
+}
+
 export async function toggleDark(page: Page) {
   await page.getByRole('button', { name: 'Switch to dark theme' }).click();
 }

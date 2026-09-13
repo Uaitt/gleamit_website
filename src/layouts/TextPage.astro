@@ -1,0 +1,39 @@
+---
+import Base from './Base.astro';
+import Toc, { type TocEntry } from '../components/Toc.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  sections: TocEntry[];
+}
+
+const { title, description, eyebrow, sections } = Astro.props;
+---
+
+<Base title={`${title} - Gleamit`} description={description}>
+  <div class="text-page">
+    <div class="wrap">
+      <div class="masthead">
+        <span class="eyebrow">{eyebrow}</span>
+        <h1>{title}</h1>
+        <slot name="masthead" />
+      </div>
+
+      <nav class="toc-wide" aria-label="On this page">
+        <span class="toc-label">On this page</span>
+        <Toc entries={sections} />
+      </nav>
+
+      <div>
+        <details class="toc-narrow">
+          <summary><span class="toc-label">On this page</span></summary>
+          <Toc entries={sections} />
+        </details>
+
+        <article class="prose"><slot /></article>
+      </div>
+    </div>
+  </div>
+</Base>

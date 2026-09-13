@@ -1,5 +1,5 @@
-import { test, expect, type Page } from '@playwright/test';
-import { expectClearsNav, horizontalOverflow, settleScroll, toggleDark, viewports } from './matrix';
+import { test, expect } from '@playwright/test';
+import { expectClearsNav, horizontalOverflow, settleScroll, toc, toggleDark, viewports } from './matrix';
 import { cardBackground, pageBackground } from './theme';
 
 const pages = [
@@ -8,11 +8,6 @@ const pages = [
 ];
 
 const effectiveDate = 'Effective 13 September 2026';
-
-/** The ToC the layout shows at this width: the sticky one on desktop, the collapsible one on mobile. */
-function toc(page: Page, width: number) {
-  return page.locator(width > 900 ? '.toc-wide' : '.toc-narrow');
-}
 
 for (const { route, heading, version } of pages) {
   test.describe(route, () => {
