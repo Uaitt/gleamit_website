@@ -1,0 +1,46 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import Base from './Base.astro';
+import Toc from '../components/Toc.astro';
+
+interface Props {
+  entry: CollectionEntry<'legal'>;
+}
+
+const { entry } = Astro.props;
+const { Content, headings } = await render(entry);
+const sections = headings.filter((heading) => heading.depth === 2);
+
+const effective = new Intl.DateTimeFormat('en-GB', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(entry.data.effective);
+---
+
+<Base title={`${entry.data.title} - Gleamit`} description={entry.data.description}>
+  <div class="text-page">
+    <div class="wrap">
+      <div class="masthead">
+        <span class="eyebrow">Legal</span>
+        <h1>{entry.data.title}</h1>
+        <p class="meta">Version {entry.data.version} &middot; Effective {effective}</p>
+      </div>
+
+      <nav class="toc-wide" aria-label="On this page">
+        <span class="toc-label">On this page</span>
+        <Toc headings={sections} />
+      </nav>
+
+      <div>
+        <details class="toc-narrow">
+          <summary><span class="toc-label">On this page</span></summary>
+          <Toc headings={sections} />
+        </details>
+
+        <article class="prose"><Content /></article>
+      </div>
+    </div>
+  </div>
+</Base>

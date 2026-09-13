@@ -1,4 +1,4 @@
-import { expect, type Page } from '@playwright/test';
+import { expect, type Locator, type Page } from '@playwright/test';
 
 export const viewports = [
   { name: 'mobile', width: 375, height: 812 },
@@ -35,10 +35,16 @@ export async function expectAnchorClearsNav(page: Page, id: string) {
   await page.goto(`/#${id}`);
   await settleScroll(page);
   await expect(page.locator(`#${id}`)).toBeInViewport();
+  await expectClearsNav(page, page.locator(`#${id} .eyebrow`), `the first line of #${id}`);
+}
 
-  const navBottom = await page.locator('nav').evaluate((el) => el.getBoundingClientRect().bottom);
-  const eyebrowTop = await page.locator(`#${id} .eyebrow`).evaluate((el) => el.getBoundingClientRect().top);
-  expect(eyebrowTop, `the first line of #${id} must not sit under the sticky nav`).toBeGreaterThanOrEqual(navBottom);
+/** Asserts the target is on screen and not tucked under the sticky nav. */
+export async function expectClearsNav(page: Page, target: Locator, what: string) {
+  await expect(target).toBeInViewport();
+
+  const navBottom = await page.locator('nav[aria-label="Main"]').evaluate((el) => el.getBoundingClientRect().bottom);
+  const targetTop = await target.evaluate((el) => el.getBoundingClientRect().top);
+  expect(targetTop, `${what} must not sit under the sticky nav`).toBeGreaterThanOrEqual(navBottom);
 }
 
 /** The app's copy guardrails: banned words from CONTEXT.md, and no em or en dashes. */

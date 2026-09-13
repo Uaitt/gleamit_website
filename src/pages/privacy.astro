@@ -1,12 +1,9 @@
 ---
-import Base from '../layouts/Base.astro';
+import { getEntry } from 'astro:content';
+import Text from '../layouts/Text.astro';
+
+const entry = await getEntry('legal', 'privacy');
+if (!entry) throw new Error('Missing src/content/legal/privacy.md');
 ---
 
-<Base title="Privacy policy - Gleamit" description="How Gleamit handles your data: everything stays on your phone.">
-  <section class="hero">
-    <div class="wrap">
-      <h1>Privacy policy</h1>
-      <p class="lead">The privacy policy is moving to this address. Until it is published here, write to <a href="mailto:support@gleamit.app">support@gleamit.app</a> for the current text.</p>
-    </div>
-  </section>
-</Base>
+<Text entry={entry} />

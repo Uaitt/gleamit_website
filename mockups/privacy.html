@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+document.documentElement.dataset.theme = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light';
+</script>
+<title>Privacy policy - Gleamit</title>
+<style>
+:root { --teal: #2D9D8B; --mint: #46C2C8; --teal-text: #126E61; --bg: #D8E1DD; --card: #FFFFFF; --soft: #E6ECEA; --ink: #17242B; --muted: #566571; --border: #DCE3E6; --gutter: clamp(20px, 5vw, 64px); }
+:root { color-scheme: light; }
+[data-theme="dark"] { color-scheme: dark; --teal-text: #5FD3C2; --bg: #111418; --card: #1C2126; --soft: #282E33; --ink: #F2F2F2; --muted: #98A2AD; --border: #363D45; }
+* { box-sizing: border-box; }
+body { margin: 0; font: 400 17px/1.65 -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; color: var(--ink); background: var(--bg); }
+a { color: var(--teal-text); }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 var(--gutter); }
+
+nav { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(12px); background: color-mix(in srgb, var(--bg) 82%, transparent); border-bottom: 1px solid var(--border); }
+nav.site .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 20px; color: var(--ink); text-decoration: none; min-height: 48px; }
+.brand img { width: 32px; height: 32px; border-radius: 9px; }
+nav.site ul { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; }
+nav.site ul a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 14px; border-radius: 12px; color: var(--muted); text-decoration: none; font-weight: 600; }
+nav.site ul a:hover { background: var(--card); color: var(--ink); }
+@media (max-width: 720px) { nav.site ul li:not(.always-visible) { display: none; } }
+.nav-right { display: flex; align-items: center; gap: 6px; }
+.theme-toggle { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border: 1px solid var(--border); border-radius: 12px; background: var(--card); color: var(--muted); cursor: pointer; }
+.theme-toggle:hover { background: var(--soft); color: var(--ink); }
+.theme-toggle:focus-visible { outline: 3px solid var(--mint); outline-offset: 3px; }
+.theme-toggle svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.theme-toggle .moon { display: none; }
+[data-theme="dark"] .theme-toggle .sun { display: none; }
+[data-theme="dark"] .theme-toggle .moon { display: block; }
+
+/* ---------- the text page ---------- */
+.text-page { padding: 56px 0 96px; }
+.text-page .wrap { display: grid; grid-template-columns: 220px minmax(0, 68ch); gap: 0 56px; align-items: start; }
+.masthead { grid-column: 1 / -1; padding-bottom: 28px; margin-bottom: 40px; border-bottom: 1px solid var(--border); }
+.eyebrow { display: inline-block; font-weight: 700; color: var(--teal-text); text-transform: uppercase; letter-spacing: .08em; font-size: 13px; margin-bottom: 12px; }
+h1 { font-size: clamp(34px, 5vw, 48px); line-height: 1.1; font-weight: 800; margin: 0 0 12px; letter-spacing: -0.01em; }
+.meta { color: var(--muted); font-size: 15px; margin: 0; }
+
+.prose { max-width: 68ch; }
+.prose h2 { font-size: 28px; font-weight: 800; line-height: 1.15; margin: 48px 0 12px; scroll-margin-top: 90px; letter-spacing: -0.01em; }
+.prose h2:first-child, .prose > :first-child { margin-top: 0; }
+.prose p { margin: 0 0 16px; }
+.prose ul { padding-left: 22px; margin: 0 0 16px; }
+.prose li { margin-bottom: 10px; }
+
+.toc-list { list-style: none; margin: 0; padding: 0; font-size: 15px; }
+.toc-list a { display: block; padding: 8px 0; color: var(--muted); text-decoration: none; font-weight: 600; line-height: 1.3; }
+.toc-list a:hover { color: var(--ink); }
+.toc-label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-weight: 700; margin-bottom: 6px; }
+
+.toc-wide { position: sticky; top: 88px; }
+.toc-narrow { display: none; margin-bottom: 32px; border: 1px solid var(--border); border-radius: 18px; background: var(--card); padding: 0 20px; }
+.toc-narrow summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 56px; list-style: none; cursor: pointer; }
+.toc-narrow summary::-webkit-details-marker { display: none; }
+.toc-narrow summary::after { content: "+"; font-size: 24px; font-weight: 400; color: var(--teal-text); }
+.toc-narrow[open] summary::after { content: "\2212"; }
+.toc-narrow summary:focus-visible { outline: 3px solid var(--mint); outline-offset: 3px; }
+.toc-narrow .toc-list { padding-bottom: 12px; }
+.toc-narrow .toc-list a { min-height: 48px; display: flex; align-items: center; }
+.toc-narrow .toc-label { margin: 0; }
+
+@media (max-width: 900px) {
+  .text-page .wrap { grid-template-columns: 1fr; }
+  .toc-wide { display: none; }
+  .toc-narrow { display: block; }
+}
+
+footer { border-top: 1px solid var(--border); padding: 40px 0 48px; color: var(--muted); font-size: 15px; }
+footer .wrap { display: flex; flex-wrap: wrap; gap: 20px 40px; justify-content: space-between; align-items: center; }
+footer ul { display: flex; gap: 8px 24px; list-style: none; padding: 0; margin: 0; flex-wrap: wrap; }
+footer a { color: var(--muted); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; min-width: 48px; }
+footer .brand { color: var(--ink); }
+a:focus-visible { outline: 3px solid var(--mint); outline-offset: 3px; }
+</style>
+</head>
+<body>
+<nav class="site" aria-label="Main"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/icon.svg" alt=""> Gleamit</a>
+  <div class="nav-right">
+    <ul>
+      <li><a href="index.html#features">Features</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+      <li><a href="index.html#faq">FAQ</a></li>
+      <li class="always-visible"><a href="support.html">Support</a></li>
+    </ul>
+    <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false">
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+  </div>
+</div></nav>
+
+<main class="text-page"><div class="wrap">
+  <div class="masthead">
+    <span class="eyebrow">Legal</span>
+    <h1>Privacy policy</h1>
+    <p class="meta">Version 6 &middot; Effective 13 September 2026</p>
+  </div>
+
+  <nav class="toc-wide" aria-label="On this page">
+    <span class="toc-label">On this page</span>
+    <ul class="toc-list">
+      <li><a href="#the-short-version">The short version</a></li>
+      <li><a href="#what-is-stored-on-your-device">What is stored on your device</a></li>
+      <li><a href="#website">Website</a></li>
+      <li><a href="#in-app-purchases">In-app purchases</a></li>
+      <li><a href="#cloud-backup">Cloud backup</a></li>
+      <li><a href="#notifications">Notifications</a></li>
+      <li><a href="#sharing">Sharing</a></li>
+      <li><a href="#exporting-your-data">Exporting your data</a></li>
+      <li><a href="#retention-and-deletion">Retention and deletion</a></li>
+      <li><a href="#your-rights-eugdpr">Your rights (EU/GDPR)</a></li>
+      <li><a href="#medical-disclaimer">Medical disclaimer</a></li>
+      <li><a href="#childrens-privacy">Children's privacy</a></li>
+      <li><a href="#changes">Changes</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <div>
+    <details class="toc-narrow">
+      <summary><span class="toc-label">On this page</span></summary>
+      <ul class="toc-list">
+        <li><a href="#the-short-version">The short version</a></li>
+        <li><a href="#what-is-stored-on-your-device">What is stored on your device</a></li>
+        <li><a href="#website">Website</a></li>
+        <li><a href="#in-app-purchases">In-app purchases</a></li>
+        <li><a href="#cloud-backup">Cloud backup</a></li>
+        <li><a href="#notifications">Notifications</a></li>
+        <li><a href="#sharing">Sharing</a></li>
+        <li><a href="#exporting-your-data">Exporting your data</a></li>
+        <li><a href="#retention-and-deletion">Retention and deletion</a></li>
+        <li><a href="#your-rights-eugdpr">Your rights (EU/GDPR)</a></li>
+        <li><a href="#medical-disclaimer">Medical disclaimer</a></li>
+        <li><a href="#childrens-privacy">Children's privacy</a></li>
+        <li><a href="#changes">Changes</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </details>
+
+    <article class="prose">
+      <p>Gleamit helps you track oral hygiene habits. It is developed by <strong>Lorenzo Zabot, Milan, Italy</strong> ("we", "us").</p>
+
+      <h2 id="the-short-version">The short version</h2>
+      <p>There is <strong>no Gleamit account and no Gleamit backend</strong>. Your data is stored on your device and never reaches us. There are no ads, no analytics, and no tracking SDKs. The app talks to a third party in only two cases:</p>
+      <ul>
+        <li>the optional one-time "Pro" purchase, including the check at start-up for a purchase you already own, and</li>
+        <li>the optional <strong>cloud backup</strong>, off until you turn it on, which puts a copy of your data in cloud storage of your own - never in ours.</li>
+      </ul>
+
+      <h2 id="what-is-stored-on-your-device">What is stored on your device</h2>
+      <p>Everything you record: brushing and floss sessions (with timestamps, dates and time zone), streaks and derived statistics, reminders, toothbrushes and brush heads, dentist and appointment details, your tooth map with its change history, the dentist documents and smile photos you attach, the name for your dentist report, app preferences, your cloud backup settings (including the Google account you connected on Android and when the last backup ran or failed), and a local flag recording whether "Pro" is active.</p>
+      <p>We have no access to any of it.</p>
+
+      <h2 id="website">Website</h2>
+      <p>This website, <strong>gleamit.app</strong>, is a set of static pages hosted on GitHub Pages. It sets <strong>no cookies</strong>, runs <strong>no analytics</strong>, and loads no third-party scripts, fonts or embeds. We collect nothing about your visit beyond the ordinary server logs GitHub keeps as our hosting provider, and we do not use them to build any profile of you.</p>
+      <p>The light and dark theme control stores a single preference in your browser's local storage. It stays in your browser, never leaves your device, and is not sent to us or to anyone else. Clearing your browser's site data removes it.</p>
+      <ul>
+        <li>GitHub: <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">docs.github.com/site-policy</a></li>
+      </ul>
+
+      <h2 id="in-app-purchases">In-app purchases</h2>
+      <p>"Pro" is a single optional one-time purchase, handled by your app store's billing system (Google Play Billing or the Apple App Store) and by <strong>RevenueCat</strong>, which validates and manages it. What they process is the app store's purchase token and product identifier, an anonymous app-generated identifier from the RevenueCat SDK (linked to no account, because there is none), and technical device and network information used to validate the receipt and prevent fraud. The same check runs at start-up so a purchase you already made is recognised after a reinstall. Your oral hygiene data is <strong>never</strong> part of it.</p>
+      <ul>
+        <li>Google Play: <a href="https://policies.google.com/privacy">policies.google.com/privacy</a></li>
+        <li>Apple: <a href="https://www.apple.com/legal/privacy/">apple.com/legal/privacy</a></li>
+        <li>RevenueCat: <a href="https://www.revenuecat.com/privacy/">revenuecat.com/privacy</a></li>
+      </ul>
+
+      <h2 id="cloud-backup">Cloud backup</h2>
+      <p>Your device's own system backup does <strong>not</strong> include Gleamit's data: app backup is off on Android, and on iOS Gleamit's working files are excluded from the iCloud device backup. Gleamit's own cloud backup is a separate copy it makes on purpose, and it is off until you turn it on.</p>
+      <p>With it on, Gleamit copies your tracking records, your dentist documents and your smile photos into storage you control, on the frequency you choose (daily, weekly, monthly, or manually with "Back up now") and only when there is new data. You can leave photos or documents out; turning one off also removes it from that storage. Only the latest copy is kept.</p>
+      <p><strong>On iOS</strong> it goes to Gleamit's private area of <strong>your iCloud Drive</strong>, hidden from the Files app so it cannot be moved or deleted by accident. Gleamit writes the files; <strong>iCloud uploads them</strong>, under your own Apple Account and Apple's terms, on your iCloud network settings. Gleamit reads iCloud's upload state and tells you in the app when a backup is still waiting to upload or when iCloud could not upload it.</p>
+      <p><strong>On Android</strong> it goes to the hidden, app-scoped area of <strong>your own Google Drive</strong> (the "app data" folder), which only Gleamit can see and which never appears in your Drive file list. You connect a Google account in the app; sign-in is handled by Google and asks for a single permission, that app-scoped area (<code>drive.appdata</code>). Gleamit receives your account's email address, to show you which account holds the backup, and an access token kept on your device. It can see no other file in your Drive. Gleamit uploads the backup itself, so it can tell you when your data actually arrived. Automatic backups run when you leave the app and will not start on mobile data unless you turn on "Back up using mobile data" - otherwise they wait for the next time you leave the app on Wi-Fi. An upload already under way finishes on whatever connection the device moves to. "Back up now" runs immediately on the connection you have, and a run you asked for is retried the same way, mobile data included.</p>
+      <p>Worth knowing:</p>
+      <ul>
+        <li><strong>The files are not encrypted by Gleamit.</strong> They are ordinary readable files in your own storage, like an archive you export yourself. Apple and Google encrypt them in transit and at rest as they do everything else, but there is no end-to-end encryption and no passphrase.</li>
+        <li><strong>Disconnecting Gleamit in Google Drive deletes the backup.</strong> The app-scoped area belongs to the app: removing Gleamit under "Manage apps" in your Google Account deletes the hidden backup with it. That is also how you delete it deliberately.</li>
+        <li><strong>Switching or disconnecting the account inside Gleamit deletes nothing.</strong> A different account only points future backups elsewhere; disconnecting just turns cloud backup off. Nothing in the app deletes a remote backup on its own, except the media parts you exclude.</li>
+        <li><strong>Backups can stop.</strong> Full cloud storage, withdrawn access to your Google account, iCloud Drive off for Gleamit, or - on Android - your device's power saving or a manufacturer's app sleep setting can hold them back indefinitely. Gleamit surfaces this in the app instead of failing quietly, but it cannot fix it for you.</li>
+        <li><strong>Restoring happens in the app.</strong> On a new device you install Gleamit and restore yourself; the operating system will not bring the data back.</li>
+        <li><strong>Turning cloud backup off</strong> stops future backups. The copy already in your storage stays until you delete it.</li>
+      </ul>
+
+      <h2 id="notifications">Notifications</h2>
+      <p>Reminders use <strong>local notifications</strong> scheduled on your device. There are no remote push notifications and no notification server.</p>
+
+      <h2 id="sharing">Sharing</h2>
+      <p>Because your data stays on your device, we do not use it: the app uses it locally to run its features. We do not profile, advertise, sell, rent, or share. The only third parties are the ones above - your app store and RevenueCat for the purchase, and, only if you enable cloud backup, Apple or Google holding your copy under your own account and their terms.</p>
+
+      <h2 id="exporting-your-data">Exporting your data</h2>
+      <p>You can export a full backup archive (tracking records, documents and photos) and generate a dentist report PDF. Both are created on your device and shared by you through your device's own sharing options. They are not sent to us, and you decide who receives them.</p>
+
+      <h2 id="retention-and-deletion">Retention and deletion</h2>
+      <p>Your data stays on your device until you remove it: delete items in the app, clear the app's storage, or uninstall. If you turned cloud backup on, the copy stays in your own cloud storage until you delete it there - on iOS in your iCloud settings, on Android by disconnecting Gleamit in your Google Drive settings.</p>
+
+      <h2 id="your-rights-eugdpr">Your rights (EU/GDPR)</h2>
+      <p>For the data you record we are not a data controller: it never reaches us, so we could not access, correct, export or delete it even on request. The sections above explain how you do that yourself.</p>
+      <p>For the optional purchase we are the controller, with RevenueCat as processor; your app store handles payment data under its own terms. The legal basis is performance of a contract (Article 6(1)(b) GDPR), the data is limited to what is listed above, and it serves no other purpose. You have the rights of access, rectification, erasure, restriction, portability and objection over that purchase data - write to the address below. You may also complain to a supervisory authority, in Italy the Garante per la Protezione dei Dati Personali.</p>
+
+      <h2 id="medical-disclaimer">Medical disclaimer</h2>
+      <p><strong>Gleamit is not a medical device and does not give dental advice.</strong> It records what you log and shows it back to you; it never assesses the health information you enter. Always consult your dental health professional. The full disclaimer is in our <a href="https://gleamit.app/terms/">Terms and conditions</a>.</p>
+
+      <h2 id="childrens-privacy">Children's privacy</h2>
+      <p>Gleamit is a general-audience app, not directed to children, and we knowingly collect no personal information from them. With no account and no server of ours, anything entered stays on the device, under the control of its owner.</p>
+
+      <h2 id="changes">Changes</h2>
+      <p>We may update this policy. Each change gets a new version number and effective date, both shown at the top of this page. Earlier versions stay in the public source history of this website.</p>
+
+      <h2 id="contact">Contact</h2>
+      <p><strong>Email:</strong> <a href="mailto:support@gleamit.app">support@gleamit.app</a></p>
+    </article>
+  </div>
+</div></main>
+
+<footer><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/icon.svg" alt="" width="32" height="32"> Gleamit</a>
+  <ul>
+    <li><a href="privacy.html">Privacy policy</a></li>
+    <li><a href="https://gleamit.app/terms/">Terms</a></li>
+    <li><a href="support.html">Support</a></li>
+    <li><a href="mailto:support@gleamit.app">support@gleamit.app</a></li>
+  </ul>
+  <span>&copy; 2026 Lorenzo Zabot</span>
+</div></footer>
+
+<script>
+{
+  const root = document.documentElement;
+  const toggle = document.querySelector('.theme-toggle');
+  const reflectTheme = () => {
+    const dark = root.dataset.theme === 'dark';
+    toggle.setAttribute('aria-pressed', String(dark));
+    toggle.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
+  };
+  reflectTheme();
+  toggle.addEventListener('click', () => {
+    root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', root.dataset.theme);
+    reflectTheme();
+  });
+}
+</script>
+</body>
+</html>

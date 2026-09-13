@@ -27,6 +27,16 @@ Every visitor opens the site light, whatever `prefers-color-scheme` says. The 48
 
 `public/badges/` carries the official App Store badge (black for light, white for dark) and the Google Play badge, unmodified. `public/og.png` is the Play feature graphic, used as the Open Graph image.
 
+## Legal texts
+
+The privacy policy and the terms are **authored here and nowhere else**, as Markdown in the `legal` content collection (`src/content/legal/`, schema in `src/content.config.ts`), and published at `/privacy/` and `/terms/`. This is [ADR 0010](https://github.com/Uaitt/gleamit/blob/main/docs/adr/0010-gleamit-app-hosts-legal-texts.md) in the app repository: the app, the store listings and the support page link to these two URLs.
+
+**No version ever appears in a URL.** Each text carries `version` and `effective` in its frontmatter, which `src/layouts/Text.astro` prints in the page masthead; earlier versions live in this repository's git history. Changing a text means editing the Markdown and bumping both fields, never adding a path. Both are currently **v6, effective 13 September 2026**.
+
+`src/layouts/Text.astro` is the shared layout for the `legal` collection: site nav and footer, a masthead, and the body in a 68ch column beside a table of contents built from the `h2` headings. The ToC is rendered twice, as a sticky column above 900px and as a closed `details` below it, so a phone reader meets the text rather than a screenful of links. Rendering it twice rather than toggling one copy keeps the page working with JavaScript off, and adds no inline script.
+
+The app's banned-word guardrail from the app repository's `CONTEXT.md` cannot hold on these pages: the medical disclaimer is legally required to say "diagnose", which is the only hit in either text. That carve-out is recorded here but belongs upstream in `CONTEXT.md` or ADR 0010, so the two repositories agree. The spaced-hyphen punctuation rule still applies, and is asserted.
+
 ## CI gate
 
 Every push to `main` (and every pull request) runs: type check, build, link check, link-checker tests, Playwright smoke suite. Only pushes to `main` deploy, via `actions/deploy-pages`.
@@ -36,5 +46,7 @@ The smoke suite is driven by `tests/routes.ts` (`tests/smoke.spec.ts`, `tests/ou
 `tests/features.spec.ts` covers the Bento feature grid and the showcase rows, including the card radius, alt text, the `Features` anchor clearing the sticky nav, both sections following the toggle into dark at 375px and 1280px, and the scroll reveal in all four motion states: default, `prefers-reduced-motion`, reduced motion switched on after load, and JavaScript disabled.
 
 `tests/pricing.spec.ts` covers the pricing card and the FAQ: the one-time euro price, the not-a-subscription line and the currency/taxes note, every row of the free-vs-Pro table against the paywall rules in the app repository's `CONTEXT.md`, the seven `details`/`summary` answers opening and closing from the keyboard, the copy guardrails with every answer expanded, both sections following the toggle into dark at 375px and 1280px, and the `Pricing` and `FAQ` anchors clearing the sticky nav.
+
+`tests/legal.spec.ts` covers `/privacy/` and `/terms/`: the version and effective date in the masthead, the v6 Website section (GitHub Pages logs, no cookies, no analytics, the theme preference never leaving the device), the unencrypted-backup statement, the two pages cross-linking by their unversioned routes, the ToC listing every `h2` and every entry jumping to its section clear of the sticky nav, the ToC staying clear of the text, the mobile `details` starting closed and working from the keyboard at a 48px target, both pages following the toggle into dark at 375px and 1280px, and no `vN` in any URL the site emits, sitemap included.
 
 Tests only ever look at the served build output, never at Astro internals.
