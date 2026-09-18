@@ -159,7 +159,7 @@ a:focus-visible { outline: 3px solid var(--mint); outline-offset: 3px; }
 /* The pair is sized off the viewport so the tilted phones stay inside it, and
    the band is only as tall as they are. */
 @media (max-width: 900px) {
-  .hero .wrap:has(.hero-art) { grid-template-columns: 1fr; }
+  .hero .wrap:has(.hero-art) { grid-template-columns: 1fr; gap: 0; }
   .hero-art { --phone-w: clamp(140px, 44vw, 220px); min-height: calc(var(--phone-w) * 2868 / 1320 + 40px); }
   .hero-art .phone.a { transform: translateX(-78%) rotate(-6deg); }
   .hero-art .phone.b { transform: translateX(-22%) rotate(5deg); }
