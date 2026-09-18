@@ -14,7 +14,9 @@ const navLinks = [
   { name: 'Features', href: '/#features' },
   { name: 'Pricing', href: '/#pricing' },
   { name: 'FAQ', href: '/#faq' },
-  { name: 'Support', href: '/support/', alwaysVisible: true },
+  { name: 'Support', href: '/support/' },
+  { name: 'Privacy policy', href: '/privacy/', menuOnly: true },
+  { name: 'Terms', href: '/terms/', menuOnly: true },
 ];
 const footerLinks = [
   { name: 'Privacy policy', href: '/privacy/' },
@@ -55,15 +57,20 @@ const footerLinks = [
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <slot name="head" />
   </head>
   <body>
     <nav aria-label="Main">
       <div class="wrap">
         <a class="brand" href="/"><img src="/icon.svg" alt="" width="32" height="32" /> Gleamit</a>
         <div class="nav-right">
-          <ul>
+          <button class="menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-menu" hidden>
+            <svg class="bars" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+            <svg class="close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+          </button>
+          <ul id="nav-menu">
             {navLinks.map((link) => (
-              <li class:list={{ 'always-visible': link.alwaysVisible }}><a href={link.href}>{link.name}</a></li>
+              <li class:list={{ 'menu-only': link.menuOnly }}><a href={link.href}>{link.name}</a></li>
             ))}
           </ul>
           <button class="theme-toggle" type="button" aria-label="Switch to dark theme" aria-pressed="false" hidden>
@@ -106,6 +113,20 @@ const footerLinks = [
           root.dataset.theme = root.dataset.theme === 'dark' ? 'light' : 'dark';
           localStorage.setItem('theme', root.dataset.theme);
           reflectTheme();
+        });
+
+        const menu = document.querySelector('.menu-toggle');
+        const setMenu = (open) => {
+          menu.setAttribute('aria-expanded', String(open));
+          menu.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        };
+        menu.hidden = false;
+        menu.addEventListener('click', () => setMenu(menu.getAttribute('aria-expanded') !== 'true'));
+        document.getElementById('nav-menu').addEventListener('click', () => setMenu(false));
+        document.addEventListener('keydown', (event) => {
+          if (event.key !== 'Escape' || menu.getAttribute('aria-expanded') !== 'true') return;
+          setMenu(false);
+          menu.focus();
         });
       }
     </script>

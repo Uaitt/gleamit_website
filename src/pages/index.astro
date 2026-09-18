@@ -8,6 +8,9 @@ import Pricing from '../components/Pricing.astro';
 import Faq from '../components/Faq.astro';
 import teeth from '../assets/shots/teeth.png';
 import home from '../assets/shots/home.png';
+import { shotAvif, shotSizes } from '../lib/shot';
+
+const heroShots = await Promise.all([teeth, home].map(shotAvif));
 
 const lead =
   'A 2-minute brushing timer, streaks, a 32-tooth map, smile photos, dentist visits and documents. No account, no server, no ads.';
@@ -21,6 +24,12 @@ const trust = [
 ---
 
 <Base title="Gleamit - Your mouth, tracked privately" description={lead}>
+  <Fragment slot="head">
+    {heroShots.map((shot) => (
+      <link rel="preload" as="image" type="image/avif" imagesrcset={shot.srcSet.attribute} imagesizes={shotSizes} fetchpriority="high" />
+    ))}
+  </Fragment>
+
   <script is:inline>
     if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
       document.documentElement.classList.add('reveal-on-scroll');
@@ -53,8 +62,8 @@ const trust = [
         <p class="fine">Free to use. One optional €9.99 unlock, no subscription.</p>
       </div>
       <div class="hero-art">
-        <Phone class="a" src={teeth} alt="The Teeth tab: a 32-tooth map with 7 teeth recorded in colour" loading="eager" />
-        <Phone class="b" src={home} alt="The Home tab: a 27-day brushing streak, the brushing timer, floss and reminders" loading="eager" />
+        <Phone class="a" src={teeth} alt="The Teeth tab: a 32-tooth map with 7 teeth recorded in colour" loading="eager" decoding="sync" fetchpriority="high" />
+        <Phone class="b" src={home} alt="The Home tab: a 27-day brushing streak, the brushing timer, floss and reminders" loading="eager" decoding="sync" fetchpriority="high" />
       </div>
     </div>
   </section>

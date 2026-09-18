@@ -50,10 +50,9 @@ for (const viewport of viewports) {
       await expect(trust.getByText('Optional backup to your own iCloud or Drive')).toBeVisible();
 
       const nav = page.getByRole('navigation');
-      for (const [name, href] of [['Features', '/#features'], ['Pricing', '/#pricing'], ['FAQ', '/#faq'], ['Support', '/support/']]) {
+      for (const [name, href] of [['Features', '/#features'], ['Pricing', '/#pricing'], ['FAQ', '/#faq'], ['Support', '/support/'], ['Privacy policy', '/privacy/'], ['Terms', '/terms/']]) {
         await expect(nav.getByRole('link', { name, includeHidden: true })).toHaveAttribute('href', href);
       }
-      await expect(nav.getByRole('link', { name: 'Support' })).toBeVisible();
 
       const footer = page.getByRole('contentinfo');
       await expect(footer.getByRole('link', { name: 'Privacy policy' })).toHaveAttribute('href', '/privacy/');
