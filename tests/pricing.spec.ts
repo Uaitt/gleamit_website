@@ -41,11 +41,25 @@ for (const viewport of viewports) {
       ).toBeVisible();
     });
 
+    test('the heading, eyebrow and intro stack in one centred column', async ({ page }) => {
+      const head = page.locator('#pricing .head');
+      const eyebrow = (await head.locator('.eyebrow').boundingBox())!;
+      const heading = (await head.getByRole('heading', { name: 'Free, with one optional unlock' }).boundingBox())!;
+      const intro = (await head.locator('p').boundingBox())!;
+
+      expect(heading.y, 'the heading sits under the eyebrow').toBeGreaterThanOrEqual(eyebrow.y + eyebrow.height);
+      expect(intro.y, 'the intro sits under the heading').toBeGreaterThanOrEqual(heading.y + heading.height);
+      expect(heading.height, 'the heading is not squeezed into a narrow column').toBeLessThan(160);
+    });
+
     test('the free vs Pro table matches the paywall rules', async ({ page }) => {
       const table = page.locator('#pricing table');
       const header = table.getByRole('row').first();
       for (const name of ['Feature', 'Free', 'Pro']) {
-        await expect(header.getByRole('columnheader', { name })).toBeVisible();
+        const columnheader = header.getByRole('columnheader', { name });
+        // A phone gets the same columns as a stack, labelled row by row instead.
+        if (viewport.width > 640) await expect(columnheader).toBeVisible();
+        else await expect(columnheader).toBeHidden();
       }
 
       const rows = table.locator('tbody tr');
@@ -57,6 +71,28 @@ for (const viewport of viewports) {
         await expect(cells).toHaveCount(2);
         await expect(cells.nth(0)).toHaveText(free);
         await expect(cells.nth(1)).toHaveText(pro);
+      }
+    });
+
+    test('every Free and Pro value is readable inside the card, not clipped by it', async ({ page }) => {
+      const card = page.locator('#pricing .price-card');
+      const clipped = await card.evaluate((el) =>
+        [...el.querySelectorAll('td, tbody th')]
+          .filter((cell) => {
+            const box = cell.getBoundingClientRect();
+            const bounds = el.getBoundingClientRect();
+            return box.right > bounds.right + 1 || box.left < bounds.left - 1;
+          })
+          .map((cell) => cell.textContent?.trim()),
+      );
+      expect(clipped, 'cells reaching outside the card').toEqual([]);
+
+      for (const [feature, free, pro] of comparison) {
+        const row = page.locator('#pricing tbody tr', { has: page.getByRole('rowheader', { name: feature, exact: true }) });
+        for (const value of [free, pro]) {
+          if (value === 'Included') await expect(row.locator('.check').first()).toBeVisible();
+          else await expect(row.getByText(value, { exact: true })).toBeVisible();
+        }
       }
     });
 
@@ -86,9 +122,13 @@ for (const viewport of viewports) {
   });
 }
 
+/** Reads every answer at once, which means leaving the accordion group so they can all stay open. */
 async function expandEveryAnswer(page: Page) {
   for (const item of await page.locator('#faq details').all()) {
-    await item.evaluate((el: HTMLDetailsElement) => (el.open = true));
+    await item.evaluate((el: HTMLDetailsElement) => {
+      el.removeAttribute('name');
+      el.open = true;
+    });
   }
 }
 
@@ -119,6 +159,21 @@ test.describe('FAQ', () => {
 
       await page.keyboard.press('Enter');
       await expect(item).toHaveJSProperty('open', wasOpen);
+    }
+  });
+
+  test('opening one answer collapses the one already open', async ({ page }) => {
+    const items = page.locator('#faq details');
+    await expect(items.first()).toHaveJSProperty('open', true);
+
+    for (const index of [2, 4, 1]) {
+      await items.nth(index).locator('summary').click();
+      await expect(items.nth(index)).toHaveJSProperty('open', true);
+
+      const open = await items.evaluateAll((els) =>
+        els.flatMap((el, i) => ((el as HTMLDetailsElement).open ? [i] : [])),
+      );
+      expect(open, `only question ${index} stays open`).toEqual([index]);
     }
   });
 

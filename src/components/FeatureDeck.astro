@@ -1,0 +1,138 @@
+---
+import Phone from './Phone.astro';
+import home from '../assets/shots/home.png';
+import teeth from '../assets/shots/teeth.png';
+import timer from '../assets/shots/timer.png';
+import streak from '../assets/shots/streak.png';
+import dentist from '../assets/shots/dentist-tab.png';
+import smile from '../assets/shots/smile.png';
+import brushes from '../assets/shots/brushes.png';
+import homeDark from '../assets/shots/home_dark.png';
+
+const cards = [
+  {
+    id: 'home',
+    icon: '<path d="M4 11 12 4l8 7v9H4z"/><path d="M9 20v-6h6v6"/>',
+    title: 'Your whole day in one tab',
+    text: "Today's brushings, the floss card, the streak and the reminders you set. Open Gleamit, log what you did, and put the phone down.",
+    shot: home,
+    alt: 'The Home tab: a 27 day brushing streak, the brushing timer, floss and reminders',
+  },
+  {
+    id: 'teeth',
+    icon: '<path d="M7 3h10a2 2 0 0 1 2 2v2a4 4 0 0 1-4 4h-1l-1 10h-2L10 11H9a4 4 0 0 1-4-4V5a2 2 0 0 1 2-2z"/>',
+    title: 'A 32-tooth map that is yours',
+    text: 'Tap a tooth and record what is true: a filling, a crown, an implant, braces, your own notes. Every change is kept in a history you can scroll back through.',
+    shot: teeth,
+    alt: 'A tooth map with a filling, a crown, an implant and braces recorded in colour',
+  },
+  {
+    id: 'timer',
+    icon: '<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/>',
+    title: '2-minute timer',
+    text: 'Guided by quadrant, with a gentle buzz when it is time to move on.',
+    shot: timer,
+    alt: 'The brushing timer at 0:54, with the lower left quadrant highlighted',
+  },
+  {
+    id: 'streaks',
+    icon: '<path d="M12 2s5 5 5 10a5 5 0 0 1-10 0c0-2 1-3.5 1-3.5s1 2 2 2c0-3 2-8.5 2-8.5z"/>',
+    title: 'Brushing and floss streaks',
+    text: 'Two brushings a day keep the streak alive. Floss has a streak of its own.',
+    shot: streak,
+    alt: 'Your Streak: a 27 day brushing streak with every day of the month filled in',
+  },
+  {
+    id: 'dentist',
+    icon: '<rect x="3" y="4" width="18" height="18" rx="3"/><path d="M8 2v4M16 2v4M3 10h18"/>',
+    title: 'Dentist, appointments and documents',
+    text: 'Contact details, the next visit and a reminder the day before. PDFs and X-ray images from your dentist are kept beside them, on the device. Gleamit never reads or interprets them.',
+    shot: dentist,
+    alt: 'The Dentist tab: practice contact details, the last cleaning, the next appointment and the appointment list',
+  },
+  {
+    id: 'smile',
+    icon: '<path d="M4 8h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/>',
+    title: 'Smile photos',
+    text: 'A timeline of your smile, any two photos side by side.',
+    shot: smile,
+    alt: 'The smile timeline, with two photos of the same smile set one above the other',
+  },
+  {
+    id: 'brushes',
+    icon: '<path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/>',
+    title: 'Brushes and heads',
+    text: 'Log replacements and see how long each head lasted. Gleamit nudges you at 90 days.',
+    shot: brushes,
+    alt: 'The Brushes tab: the current head with the days it has been in use',
+  },
+  {
+    id: 'dark',
+    icon: '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/>',
+    title: 'Dark mode, out of the box',
+    text: 'The same Home tab after dark. Gleamit follows your system theme, or the one you pick yourself.',
+    shot: homeDark,
+    alt: 'The Home tab in dark mode: brushing streak, the timer, a floss card and reminders',
+  },
+];
+---
+
+<section id="features">
+  <div class="wrap">
+    <span class="eyebrow">What it keeps track of</span>
+    <h2>A record-keeper for your mouth. Not a coach.</h2>
+    <p class="muted intro">Gleamit shows you what you entered, and nothing more. It never interprets it, and it does not grade you or nag.</p>
+    <div class="deck reveal" data-deck>
+      <div class="cards">
+        {cards.map(({ id, icon, title, text, shot, alt }, index) => (
+          <article class:list={['feature', { 'is-open': index === 0 }]}>
+            <h3 class="head-wrap">
+              <button class="head" type="button" aria-expanded={index === 0 ? 'true' : 'false'} aria-controls={`feature-${id}`}>
+                <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" set:html={icon} /></span>
+                <span class="label">{title}</span>
+                <span class="more" aria-hidden="true"></span>
+              </button>
+            </h3>
+            <p class="text">{text}</p>
+            <div class="art" id={`feature-${id}`}><Phone src={shot} alt={alt} /></div>
+          </article>
+        ))}
+      </div>
+      <div class="stage">
+        <div class="stack">
+          {cards.map(({ shot, alt }, index) => (
+            <div class:list={['slide', { on: index === 0 }]} aria-hidden={index === 0 ? undefined : 'true'}>
+              <Phone src={shot} alt={alt} loading={index === 0 ? 'eager' : 'lazy'} />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  for (const deck of document.querySelectorAll<HTMLElement>('[data-deck]')) {
+    const cards = [...deck.querySelectorAll<HTMLElement>('.feature')];
+    const slides = [...deck.querySelectorAll<HTMLElement>('.slide')];
+    const open = (index: number) => {
+      cards.forEach((card, i) => {
+        card.classList.toggle('is-open', i === index);
+        card.querySelector('.head')?.setAttribute('aria-expanded', String(i === index));
+      });
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('on', i === index);
+        if (i === index) slide.removeAttribute('aria-hidden');
+        else slide.setAttribute('aria-hidden', 'true');
+      });
+    };
+    cards.forEach((card, index) => {
+      const head = card.querySelector<HTMLButtonElement>('.head')!;
+      head.addEventListener('click', () => open(index));
+      head.addEventListener('focus', () => open(index));
+      card.addEventListener('pointerenter', (event) => {
+        if (event.pointerType === 'mouse') open(index);
+      });
+    });
+  }
+</script>

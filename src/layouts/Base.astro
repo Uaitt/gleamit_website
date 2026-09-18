@@ -34,7 +34,7 @@ const footerLinks = [
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#D8E1DD" />
+    <meta name="theme-color" content="#E7F2EC" />
     <script is:inline>
       document.documentElement.dataset.theme = localStorage.getItem('theme') === 'dark' ? 'dark' : 'light';
       if (document.documentElement.dataset.theme === 'dark') {
@@ -97,7 +97,7 @@ const footerLinks = [
           const dark = root.dataset.theme === 'dark';
           toggle.setAttribute('aria-pressed', String(dark));
           toggle.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
-          themeColor.content = dark ? '#111418' : '#D8E1DD';
+          themeColor.content = dark ? '#111418' : '#E7F2EC';
           if (badge) badge.src = dark ? '/badges/app-store-white.svg' : '/badges/app-store-black.svg';
         };
         toggle.hidden = false;

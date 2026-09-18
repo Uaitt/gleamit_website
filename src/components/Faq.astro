@@ -44,7 +44,7 @@ const items = [
       <span class="eyebrow">Common questions</span>
       <h2>Questions people ask</h2>
       {items.map(({ question, answer }, index) => (
-        <details open={index === 0}>
+        <details name="faq" open={index === 0}>
           <summary>{question}</summary>
           <p>{answer}</p>
         </details>
@@ -52,3 +52,15 @@ const items = [
     </div>
   </div>
 </section>
+
+<script is:inline>
+  if (!('name' in document.createElement('details'))) {
+    const all = document.querySelectorAll('#faq details[name="faq"]');
+    for (const item of all) {
+      item.addEventListener('toggle', () => {
+        if (!item.open) return;
+        for (const other of all) if (other !== item) other.removeAttribute('open');
+      });
+    }
+  }
+</script>

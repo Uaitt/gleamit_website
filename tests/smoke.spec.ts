@@ -4,6 +4,23 @@ import { horizontalOverflow, viewports } from './matrix';
 import { pageBackground, tealText } from './theme';
 
 for (const route of routes) {
+  test(`${route} fits a 320px phone with nothing poking past the edges`, async ({ page }) => {
+    await page.setViewportSize({ width: 320, height: 568 });
+    await page.goto(route);
+    await page.waitForLoadState('networkidle');
+    expect(await horizontalOverflow(page), 'horizontal overflow in px').toBe(0);
+
+    const poking = await page.evaluate(() => {
+      const width = document.documentElement.clientWidth;
+      return [...document.querySelectorAll<HTMLElement>('body *')]
+        .filter((el) => el.offsetParent !== null)
+        .map((el) => ({ el, box: el.getBoundingClientRect() }))
+        .filter(({ box }) => box.width > 0 && (box.left < -1 || box.right > width + 1))
+        .map(({ el, box }) => `${el.tagName.toLowerCase()}.${[...el.classList].join('.')} ${Math.round(box.left)}..${Math.round(box.right)}`);
+    });
+    expect(poking).toEqual([]);
+  });
+
   for (const systemScheme of ['light', 'dark'] as const) {
     for (const viewport of viewports) {
       test(`${route} renders light under a ${systemScheme} system at ${viewport.width}px`, async ({ page, context }) => {
@@ -22,7 +39,7 @@ for (const route of routes) {
         expect(await horizontalOverflow(page), 'horizontal overflow in px').toBe(0);
 
         await expect(page.locator('script[src]')).toHaveCount(0);
-        await expect(page.locator('script')).toHaveCount(route === '/' ? 3 : 2);
+        await expect(page.locator('script')).toHaveCount(route === '/' ? 5 : 2);
         expect(await context.cookies()).toEqual([]);
       });
     }

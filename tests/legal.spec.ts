@@ -3,11 +3,11 @@ import { expectClearsNav, horizontalOverflow, settleScroll, toc, toggleDark, vie
 import { cardBackground, pageBackground } from './theme';
 
 const pages = [
-  { route: '/privacy/', heading: 'Privacy policy', version: 6 },
-  { route: '/terms/', heading: 'Terms and conditions', version: 6 },
+  { route: '/privacy/', heading: 'Privacy policy', version: 7 },
+  { route: '/terms/', heading: 'Terms and conditions', version: 7 },
 ];
 
-const effectiveDate = 'Effective 13 September 2026';
+const effectiveDate = 'Effective 17 September 2026';
 
 for (const { route, heading, version } of pages) {
   test.describe(route, () => {
@@ -23,6 +23,16 @@ for (const { route, heading, version } of pages) {
       const copy = await page.locator('body').innerText();
       expect(copy).not.toContain('—');
       expect(copy).not.toContain('–');
+    });
+
+    test('gives the Gleamit support address as the only contact', async ({ page }) => {
+      await page.goto(route);
+      const contact = page.locator('.prose h2#contact ~ *').filter({ hasNot: page.locator('h2') });
+      await expect(contact.getByRole('link', { name: 'support@gleamit.app' })).toHaveAttribute(
+        'href',
+        'mailto:support@gleamit.app',
+      );
+      expect(await page.locator('body').innerText()).not.toMatch(/@gmail\.com/);
     });
 
     test('cross-links to the other text page by its unversioned route', async ({ page }) => {
@@ -119,7 +129,7 @@ test.describe('the collapsible ToC on mobile', () => {
   });
 });
 
-test.describe('the privacy policy at v6', () => {
+test.describe('the privacy policy at v7', () => {
   test.beforeEach(({ page }) => page.goto('/privacy/'));
 
   test('has a Website section covering logs, cookies, analytics and the theme preference', async ({ page }) => {

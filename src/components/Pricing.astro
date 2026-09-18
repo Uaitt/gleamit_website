@@ -32,17 +32,17 @@ const rows = [
         </div>
         <p class="amount">€9.99<small>once</small></p>
       </div>
-      <table>
+      <table role="table">
         <caption class="visually-hidden">What the free app includes and what Gleamit Pro adds</caption>
-        <thead>
-          <tr><th scope="col">Feature</th><th scope="col" class="c">Free</th><th scope="col" class="c">Pro</th></tr>
+        <thead role="rowgroup">
+          <tr role="row"><th scope="col" role="columnheader">Feature</th><th scope="col" role="columnheader" class="c">Free</th><th scope="col" role="columnheader" class="c">Pro</th></tr>
         </thead>
-        <tbody>
+        <tbody role="rowgroup">
           {rows.map(({ feature, free, pro }) => (
-            <tr>
-              <th scope="row">{feature}</th>
+            <tr role="row">
+              <th scope="row" role="rowheader">{feature}</th>
               {[free, pro].map((value, column) => (
-                <td class:list={['c', { pro: column === 1 }]}>
+                <td role="cell" data-label={column === 1 ? 'Pro' : 'Free'} class:list={['c', { pro: column === 1 }]}>
                   {value === true ? (
                     <>
                       <svg class="check" viewBox="0 0 24 24" aria-hidden="true" set:html={check} />

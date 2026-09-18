@@ -1,8 +1,8 @@
 ---
 title: Privacy policy
 description: 'How Gleamit handles your data: there is no Gleamit account and no Gleamit backend, and everything you record stays on your device.'
-version: 6
-effective: 2026-09-13
+version: 7
+effective: 2026-09-17
 ---
 
 Gleamit helps you track oral hygiene habits. It is developed by **Lorenzo
@@ -183,4 +183,4 @@ source history of this website.
 
 ## Contact
 
-**Email:** [lorenzozabot@gmail.com](mailto:lorenzozabot@gmail.com)
+**Email:** [support@gleamit.app](mailto:support@gleamit.app)

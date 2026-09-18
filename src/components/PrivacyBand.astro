@@ -1,0 +1,46 @@
+---
+import Phone from './Phone.astro';
+import dataBackup from '../assets/shots/data-backup.png';
+
+const points = [
+  {
+    icon: '<rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/>',
+    title: 'No server, no account',
+    text: 'Your record lives in the app on this phone. Gleamit has nowhere else to put it.',
+  },
+  {
+    icon: '<path d="M3 15a4 4 0 0 0 4 4h11a4 4 0 0 0 .5-8A6 6 0 0 0 7 9a4 4 0 0 0-4 6z"/><path d="M12 12v6M9.5 14.5 12 12l2.5 2.5"/>',
+    title: 'Backup only to your own cloud',
+    text: 'Turn it on and Gleamit writes to a private area of your iCloud Drive or Google Drive. Turn it off and nothing leaves the phone.',
+  },
+  {
+    icon: '<path d="M6 2h9l5 5v15H6z"/><path d="M15 2v5h5M12 11v7M9 15l3 3 3-3"/>',
+    title: 'Export a full zip anytime, free',
+    text: 'Every tooth, photo and document in a folder you can open without Gleamit.',
+  },
+];
+---
+
+<section id="privacy-band" class="privacy">
+  <div class="wrap">
+    <div class="copy">
+      <span class="eyebrow">Private by design</span>
+      <h2>Nothing leaves your phone unless you send it</h2>
+      <ul>
+        {points.map(({ icon, title, text }) => (
+          <li>
+            <span class="ico"><svg viewBox="0 0 24 24" aria-hidden="true" set:html={icon} /></span>
+            <div>
+              <strong>{title}</strong>
+              <p>{text}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <a href="/privacy">Read the privacy policy</a>
+    </div>
+    <div class="art reveal">
+      <Phone src={dataBackup} alt="The Data Backup page, where backup to your own iCloud Drive is turned on or off" />
+    </div>
+  </div>
+</section>

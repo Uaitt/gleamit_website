@@ -1,8 +1,8 @@
 ---
 title: Terms and conditions
 description: The terms for using Gleamit, including the medical disclaimer, the one-time Pro purchase and what we do and do not guarantee about backups.
-version: 6
-effective: 2026-09-13
+version: 7
+effective: 2026-09-17
 ---
 
 ## Agreement
@@ -146,4 +146,4 @@ law of your country of residence.
 
 ## Contact
 
-**Email:** [lorenzozabot@gmail.com](mailto:lorenzozabot@gmail.com)
+**Email:** [support@gleamit.app](mailto:support@gleamit.app)
