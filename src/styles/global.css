@@ -329,26 +329,54 @@ a:focus-visible { outline: 3px solid var(--mint); outline-offset: 3px; }
 .price-card .c { text-align: center; color: var(--muted); white-space: nowrap; }
 .price-card td.c.pro { color: var(--teal-text); font-weight: 700; }
 .price-card .check { width: 22px; height: 22px; vertical-align: -5px; stroke: currentColor; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-/* Three columns never fit a phone, so each row becomes a block with its Free and
-   Pro values labelled. The markup carries explicit ARIA roles because laying the
-   table out as blocks would otherwise drop them. */
+/* Three columns never fit a phone, so each row becomes a block: the feature on
+   one line, then the Free and Pro values side by side as labelled tiles. The
+   markup carries explicit ARIA roles because laying the table out as blocks
+   would otherwise drop them. */
 @media (max-width: 640px) {
   .price-top { grid-template-columns: 1fr; padding: 24px; }
   .price-top .amount { font-size: 44px; }
   .price-card thead { display: none; }
-  .price-card table, .price-card tbody, .price-card tbody tr, .price-card tbody th, .price-card td { display: block; }
-  .price-card tbody tr { padding: 16px 20px; border-top: 1px solid var(--border); }
-  .price-card tbody th, .price-card td { padding: 0; border-top: 0; }
-  .price-card tbody th { margin-bottom: 10px; }
-  .price-card td {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 3px 0;
-    text-align: right;
+  .price-card table, .price-card tbody { display: block; }
+  .price-card tbody tr {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 8px;
+    padding: 18px 20px;
+    border-top: 1px solid var(--border);
+  }
+  .price-card tbody th {
+    display: block;
+    grid-column: 1 / -1;
+    padding: 0;
+    border-top: 0;
+    font-size: 16px;
+  }
+  .price-card td.c {
+    display: grid;
+    gap: 2px;
+    align-content: center;
+    justify-items: center;
+    padding: 10px 12px;
+    border-top: 0;
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--ink) 5%, transparent);
+    font-size: 15px;
+    line-height: 1.35;
+    text-align: center;
     white-space: normal;
   }
-  .price-card td::before { content: attr(data-label); color: var(--muted); font-weight: 600; }
+  .price-card td.c.pro { background: color-mix(in srgb, var(--teal) 14%, transparent); }
+  .price-card td.c::before {
+    content: attr(data-label);
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .price-card td.c.pro::before { color: var(--teal-text); }
+  .price-card .check { vertical-align: 0; }
 }
 
 #faq { padding-top: 0; }

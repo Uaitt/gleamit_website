@@ -126,6 +126,21 @@ const cards = [
         else slide.setAttribute('aria-hidden', 'true');
       });
     };
+    /* A collapsed card is display:none, so its lazy shot never starts loading and
+       the phone frame sits black for a moment after a tap. Switching to eager as
+       the card nears the viewport loads it while it is still closed. */
+    const watcher = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          for (const img of entry.target.querySelectorAll('img')) img.loading = 'eager';
+          watcher.unobserve(entry.target);
+        }
+      },
+      { rootMargin: '400px' },
+    );
+    cards.forEach((card) => watcher.observe(card));
+
     cards.forEach((card, index) => {
       const head = card.querySelector<HTMLButtonElement>('.head')!;
       head.addEventListener('click', () => open(index));

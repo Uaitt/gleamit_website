@@ -87,6 +87,13 @@ for (const viewport of viewports) {
       );
       expect(clipped, 'cells reaching outside the card').toEqual([]);
 
+      const overflowing = await card.evaluate((el) =>
+        [...el.querySelectorAll('td, tbody th')]
+          .filter((cell) => cell.scrollWidth > cell.clientWidth + 1)
+          .map((cell) => cell.textContent?.trim()),
+      );
+      expect(overflowing, 'cells whose value is cut off instead of wrapping').toEqual([]);
+
       for (const [feature, free, pro] of comparison) {
         const row = page.locator('#pricing tbody tr', { has: page.getByRole('rowheader', { name: feature, exact: true }) });
         for (const value of [free, pro]) {

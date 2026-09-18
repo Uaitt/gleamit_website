@@ -186,6 +186,16 @@ test.describe('the deck on a phone', () => {
     expect((await card(page, features[4].title).boundingBox())!.height).toBeGreaterThan(400);
     expect((await card(page, features[0].title).boundingBox())!.height).toBeLessThan(260);
   });
+
+  test('a closed card has its shot loaded already, so opening it shows no empty frame', async ({ page }) => {
+    const closed = card(page, features[4].title).locator('.art img');
+    await expect(async () => {
+      expect(await closed.evaluate((img: HTMLImageElement) => img.complete && img.naturalWidth > 0)).toBe(true);
+    }).toPass();
+
+    await card(page, features[4].title).getByRole('button').tap();
+    await expect(closed).toBeVisible();
+  });
 });
 
 test('the nav Features link points at the feature deck', async ({ page }) => {
