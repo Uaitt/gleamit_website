@@ -3,7 +3,7 @@ import { expectClearsNav, horizontalOverflow, settleScroll, toc, toggleDark, vie
 import { cardBackground, pageBackground } from './theme';
 
 const pages = [
-  { route: '/privacy/', heading: 'Privacy policy', version: 7 },
+  { route: '/privacy/', heading: 'Privacy Policy', version: 7 },
   { route: '/terms/', heading: 'Terms and conditions', version: 7 },
 ];
 

@@ -1,5 +1,5 @@
 ---
-title: Privacy policy
+title: Privacy Policy
 description: 'How Gleamit handles your data: there is no Gleamit account and no Gleamit backend, and everything you record stays on your device.'
 version: 7
 effective: 2026-09-17

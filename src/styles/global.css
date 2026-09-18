@@ -518,9 +518,15 @@ footer { border-top: 1px solid var(--border); padding: 40px 0 48px; color: var(-
 footer .wrap { display: flex; flex-wrap: wrap; gap: 20px 40px; justify-content: space-between; align-items: center; }
 footer ul { display: flex; gap: 8px 24px; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
 footer a { color: var(--muted); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; min-width: 48px; }
+footer .copyright { display: inline-flex; align-items: center; min-height: 48px; }
 footer .brand { color: var(--ink); }
 footer a:hover { color: var(--ink); }
 footer .product-hunt img { display: block; width: 210px; height: auto; }
+
+@media (min-width: 901px) {
+  footer .wrap { flex-wrap: nowrap; gap: 24px; }
+  footer ul { flex-wrap: nowrap; gap: 8px 20px; white-space: nowrap; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

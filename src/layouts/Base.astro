@@ -15,20 +15,17 @@ const navLinks = [
   { name: 'Pricing', href: '/#pricing' },
   { name: 'FAQ', href: '/#faq' },
   { name: 'Support', href: '/support/' },
-  { name: 'Privacy policy', href: '/privacy/', menuOnly: true },
+  { name: 'Privacy Policy', href: '/privacy/', menuOnly: true },
   { name: 'Terms', href: '/terms/', menuOnly: true },
 ];
 const productHunt = {
   href: 'https://www.producthunt.com/products/gleamit-dental-health-tracker?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-gleamit-dental-health-tracker',
   alt: 'Gleamit: Dental Health Tracker - Your dental health in one place - all private by design. | Product Hunt',
-  src: (theme: 'light' | 'neutral') =>
-    `https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1254727&theme=${theme}&t=1789741076687`,
 };
 const footerLinks = [
-  { name: 'Privacy policy', href: '/privacy/' },
+  { name: 'Privacy Policy', href: '/privacy/' },
   { name: 'Terms', href: '/terms/' },
   { name: 'Support', href: '/support/' },
-  { name: 'support@gleamit.app', href: 'mailto:support@gleamit.app' },
 ];
 ---
 
@@ -96,19 +93,17 @@ const footerLinks = [
           {footerLinks.map((link) => (
             <li><a href={link.href}>{link.name}</a></li>
           ))}
+          <li class="copyright">© {new Date().getFullYear()} Lorenzo Zabot</li>
         </ul>
         <a class="product-hunt" href={productHunt.href} target="_blank" rel="noopener noreferrer">
           <img
-            src={productHunt.src('light')}
-            data-src-light={productHunt.src('light')}
-            data-src-dark={productHunt.src('neutral')}
+            src="/badges/product-hunt-light.svg"
             alt={productHunt.alt}
             width="250"
             height="54"
             loading="lazy"
           />
         </a>
-        <span>© {new Date().getFullYear()} Lorenzo Zabot</span>
       </div>
     </footer>
     <script is:inline>
@@ -124,7 +119,7 @@ const footerLinks = [
           toggle.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
           themeColor.content = dark ? '#111418' : '#E7F2EC';
           if (badge) badge.src = dark ? '/badges/app-store-white.svg' : '/badges/app-store-black.svg';
-          if (productHunt) productHunt.src = dark ? productHunt.dataset.srcDark : productHunt.dataset.srcLight;
+          if (productHunt) productHunt.src = dark ? '/badges/product-hunt-dark.svg' : '/badges/product-hunt-light.svg';
         };
         toggle.hidden = false;
         reflectTheme();

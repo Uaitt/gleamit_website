@@ -4,7 +4,7 @@ import { horizontalOverflow, viewports } from './matrix';
 
 const mobile = viewports.find((viewport) => viewport.name === 'mobile')!;
 const desktop = viewports.find((viewport) => viewport.name === 'desktop')!;
-const menuLinks = ['Features', 'Pricing', 'FAQ', 'Support', 'Privacy policy', 'Terms'];
+const menuLinks = ['Features', 'Pricing', 'FAQ', 'Support', 'Privacy Policy', 'Terms'];
 
 function navLink(page: Page, name: string) {
   return page.getByRole('navigation', { name: 'Main' }).getByRole('link', { name, exact: true });
@@ -24,7 +24,7 @@ test.describe('the desktop nav', () => {
   });
 
   test('leaves the legal links to the footer', async ({ page }) => {
-    for (const name of ['Privacy policy', 'Terms']) {
+    for (const name of ['Privacy Policy', 'Terms']) {
       await expect(navLink(page, name)).toBeHidden();
       await expect(page.getByRole('contentinfo').getByRole('link', { name, exact: true })).toBeVisible();
     }
@@ -69,7 +69,7 @@ for (const route of routes) {
     });
 
     test('reaches the privacy policy and the terms', async ({ page }) => {
-      for (const [name, url] of [['Privacy policy', '/privacy/'], ['Terms', '/terms/']] as const) {
+      for (const [name, url] of [['Privacy Policy', '/privacy/'], ['Terms', '/terms/']] as const) {
         await page.goto(route);
         await page.getByRole('button', { name: 'Open menu' }).click();
         await navLink(page, name).click();

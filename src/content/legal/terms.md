@@ -10,7 +10,7 @@ effective: 2026-09-17
 By downloading, installing or using Gleamit ("the app") you agree to these
 Terms. If you do not agree, do not use the app. Gleamit is developed by
 **Lorenzo Zabot, Milan, Italy** ("we", "us"). Your use is also governed by our
-[Privacy policy](/privacy/).
+[Privacy Policy](/privacy/).
 
 ## What Gleamit does
 
@@ -76,7 +76,7 @@ Google's terms, and the files are not encrypted by Gleamit. Your device's own
 system backup does **not** include Gleamit data; restoring happens in the app,
 from the cloud backup or from an exported archive. Scheduling, network use,
 contents and deletion are described in the "Cloud backup" section of our
-[Privacy policy](/privacy/).
+[Privacy Policy](/privacy/).
 
 Backups can stop for reasons outside our control: full cloud storage,
 withdrawn access to your Google account, iCloud Drive off for Gleamit, iCloud

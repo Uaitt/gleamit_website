@@ -50,15 +50,15 @@ for (const viewport of viewports) {
       await expect(trust.getByText('Optional backup to your own iCloud or Drive')).toBeVisible();
 
       const nav = page.getByRole('navigation');
-      for (const [name, href] of [['Features', '/#features'], ['Pricing', '/#pricing'], ['FAQ', '/#faq'], ['Support', '/support/'], ['Privacy policy', '/privacy/'], ['Terms', '/terms/']]) {
+      for (const [name, href] of [['Features', '/#features'], ['Pricing', '/#pricing'], ['FAQ', '/#faq'], ['Support', '/support/'], ['Privacy Policy', '/privacy/'], ['Terms', '/terms/']]) {
         await expect(nav.getByRole('link', { name, includeHidden: true })).toHaveAttribute('href', href);
       }
 
       const footer = page.getByRole('contentinfo');
-      await expect(footer.getByRole('link', { name: 'Privacy policy' })).toHaveAttribute('href', '/privacy/');
+      await expect(footer.getByRole('link', { name: 'Privacy Policy' })).toHaveAttribute('href', '/privacy/');
       await expect(footer.getByRole('link', { name: 'Terms' })).toHaveAttribute('href', '/terms/');
       await expect(footer.getByRole('link', { name: 'Support', exact: true })).toHaveAttribute('href', '/support/');
-      await expect(footer.getByRole('link', { name: 'support@gleamit.app' })).toHaveAttribute('href', 'mailto:support@gleamit.app');
+      await expect(footer.getByRole('link', { name: 'support@gleamit.app' })).toHaveCount(0);
     });
 
     test('both hero phones are shown whole, inside the viewport', async ({ page }) => {

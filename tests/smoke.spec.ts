@@ -27,6 +27,9 @@ for (const route of routes) {
         await page.emulateMedia({ colorScheme: systemScheme });
         await page.setViewportSize({ width: viewport.width, height: viewport.height });
 
+        const requested: string[] = [];
+        page.on('request', (request) => requested.push(request.url()));
+
         const response = await page.goto(route);
         expect(response?.status()).toBe(200);
 
@@ -41,6 +44,9 @@ for (const route of routes) {
         await expect(page.locator('script[src]')).toHaveCount(0);
         await expect(page.locator('script')).toHaveCount(route === '/' ? 5 : 2);
         expect(await context.cookies()).toEqual([]);
+
+        const origin = new URL(page.url()).origin;
+        expect(requested.filter((url) => new URL(url).origin !== origin)).toEqual([]);
       });
     }
   }
