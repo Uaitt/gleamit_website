@@ -520,6 +520,7 @@ footer ul { display: flex; gap: 8px 24px; flex-wrap: wrap; list-style: none; mar
 footer a { color: var(--muted); text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; min-width: 48px; }
 footer .brand { color: var(--ink); }
 footer a:hover { color: var(--ink); }
+footer .product-hunt img { display: block; width: 210px; height: auto; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

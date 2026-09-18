@@ -173,7 +173,7 @@ test('no version number appears in any URL the site emits', async ({ page, reque
     const urls = await page.evaluate(() =>
       [...document.querySelectorAll('[href], [src]')].map((el) => el.getAttribute('href') ?? el.getAttribute('src')!),
     );
-    for (const url of urls) {
+    for (const url of urls.filter((url) => !/^[a-z]+:/i.test(url))) {
       expect(url, `${route} emits a versioned URL`).not.toMatch(versioned);
     }
   }
