@@ -16,5 +16,10 @@ const { src, alt, class: className, loading = 'lazy', decoding, fetchpriority } 
 ---
 
 <div class:list={['phone', className]}>
-  <Picture src={src} formats={['avif']} fallbackFormat="webp" widths={shotWidths} sizes={shotSizes} alt={alt} loading={loading} decoding={decoding} fetchpriority={fetchpriority} />
+  <div class="frame">
+    <i class="keys" aria-hidden="true"></i>
+    <div class="rim">
+      <Picture src={src} formats={['avif']} fallbackFormat="webp" widths={shotWidths} sizes={shotSizes} alt={alt} loading={loading} decoding={decoding} fetchpriority={fetchpriority} />
+    </div>
+  </div>
 </div>
