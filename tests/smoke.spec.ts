@@ -46,7 +46,11 @@ for (const route of routes) {
         expect(await context.cookies()).toEqual([]);
 
         const origin = new URL(page.url()).origin;
-        expect(requested.filter((url) => new URL(url).origin !== origin)).toEqual([]);
+        const badgeHosts = ['api.producthunt.com', 'peerlist.io'];
+        const thirdParty = requested
+          .map((url) => new URL(url))
+          .filter((url) => url.origin !== origin && !badgeHosts.includes(url.hostname));
+        expect(thirdParty.map((url) => url.href)).toEqual([]);
       });
     }
   }

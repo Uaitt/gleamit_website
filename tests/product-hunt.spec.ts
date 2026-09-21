@@ -18,11 +18,11 @@ for (const route of routes) {
 test('the Product Hunt badge follows the theme toggle', async ({ page }) => {
   await page.goto('/');
   const image = badge(page).locator('img');
-  await expect(image).toHaveAttribute('src', '/badges/product-hunt-light.svg');
+  await expect(image).toHaveAttribute('src', /api\.producthunt\.com\/widgets\/.*theme=light$/);
 
   await page.getByRole('button', { name: 'Switch to dark theme' }).click();
-  await expect(image).toHaveAttribute('src', '/badges/product-hunt-dark.svg');
+  await expect(image).toHaveAttribute('src', /api\.producthunt\.com\/widgets\/.*theme=neutral$/);
 
   await page.getByRole('button', { name: 'Switch to light theme' }).click();
-  await expect(image).toHaveAttribute('src', '/badges/product-hunt-light.svg');
+  await expect(image).toHaveAttribute('src', /api\.producthunt\.com\/widgets\/.*theme=light$/);
 });

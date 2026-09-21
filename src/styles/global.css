@@ -543,11 +543,15 @@ footer a { color: var(--muted); text-decoration: none; font-weight: 600; display
 footer .copyright { display: inline-flex; align-items: center; min-height: 48px; }
 footer .brand { color: var(--ink); }
 footer a:hover { color: var(--ink); }
-footer .product-hunt img { display: block; width: 210px; height: auto; }
+footer .links { display: grid; justify-items: center; gap: 8px; }
+footer .links ul { justify-content: center; }
+footer .badges { justify-content: center; gap: 16px 24px; margin-top: 24px; }
+footer .badges img { display: block; width: auto; height: 46px; }
 
 @media (min-width: 901px) {
   footer .wrap { flex-wrap: nowrap; gap: 24px; }
   footer ul { flex-wrap: nowrap; gap: 8px 20px; white-space: nowrap; }
+  footer .links { grid-template-columns: 1fr auto 1fr; justify-items: start; gap: 24px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

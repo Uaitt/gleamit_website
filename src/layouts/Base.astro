@@ -21,6 +21,12 @@ const navLinks = [
 const productHunt = {
   href: 'https://www.producthunt.com/products/gleamit-dental-health-tracker?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-gleamit-dental-health-tracker',
   alt: 'Gleamit: Dental Health Tracker - Your dental health in one place - all private by design. | Product Hunt',
+  embed: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1254727&theme=',
+};
+const peerlist = {
+  href: 'https://peerlist.io/uaitt/project/gleamit-dental-health-tracker',
+  alt: 'Gleamit: Dental Health Tracker | Peerlist',
+  embed: 'https://peerlist.io/api/v1/projects/embed/PRJHOK8AG69PKM79R17AMMOLEAABQG?showUpvote=true&theme=',
 };
 const footerLinks = [
   { name: 'Privacy Policy', href: '/privacy/' },
@@ -87,7 +93,7 @@ const footerLinks = [
       <slot />
     </main>
     <footer>
-      <div class="wrap">
+      <div class="wrap links">
         <a class="brand" href="/"><img src="/icon.svg" alt="" width="32" height="32" /> Gleamit</a>
         <ul>
           {footerLinks.map((link) => (
@@ -95,12 +101,23 @@ const footerLinks = [
           ))}
           <li class="copyright">© {new Date().getFullYear()} Lorenzo Zabot</li>
         </ul>
+      </div>
+      <div class="wrap badges">
         <a class="product-hunt" href={productHunt.href} target="_blank" rel="noopener noreferrer">
           <img
-            src="/badges/product-hunt-light.svg"
+            src={`${productHunt.embed}light`}
             alt={productHunt.alt}
             width="250"
             height="54"
+            loading="lazy"
+          />
+        </a>
+        <a class="peerlist" href={peerlist.href} target="_blank" rel="noopener noreferrer">
+          <img
+            src={`${peerlist.embed}light`}
+            alt={peerlist.alt}
+            width="296"
+            height="72"
             loading="lazy"
           />
         </a>
@@ -113,13 +130,15 @@ const footerLinks = [
         const themeColor = document.querySelector('meta[name="theme-color"]');
         const badge = document.querySelector('.badge img.app-store');
         const productHunt = document.querySelector('.product-hunt img');
+        const productHuntEmbed =
+          'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1254727&theme=';
         const reflectTheme = () => {
           const dark = root.dataset.theme === 'dark';
           toggle.setAttribute('aria-pressed', String(dark));
           toggle.setAttribute('aria-label', dark ? 'Switch to light theme' : 'Switch to dark theme');
           themeColor.content = dark ? '#111418' : '#E7F2EC';
           if (badge) badge.src = dark ? '/badges/app-store-white.svg' : '/badges/app-store-black.svg';
-          if (productHunt) productHunt.src = dark ? '/badges/product-hunt-dark.svg' : '/badges/product-hunt-light.svg';
+          if (productHunt) productHunt.src = productHuntEmbed + (dark ? 'neutral' : 'light');
         };
         toggle.hidden = false;
         reflectTheme();
