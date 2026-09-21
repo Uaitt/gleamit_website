@@ -1,8 +1,8 @@
 ---
 title: Privacy Policy
 description: 'How Gleamit handles your data: there is no Gleamit account and no Gleamit backend, and everything you record stays on your device.'
-version: 7
-effective: 2026-09-17
+version: 8
+effective: 2026-09-21
 ---
 
 Gleamit helps you track oral hygiene habits. It is developed by **Lorenzo
@@ -34,16 +34,28 @@ We have no access to any of it.
 ## Website
 
 This website, **gleamit.app**, is a set of static pages hosted on GitHub Pages.
-It sets **no cookies**, runs **no analytics**, and loads no third-party
-scripts, fonts or embeds. We collect nothing about your visit beyond the
-ordinary server logs GitHub keeps as our hosting provider, and we do not use
-them to build any profile of you.
+It runs **no analytics**, loads no third-party scripts or fonts, and sets no
+cookies of its own. We collect nothing about your visit beyond the ordinary
+server logs GitHub keeps as our hosting provider, and we do not use them to
+build any profile of you.
 
 The light and dark theme control stores a single preference in your browser's
 local storage. It stays in your browser, never leaves your device, and is not
 sent to us or to anyone else. Clearing your browser's site data removes it.
 
 - GitHub: [docs.github.com/site-policy](https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement)
+
+## Launch badges
+
+The footer shows the Product Hunt and PeerList badges as images loaded from
+those sites, so they can show the current vote count. Loading them tells
+Product Hunt and PeerList your IP address and browser, as any external image
+would. Product Hunt also sets one cookie, `__cf_bm`, Cloudflare's 30 minute
+bot-detection cookie, which we neither set nor read. Blocking third-party
+images hides the badges and stops the cookie.
+
+- Product Hunt: [producthunt.com/privacy](https://www.producthunt.com/privacy)
+- PeerList: [peerlist.io/privacy](https://peerlist.io/privacy)
 
 ## In-app purchases
 

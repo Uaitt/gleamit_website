@@ -3,18 +3,16 @@ import { expectClearsNav, horizontalOverflow, settleScroll, toc, toggleDark, vie
 import { cardBackground, pageBackground } from './theme';
 
 const pages = [
-  { route: '/privacy/', heading: 'Privacy Policy', version: 7 },
-  { route: '/terms/', heading: 'Terms and conditions', version: 7 },
+  { route: '/privacy/', heading: 'Privacy Policy', version: 8, effective: 'Effective 21 September 2026' },
+  { route: '/terms/', heading: 'Terms and conditions', version: 7, effective: 'Effective 17 September 2026' },
 ];
 
-const effectiveDate = 'Effective 17 September 2026';
-
-for (const { route, heading, version } of pages) {
+for (const { route, heading, version, effective } of pages) {
   test.describe(route, () => {
     test('states its version and effective date in the body', async ({ page }) => {
       await page.goto(route);
       await expect(page.getByRole('heading', { level: 1, name: heading })).toBeVisible();
-      await expect(page.locator('.masthead .meta')).toHaveText(`Version ${version} · ${effectiveDate}`);
+      await expect(page.locator('.masthead .meta')).toHaveText(`Version ${version} · ${effective}`);
     });
 
     // The banned-word guardrail does not apply here: the medical disclaimer has to say "diagnose".

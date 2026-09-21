@@ -3,6 +3,10 @@ import { routes } from './routes';
 import { horizontalOverflow, viewports } from './matrix';
 import { pageBackground, tealText } from './theme';
 
+const badgeHosts = ['producthunt.com', 'peerlist.io'];
+const fromBadgeHost = (host: string) =>
+  badgeHosts.some((badgeHost) => host === badgeHost || host.endsWith(`.${badgeHost}`));
+
 for (const route of routes) {
   test(`${route} fits a 320px phone with nothing poking past the edges`, async ({ page }) => {
     await page.setViewportSize({ width: 320, height: 568 });
@@ -43,13 +47,13 @@ for (const route of routes) {
 
         await expect(page.locator('script[src]')).toHaveCount(0);
         await expect(page.locator('script')).toHaveCount(route === '/' ? 5 : 2);
-        expect(await context.cookies()).toEqual([]);
+        const cookies = await context.cookies();
+        expect(cookies.filter((cookie) => !fromBadgeHost(cookie.domain))).toEqual([]);
 
         const origin = new URL(page.url()).origin;
-        const badgeHosts = ['api.producthunt.com', 'peerlist.io'];
         const thirdParty = requested
           .map((url) => new URL(url))
-          .filter((url) => url.origin !== origin && !badgeHosts.includes(url.hostname));
+          .filter((url) => url.origin !== origin && !fromBadgeHost(url.hostname));
         expect(thirdParty.map((url) => url.href)).toEqual([]);
       });
     }
