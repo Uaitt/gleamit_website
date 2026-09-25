@@ -28,6 +28,11 @@ const peerlist = {
   alt: 'Gleamit: Dental Health Tracker | Peerlist',
   embed: 'https://peerlist.io/api/v1/projects/embed/PRJHOK8AG69PKM79R17AMMOLEAABQG?showUpvote=true&theme=',
 };
+const sideProjectors = {
+  href: 'https://www.sideprojectors.com/project/96547/gleamit-dental-health-tracker',
+  alt: 'Check out Gleamit: Dental Health Tracker at @SideProjectors',
+  image: '/badges/sideprojectors.png',
+};
 const footerLinks = [
   { name: 'Privacy Policy', href: '/privacy/' },
   { name: 'Terms', href: '/terms/' },
@@ -118,6 +123,15 @@ const footerLinks = [
             alt={peerlist.alt}
             width="296"
             height="72"
+            loading="lazy"
+          />
+        </a>
+        <a class="side-projectors" href={sideProjectors.href} target="_blank" rel="noopener noreferrer">
+          <img
+            src={sideProjectors.image}
+            alt={sideProjectors.alt}
+            width="242"
+            height="70"
             loading="lazy"
           />
         </a>
