@@ -3,7 +3,7 @@ import { routes } from './routes';
 import { horizontalOverflow, viewports } from './matrix';
 import { pageBackground, tealText } from './theme';
 
-const badgeHosts = ['producthunt.com', 'peerlist.io'];
+const badgeHosts = ['producthunt.com', 'peerlist.io', 'startupbase.io'];
 const fromBadgeHost = (host: string) =>
   badgeHosts.some((badgeHost) => host === badgeHost || host.endsWith(`.${badgeHost}`));
 

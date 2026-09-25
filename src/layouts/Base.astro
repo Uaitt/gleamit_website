@@ -33,6 +33,11 @@ const sideProjectors = {
   alt: 'Check out Gleamit: Dental Health Tracker at @SideProjectors',
   image: '/badges/sideprojectors.png',
 };
+const startupBase = {
+  href: 'https://startupbase.io/products/gleamit?utm_source=startupbase&utm_medium=badge&utm_campaign=featured-badge-neutral',
+  alt: 'Featured on StartupBase',
+  embed: 'https://statics.startupbase.io/site/badges/featured-on-sb',
+};
 const footerLinks = [
   { name: 'Privacy Policy', href: '/privacy/' },
   { name: 'Terms', href: '/terms/' },
@@ -117,6 +122,15 @@ const footerLinks = [
             loading="lazy"
           />
         </a>
+        <a class="startup-base" href={startupBase.href} target="_blank" rel="noopener noreferrer">
+          <img
+            src={`${startupBase.embed}.svg`}
+            alt={startupBase.alt}
+            width="300"
+            height="80"
+            loading="lazy"
+          />
+        </a>
         <a class="peerlist" href={peerlist.href} target="_blank" rel="noopener noreferrer">
           <img
             src={`${peerlist.embed}light`}
@@ -146,6 +160,8 @@ const footerLinks = [
         const productHunt = document.querySelector('.product-hunt img');
         const productHuntEmbed =
           'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1254727&theme=';
+        const startupBase = document.querySelector('.startup-base img');
+        const startupBaseEmbed = 'https://statics.startupbase.io/site/badges/featured-on-sb';
         const reflectTheme = () => {
           const dark = root.dataset.theme === 'dark';
           toggle.setAttribute('aria-pressed', String(dark));
@@ -153,6 +169,7 @@ const footerLinks = [
           themeColor.content = dark ? '#111418' : '#E7F2EC';
           if (badge) badge.src = dark ? '/badges/app-store-white.svg' : '/badges/app-store-black.svg';
           if (productHunt) productHunt.src = productHuntEmbed + (dark ? 'neutral' : 'light');
+          if (startupBase) startupBase.src = startupBaseEmbed + (dark ? '-neutral.svg' : '.svg');
         };
         toggle.hidden = false;
         reflectTheme();
