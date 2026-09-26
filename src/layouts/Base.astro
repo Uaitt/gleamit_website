@@ -48,6 +48,7 @@ const peerPush = {
   alt: 'Gleamit: Dental Health Tracker on PeerPush',
   image: 'https://peerpush.com/p/gleamit-dental-health-tracker/badge.png',
 };
+const adSwapEmbed = 'https://ad-swap.web.app/frame.html?site=c6bkSuDDIqaqoMlkjpSt&theme=light';
 const footerLinks = [
   { name: 'Privacy Policy', href: '/privacy/' },
   { name: 'Terms', href: '/terms/' },
@@ -177,6 +178,16 @@ const footerLinks = [
             loading="lazy"
           />
         </a>
+      </div>
+      <div class="wrap ad-swap">
+        <iframe
+          src={adSwapEmbed}
+          title="Ad"
+          width="300"
+          height="130"
+          loading="lazy"
+          sandbox="allow-scripts allow-popups"
+        ></iframe>
       </div>
     </footer>
     <script is:inline>

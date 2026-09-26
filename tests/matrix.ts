@@ -21,11 +21,17 @@ export async function toggleDark(page: Page) {
 
 /** Waits for smooth scrolling and lazy images to stop moving the page. */
 export async function settleScroll(page: Page) {
-  await page.waitForLoadState('networkidle');
+  await page.waitForLoadState('load');
   await page.waitForFunction(() => {
     const self = window as unknown as { last?: number; stable?: number };
     const y = window.scrollY;
-    self.stable = y === self.last ? (self.stable ?? 0) + 1 : 0;
+    const imagesLoaded = [...document.images]
+      .filter((image) => {
+        const box = image.getBoundingClientRect();
+        return box.width > 0 && box.bottom > 0 && box.top < innerHeight;
+      })
+      .every((image) => image.complete);
+    self.stable = imagesLoaded && y === self.last ? (self.stable ?? 0) + 1 : 0;
     self.last = y;
     return self.stable >= 3;
   }, undefined, { polling: 100 });

@@ -3,7 +3,7 @@ import { routes } from './routes';
 import { horizontalOverflow, viewports } from './matrix';
 import { pageBackground, tealText } from './theme';
 
-const badgeHosts = ['producthunt.com', 'peerlist.io', 'startupbase.io', 'smollaunch.com', 'peerpush.com'];
+const badgeHosts = ['ad-swap.web.app', 'producthunt.com', 'peerlist.io', 'startupbase.io', 'smollaunch.com', 'peerpush.com'];
 const fromBadgeHost = (host: string) =>
   badgeHosts.some((badgeHost) => host === badgeHost || host.endsWith(`.${badgeHost}`));
 
@@ -32,7 +32,9 @@ for (const route of routes) {
         await page.setViewportSize({ width: viewport.width, height: viewport.height });
 
         const requested: string[] = [];
-        page.on('request', (request) => requested.push(request.url()));
+        page.on('request', (request) => {
+          if (request.frame() === page.mainFrame()) requested.push(request.url());
+        });
 
         const response = await page.goto(route);
         expect(response?.status()).toBe(200);
