@@ -556,6 +556,10 @@ footer .side-projectors img { padding: 2px 24px; border: 1px solid #E0E4E2; bord
   footer .badges { display: grid; grid-template-columns: repeat(3, auto); align-items: center; justify-items: center; }
 }
 
+@media (min-width: 1400px) {
+  footer .badges { display: flex; max-width: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .badge, .faq summary::after, #features .feature, #features .feature * { transition: none; }

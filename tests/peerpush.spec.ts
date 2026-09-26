@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { routes } from './routes';
+import { horizontalOverflow } from './matrix';
 
 const badge = (page: import('@playwright/test').Page) =>
   page.getByRole('contentinfo').getByRole('link', { name: 'Gleamit: Dental Health Tracker on PeerPush' });
@@ -19,20 +20,37 @@ for (const route of routes) {
   });
 }
 
-test('the footer badges sit in two rows of three on desktop', async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 800 });
-  await page.goto('/');
-  const badges = await page.locator('footer .badges > a').all();
-  const centers = await Promise.all(
-    badges.map(async (badge) => {
-      const box = (await badge.boundingBox())!;
-      return Math.round(box.y + box.height / 2);
-    }),
-  );
-  expect(centers).toHaveLength(6);
-  expect(new Set(centers.slice(0, 3)).size, 'first row').toBe(1);
-  expect(new Set(centers.slice(3)).size, 'second row').toBe(1);
-  expect(centers[3]).toBeGreaterThan(centers[0]);
-  const firstRow = badges.slice(0, 3).map((badge) => badge.getAttribute('class'));
-  expect(await Promise.all(firstRow)).toEqual(['product-hunt', 'peerlist', 'startup-base']);
-});
+for (const { width, rows } of [
+  { width: 1280, rows: 2 },
+  { width: 1440, rows: 1 },
+]) {
+  test(`the footer badges sit in ${rows} row(s) at ${width}px, at full size`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto('/');
+    const layout = await page.locator('footer .badges > a').evaluateAll((links) =>
+      links.map((link) => {
+        const box = link.getBoundingClientRect();
+        const image = link.querySelector('img')!;
+        const style = getComputedStyle(image);
+        const inset = (sides: string[]) => sides.reduce((sum, side) => sum + parseFloat(style.getPropertyValue(side)), 0);
+        const rendered = image.getBoundingClientRect();
+        const contentWidth = rendered.width - inset(['padding-left', 'padding-right', 'border-left-width', 'border-right-width']);
+        const contentHeight = rendered.height - inset(['padding-top', 'padding-bottom', 'border-top-width', 'border-bottom-width']);
+        return {
+          name: link.className,
+          center: Math.round(box.y + box.height / 2),
+          height: rendered.height,
+          squeeze: contentWidth / contentHeight / (Number(image.getAttribute('width')) / Number(image.getAttribute('height'))),
+        };
+      }),
+    );
+    expect(layout).toHaveLength(6);
+    expect(new Set(layout.map(({ center }) => center)).size, 'badge rows').toBe(rows);
+    expect(layout.slice(0, 3).map(({ name }) => name)).toEqual(['product-hunt', 'peerlist', 'startup-base']);
+    expect(await horizontalOverflow(page), 'horizontal overflow in px').toBe(0);
+    for (const { name, height, squeeze } of layout) {
+      expect(height, `${name} height`).toBe(46);
+      expect(squeeze, `${name} aspect ratio`).toBeCloseTo(1, 1);
+    }
+  });
+}
