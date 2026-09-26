@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { routes } from './routes';
 
 const badge = (page: import('@playwright/test').Page) =>
-  page.getByRole('contentinfo').getByRole('link', { name: 'Gleamit — Featured on Smol Launch' });
+  page.getByRole('contentinfo').getByRole('link', { name: 'Gleamit: Featured on Smol Launch' });
 
 for (const route of routes) {
   test(`${route} shows the Smol Launch badge in the footer`, async ({ page }) => {
