@@ -547,12 +547,13 @@ footer .links { display: grid; justify-items: center; gap: 8px; }
 footer .links ul { justify-content: center; }
 footer .badges { justify-content: center; gap: 16px 24px; margin-top: 24px; }
 footer .badges img { display: block; width: auto; height: 46px; }
-footer .side-projectors img { padding: 6px 14px; border: 1px solid #E0E4E2; border-radius: 12px; background: #fff; }
+footer .side-projectors img { padding: 2px 24px; border: 1px solid #E0E4E2; border-radius: 12px; background: #fff; }
 
 @media (min-width: 901px) {
   footer .wrap { flex-wrap: nowrap; gap: 24px; }
   footer ul { flex-wrap: nowrap; gap: 8px 20px; white-space: nowrap; }
   footer .links { grid-template-columns: 1fr auto 1fr; justify-items: start; gap: 24px; }
+  footer .badges { display: grid; grid-template-columns: repeat(3, auto); align-items: center; justify-items: center; }
 }
 
 @media (prefers-reduced-motion: reduce) {

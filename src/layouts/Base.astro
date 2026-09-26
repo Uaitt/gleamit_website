@@ -43,6 +43,11 @@ const smolLaunch = {
   alt: 'Gleamit: Featured on Smol Launch',
   image: 'https://smollaunch.com/badges/featured.svg',
 };
+const peerPush = {
+  href: 'https://peerpush.com/p/gleamit-dental-health-tracker',
+  alt: 'Gleamit: Dental Health Tracker on PeerPush',
+  image: 'https://peerpush.com/p/gleamit-dental-health-tracker/badge.png',
+};
 const footerLinks = [
   { name: 'Privacy Policy', href: '/privacy/' },
   { name: 'Terms', href: '/terms/' },
@@ -127,21 +132,21 @@ const footerLinks = [
             loading="lazy"
           />
         </a>
-        <a class="startup-base" href={startupBase.href} target="_blank" rel="noopener noreferrer">
-          <img
-            src={`${startupBase.embed}.svg`}
-            alt={startupBase.alt}
-            width="300"
-            height="80"
-            loading="lazy"
-          />
-        </a>
         <a class="peerlist" href={peerlist.href} target="_blank" rel="noopener noreferrer">
           <img
             src={`${peerlist.embed}light`}
             alt={peerlist.alt}
             width="296"
             height="72"
+            loading="lazy"
+          />
+        </a>
+        <a class="startup-base" href={startupBase.href} target="_blank" rel="noopener noreferrer">
+          <img
+            src={`${startupBase.embed}.svg`}
+            alt={startupBase.alt}
+            width="300"
+            height="80"
             loading="lazy"
           />
         </a>
@@ -160,6 +165,15 @@ const footerLinks = [
             alt={smolLaunch.alt}
             width="250"
             height="60"
+            loading="lazy"
+          />
+        </a>
+        <a class="peer-push" href={peerPush.href} target="_blank" rel="noopener noreferrer">
+          <img
+            src={peerPush.image}
+            alt={peerPush.alt}
+            width="460"
+            height="130"
             loading="lazy"
           />
         </a>

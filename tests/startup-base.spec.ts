@@ -31,11 +31,3 @@ test('the StartupBase badge follows the theme toggle', async ({ page }) => {
   await page.getByRole('button', { name: 'Switch to light theme' }).click();
   await expect(image).toHaveAttribute('src', light);
 });
-
-test('the StartupBase badge sits next to the Product Hunt one', async ({ page }) => {
-  await page.goto('/');
-  const classes = await page
-    .locator('footer .badges > a')
-    .evaluateAll((links) => links.map((link) => link.className));
-  expect(classes.indexOf('startup-base')).toBe(classes.indexOf('product-hunt') + 1);
-});

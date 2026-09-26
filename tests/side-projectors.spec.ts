@@ -28,3 +28,15 @@ test('the SideProjectors badge is a white card under both themes', async ({ page
     await expect(image).toHaveCSS('border-radius', '12px');
   }
 });
+
+test('the SideProjectors badge is as wide as its neighbours on desktop', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/');
+  const widths = await page
+    .locator('footer .badges > a')
+    .evaluateAll((links) => links.map((link) => ({ name: link.className, width: link.getBoundingClientRect().width })));
+  const others = widths.filter(({ name }) => name !== 'side-projectors').map(({ width }) => width);
+  const sideProjectors = widths.find(({ name }) => name === 'side-projectors')!.width;
+  expect(sideProjectors).toBeGreaterThanOrEqual(Math.min(...others));
+  expect(sideProjectors).toBeLessThanOrEqual(Math.max(...others));
+});
