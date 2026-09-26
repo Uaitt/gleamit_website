@@ -1,8 +1,8 @@
 ---
 title: Privacy Policy
 description: 'How Gleamit handles your data: there is no Gleamit account and no Gleamit backend, and everything you record stays on your device.'
-version: 8
-effective: 2026-09-21
+version: 9
+effective: 2026-09-26
 ---
 
 Gleamit helps you track oral hygiene habits. It is developed by **Lorenzo
@@ -11,7 +11,7 @@ Zabot, Milan, Italy** ("we", "us").
 ## The short version
 
 There is **no Gleamit account and no Gleamit backend**. Your data is stored on
-your device and never reaches us. There are no ads, no analytics, and no
+your device and never reaches us. The app has no ads, no analytics, and no
 tracking SDKs. The app talks to a third party in only two cases:
 
 - the optional one-time "Pro" purchase, including the check at start-up for a
@@ -34,8 +34,8 @@ We have no access to any of it.
 ## Website
 
 This website, **gleamit.app**, is a set of static pages hosted on GitHub Pages.
-It runs **no analytics**, loads no third-party scripts or fonts, and sets no
-cookies of its own. We collect nothing about your visit beyond the ordinary
+It runs **no analytics**, loads no third-party scripts or fonts in its own
+pages, and sets no cookies of its own. We collect nothing about your visit beyond the ordinary
 server logs GitHub keeps as our hosting provider, and we do not use them to
 build any profile of you.
 
@@ -56,6 +56,17 @@ images hides the badges and stops the cookie.
 
 - Product Hunt: [producthunt.com/privacy](https://www.producthunt.com/privacy)
 - PeerList: [peerlist.io/privacy](https://peerlist.io/privacy)
+
+## Ad Swap
+
+The footer shows one ad from Ad Swap, a free ad exchange between small sites.
+It runs in a sandboxed frame that cannot read this website, its cookies or its
+storage. Everything in it, including the advertisers' logos, is served by Ad
+Swap from Google Firebase, so loading it tells Ad Swap and Google your IP
+address and browser, as any web request would. Ad Swap counts clicks on the ad
+and says the frame sets no cookies. Blocking third-party frames hides the ad.
+
+- Ad Swap: [ad-swap.web.app/privacy.html](https://ad-swap.web.app/privacy.html)
 
 ## In-app purchases
 

@@ -3,7 +3,7 @@ import { expectClearsNav, horizontalOverflow, settleScroll, toc, toggleDark, vie
 import { cardBackground, pageBackground } from './theme';
 
 const pages = [
-  { route: '/privacy/', heading: 'Privacy Policy', version: 8, effective: 'Effective 21 September 2026' },
+  { route: '/privacy/', heading: 'Privacy Policy', version: 9, effective: 'Effective 26 September 2026' },
   { route: '/terms/', heading: 'Terms and conditions', version: 7, effective: 'Effective 17 September 2026' },
 ];
 
@@ -127,7 +127,7 @@ test.describe('the collapsible ToC on mobile', () => {
   });
 });
 
-test.describe('the privacy policy at v7', () => {
+test.describe('the privacy policy at v9', () => {
   test.beforeEach(({ page }) => page.goto('/privacy/'));
 
   test('has a Website section covering logs, cookies, analytics and the theme preference', async ({ page }) => {
@@ -140,6 +140,20 @@ test.describe('the privacy policy at v7', () => {
     expect(text).toMatch(/no analytics/i);
     expect(text).toMatch(/local storage/i);
     expect(text).toMatch(/never leaves your device/i);
+  });
+
+  test('has an Ad Swap section covering the sandboxed ad frame', async ({ page }) => {
+    await expect(page.getByRole('heading', { level: 2, name: 'Ad Swap' })).toBeVisible();
+    const adSwap = page.locator('.prose h2#ad-swap ~ *').filter({ hasNot: page.locator('h2') });
+    const text = (await adSwap.allInnerTexts()).join('\n');
+
+    expect(text).toMatch(/sandboxed frame/i);
+    expect(text).toContain('Google Firebase');
+    expect(text).toMatch(/IP address/);
+    await expect(adSwap.getByRole('link', { name: 'ad-swap.web.app/privacy.html' })).toHaveAttribute(
+      'href',
+      'https://ad-swap.web.app/privacy.html',
+    );
   });
 
   test('still says the backup files are not encrypted by Gleamit', async ({ page }) => {
