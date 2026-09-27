@@ -1,33 +1,30 @@
 import { test, expect } from '@playwright/test';
-import { routes } from './routes';
-import { horizontalOverflow } from './matrix';
+import { horizontalOverflow, showcase } from './matrix';
 
 const badge = (page: import('@playwright/test').Page) =>
-  page.getByRole('contentinfo').getByRole('link', { name: 'Gleamit: Dental Health Tracker on PeerPush' });
+  showcase(page).getByRole('link', { name: 'Gleamit: Dental Health Tracker on PeerPush' });
 
-for (const route of routes) {
-  test(`${route} shows the PeerPush badge in the footer`, async ({ page }) => {
-    await page.goto(route);
-    const link = badge(page);
-    await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute('href', 'https://peerpush.com/p/gleamit-dental-health-tracker');
-    await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-    await expect(link).toHaveAttribute('target', '_blank');
-    await expect(link.locator('img')).toHaveAttribute(
-      'src',
-      'https://peerpush.com/p/gleamit-dental-health-tracker/badge.png',
-    );
-  });
-}
+test('the home page shows the PeerPush badge above the footer', async ({ page }) => {
+  await page.goto('/');
+  const link = badge(page);
+  await expect(link).toBeVisible();
+  await expect(link).toHaveAttribute('href', 'https://peerpush.com/p/gleamit-dental-health-tracker');
+  await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  await expect(link).toHaveAttribute('target', '_blank');
+  await expect(link.locator('img')).toHaveAttribute(
+    'src',
+    'https://peerpush.com/p/gleamit-dental-health-tracker/badge.png',
+  );
+});
 
 for (const { width, rows } of [
   { width: 1280, rows: 2 },
   { width: 1440, rows: 1 },
 ]) {
-  test(`the footer badges sit in ${rows} row(s) at ${width}px, at full size`, async ({ page }) => {
+  test(`the badges sit in ${rows} row(s) at ${width}px, at full size`, async ({ page }) => {
     await page.setViewportSize({ width, height: 800 });
     await page.goto('/');
-    const layout = await page.locator('footer .badges > a').evaluateAll((links) =>
+    const layout = await page.locator('.showcase .badges > a').evaluateAll((links) =>
       links.map((link) => {
         const box = link.getBoundingClientRect();
         const image = link.querySelector('img')!;

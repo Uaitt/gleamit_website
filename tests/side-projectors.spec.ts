@@ -1,22 +1,20 @@
 import { test, expect } from '@playwright/test';
-import { routes } from './routes';
+import { showcase } from './matrix';
 
 const badge = (page: import('@playwright/test').Page) =>
-  page.getByRole('contentinfo').getByRole('link', { name: /at @SideProjectors$/ });
+  showcase(page).getByRole('link', { name: /at @SideProjectors$/ });
 
-for (const route of routes) {
-  test(`${route} shows the SideProjectors badge in the footer`, async ({ page }) => {
-    await page.goto(route);
-    const link = badge(page);
-    await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute(
-      'href',
-      'https://www.sideprojectors.com/project/96547/gleamit-dental-health-tracker',
-    );
-    await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-    await expect(link).toHaveAttribute('target', '_blank');
-  });
-}
+test('the home page shows the SideProjectors badge above the footer', async ({ page }) => {
+  await page.goto('/');
+  const link = badge(page);
+  await expect(link).toBeVisible();
+  await expect(link).toHaveAttribute(
+    'href',
+    'https://www.sideprojectors.com/project/96547/gleamit-dental-health-tracker',
+  );
+  await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  await expect(link).toHaveAttribute('target', '_blank');
+});
 
 test('the SideProjectors badge is a white card under both themes', async ({ page }) => {
   await page.goto('/');
@@ -33,7 +31,7 @@ test('the SideProjectors badge is as wide as its neighbours on desktop', async (
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto('/');
   const widths = await page
-    .locator('footer .badges > a')
+    .locator('.showcase .badges > a')
     .evaluateAll((links) => links.map((link) => ({ name: link.className, width: link.getBoundingClientRect().width })));
   const others = widths.filter(({ name }) => name !== 'side-projectors').map(({ width }) => width);
   const sideProjectors = widths.find(({ name }) => name === 'side-projectors')!.width;

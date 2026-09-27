@@ -1,22 +1,20 @@
 import { test, expect } from '@playwright/test';
-import { routes } from './routes';
+import { showcase } from './matrix';
 
 const badge = (page: import('@playwright/test').Page) =>
-  page.getByRole('contentinfo').getByRole('link', { name: /Peerlist$/ });
+  showcase(page).getByRole('link', { name: /Peerlist$/ });
 
-for (const route of routes) {
-  test(`${route} shows the Peerlist badge in the footer`, async ({ page }) => {
-    await page.goto(route);
-    const link = badge(page);
-    await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute(
-      'href',
-      'https://peerlist.io/uaitt/project/gleamit-dental-health-tracker',
-    );
-    await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-    await expect(link).toHaveAttribute('target', '_blank');
-  });
-}
+test('the home page shows the Peerlist badge above the footer', async ({ page }) => {
+  await page.goto('/');
+  const link = badge(page);
+  await expect(link).toBeVisible();
+  await expect(link).toHaveAttribute(
+    'href',
+    'https://peerlist.io/uaitt/project/gleamit-dental-health-tracker',
+  );
+  await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  await expect(link).toHaveAttribute('target', '_blank');
+});
 
 test('the Peerlist badge stays light under both themes', async ({ page }) => {
   await page.goto('/');

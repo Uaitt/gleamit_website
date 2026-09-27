@@ -47,7 +47,7 @@ sent to us or to anyone else. Clearing your browser's site data removes it.
 
 ## Launch badges
 
-The footer shows the Product Hunt and PeerList badges as images loaded from
+The home page shows the Product Hunt and PeerList badges as images loaded from
 those sites, so they can show the current vote count. Loading them tells
 Product Hunt and PeerList your IP address and browser, as any external image
 would. Product Hunt also sets one cookie, `__cf_bm`, Cloudflare's 30 minute
@@ -59,12 +59,13 @@ images hides the badges and stops the cookie.
 
 ## Ad Swap
 
-The footer shows one ad from Ad Swap, a free ad exchange between small sites.
-It runs in a sandboxed frame that cannot read this website, its cookies or its
-storage. Everything in it, including the advertisers' logos, is served by Ad
-Swap from Google Firebase, so loading it tells Ad Swap and Google your IP
-address and browser, as any web request would. Ad Swap counts clicks on the ad
-and says the frame sets no cookies. Blocking third-party frames hides the ad.
+The home page shows one ad from Ad Swap, a free ad exchange between small
+sites. It runs in a sandboxed frame that cannot read this website, its cookies
+or its storage. Everything in it, including the advertisers' logos, is served
+by Ad Swap from Google Firebase, so loading it tells Ad Swap and Google your
+IP address and browser, as any web request would. Ad Swap counts clicks on the
+ad and says the frame sets no cookies. Blocking third-party frames hides the
+ad.
 
 - Ad Swap: [ad-swap.web.app/privacy.html](https://ad-swap.web.app/privacy.html)
 

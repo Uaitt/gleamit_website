@@ -18,37 +18,6 @@ const navLinks = [
   { name: 'Privacy Policy', href: '/privacy/', menuOnly: true },
   { name: 'Terms', href: '/terms/', menuOnly: true },
 ];
-const productHunt = {
-  href: 'https://www.producthunt.com/products/gleamit-dental-health-tracker?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-gleamit-dental-health-tracker',
-  alt: 'Gleamit: Dental Health Tracker - Your dental health in one place - all private by design. | Product Hunt',
-  embed: 'https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1254727&theme=',
-};
-const peerlist = {
-  href: 'https://peerlist.io/uaitt/project/gleamit-dental-health-tracker',
-  alt: 'Gleamit: Dental Health Tracker | Peerlist',
-  embed: 'https://peerlist.io/api/v1/projects/embed/PRJHOK8AG69PKM79R17AMMOLEAABQG?showUpvote=true&theme=',
-};
-const sideProjectors = {
-  href: 'https://www.sideprojectors.com/project/96547/gleamit-dental-health-tracker',
-  alt: 'Check out Gleamit: Dental Health Tracker at @SideProjectors',
-  image: '/badges/sideprojectors.png',
-};
-const startupBase = {
-  href: 'https://startupbase.io/products/gleamit?utm_source=startupbase&utm_medium=badge&utm_campaign=featured-badge-neutral',
-  alt: 'Featured on StartupBase',
-  embed: 'https://statics.startupbase.io/site/badges/featured-on-sb',
-};
-const smolLaunch = {
-  href: 'https://smollaunch.com',
-  alt: 'Gleamit: Featured on Smol Launch',
-  image: 'https://smollaunch.com/badges/featured.svg',
-};
-const peerPush = {
-  href: 'https://peerpush.com/p/gleamit-dental-health-tracker',
-  alt: 'Gleamit: Dental Health Tracker on PeerPush',
-  image: 'https://peerpush.com/p/gleamit-dental-health-tracker/badge.png',
-};
-const adSwapEmbed = 'https://ad-swap.web.app/frame.html?site=c6bkSuDDIqaqoMlkjpSt&theme=light';
 const footerLinks = [
   { name: 'Privacy Policy', href: '/privacy/' },
   { name: 'Terms', href: '/terms/' },
@@ -122,72 +91,6 @@ const footerLinks = [
           ))}
           <li class="copyright">© {new Date().getFullYear()} Lorenzo Zabot</li>
         </ul>
-      </div>
-      <div class="wrap badges">
-        <a class="product-hunt" href={productHunt.href} target="_blank" rel="noopener noreferrer">
-          <img
-            src={`${productHunt.embed}light`}
-            alt={productHunt.alt}
-            width="250"
-            height="54"
-            loading="lazy"
-          />
-        </a>
-        <a class="peerlist" href={peerlist.href} target="_blank" rel="noopener noreferrer">
-          <img
-            src={`${peerlist.embed}light`}
-            alt={peerlist.alt}
-            width="296"
-            height="72"
-            loading="lazy"
-          />
-        </a>
-        <a class="startup-base" href={startupBase.href} target="_blank" rel="noopener noreferrer">
-          <img
-            src={`${startupBase.embed}.svg`}
-            alt={startupBase.alt}
-            width="300"
-            height="80"
-            loading="lazy"
-          />
-        </a>
-        <a class="side-projectors" href={sideProjectors.href} target="_blank" rel="noopener noreferrer">
-          <img
-            src={sideProjectors.image}
-            alt={sideProjectors.alt}
-            width="242"
-            height="70"
-            loading="lazy"
-          />
-        </a>
-        <a class="smol-launch" href={smolLaunch.href} target="_blank" rel="noopener noreferrer">
-          <img
-            src={smolLaunch.image}
-            alt={smolLaunch.alt}
-            width="250"
-            height="60"
-            loading="lazy"
-          />
-        </a>
-        <a class="peer-push" href={peerPush.href} target="_blank" rel="noopener noreferrer">
-          <img
-            src={peerPush.image}
-            alt={peerPush.alt}
-            width="460"
-            height="130"
-            loading="lazy"
-          />
-        </a>
-      </div>
-      <div class="wrap ad-swap">
-        <iframe
-          src={adSwapEmbed}
-          title="Ad"
-          width="300"
-          height="130"
-          loading="lazy"
-          sandbox="allow-scripts allow-popups"
-        ></iframe>
       </div>
     </footer>
     <script is:inline>

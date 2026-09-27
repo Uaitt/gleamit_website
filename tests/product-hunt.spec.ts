@@ -1,19 +1,17 @@
 import { test, expect } from '@playwright/test';
-import { routes } from './routes';
+import { showcase } from './matrix';
 
 const badge = (page: import('@playwright/test').Page) =>
-  page.getByRole('contentinfo').getByRole('link', { name: /Product Hunt$/ });
+  showcase(page).getByRole('link', { name: /Product Hunt$/ });
 
-for (const route of routes) {
-  test(`${route} shows the Product Hunt badge in the footer`, async ({ page }) => {
-    await page.goto(route);
-    const link = badge(page);
-    await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute('href', /producthunt\.com\/products\/gleamit-dental-health-tracker/);
-    await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-    await expect(link).toHaveAttribute('target', '_blank');
-  });
-}
+test('the home page shows the Product Hunt badge above the footer', async ({ page }) => {
+  await page.goto('/');
+  const link = badge(page);
+  await expect(link).toBeVisible();
+  await expect(link).toHaveAttribute('href', /producthunt\.com\/products\/gleamit-dental-health-tracker/);
+  await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  await expect(link).toHaveAttribute('target', '_blank');
+});
 
 test('the Product Hunt badge follows the theme toggle', async ({ page }) => {
   await page.goto('/');

@@ -423,10 +423,11 @@ a:focus-visible { outline: 3px solid var(--mint); outline-offset: 3px; }
   .price-card .check { vertical-align: 0; }
 }
 
-#faq { padding-top: 0; }
+#faq { padding-top: 0; padding-bottom: 48px; }
 .faq { max-width: 760px; margin: 0 auto; }
 .faq h2 { margin-bottom: 28px; }
 .faq details { margin-bottom: 12px; padding: 0 24px; background: var(--card); border: 1px solid var(--border); border-radius: 18px; }
+.faq details:last-of-type { margin-bottom: 0; }
 .faq summary {
   display: flex;
   align-items: center;
@@ -545,21 +546,23 @@ footer .brand { color: var(--ink); }
 footer a:hover { color: var(--ink); }
 footer .links { display: grid; justify-items: center; gap: 8px; }
 footer .links ul { justify-content: center; }
-footer .badges { justify-content: center; gap: 16px 24px; margin-top: 24px; }
-footer .badges img { display: block; width: auto; height: 46px; }
-footer .ad-swap { justify-content: center; margin-top: 24px; }
-footer .ad-swap iframe { display: block; max-width: 100%; border: 0; }
-footer .side-projectors img { padding: 2px 24px; border: 1px solid #E0E4E2; border-radius: 12px; background: #fff; }
+.showcase { padding: 0 0 48px; }
+.showcase .wrap { display: flex; flex-wrap: wrap; }
+.showcase .badges { justify-content: center; gap: 16px 24px; margin-top: 24px; }
+.showcase .badges img { display: block; width: auto; height: 46px; }
+.showcase .ad-swap { justify-content: center; }
+.showcase .ad-swap iframe { display: block; max-width: 100%; border: 0; }
+.showcase .side-projectors img { padding: 2px 24px; border: 1px solid #E0E4E2; border-radius: 12px; background: #fff; }
 
 @media (min-width: 901px) {
   footer .wrap { flex-wrap: nowrap; gap: 24px; }
   footer ul { flex-wrap: nowrap; gap: 8px 20px; white-space: nowrap; }
   footer .links { grid-template-columns: 1fr auto 1fr; justify-items: start; gap: 24px; }
-  footer .badges { display: grid; grid-template-columns: repeat(3, auto); align-items: center; justify-items: center; }
+  .showcase .badges { display: grid; grid-template-columns: repeat(3, auto); align-items: center; justify-items: center; }
 }
 
 @media (min-width: 1400px) {
-  footer .badges { display: flex; max-width: none; }
+  .showcase .badges { display: flex; max-width: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

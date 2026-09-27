@@ -67,3 +67,8 @@ export async function expectCopyGuardrails(page: Page) {
   expect(copy).not.toContain('—');
   expect(copy).not.toContain('–');
 }
+
+/** The home page band of launch badges and the Ad Swap ad, just above the footer. */
+export function showcase(page: Page) {
+  return page.getByRole('region', { name: 'Featured on' });
+}

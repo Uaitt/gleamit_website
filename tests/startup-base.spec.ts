@@ -1,22 +1,20 @@
 import { test, expect } from '@playwright/test';
-import { routes } from './routes';
+import { showcase } from './matrix';
 
 const badge = (page: import('@playwright/test').Page) =>
-  page.getByRole('contentinfo').getByRole('link', { name: 'Featured on StartupBase' });
+  showcase(page).getByRole('link', { name: 'Featured on StartupBase' });
 
-for (const route of routes) {
-  test(`${route} shows the StartupBase badge in the footer`, async ({ page }) => {
-    await page.goto(route);
-    const link = badge(page);
-    await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute(
-      'href',
-      'https://startupbase.io/products/gleamit?utm_source=startupbase&utm_medium=badge&utm_campaign=featured-badge-neutral',
-    );
-    await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
-    await expect(link).toHaveAttribute('target', '_blank');
-  });
-}
+test('the home page shows the StartupBase badge above the footer', async ({ page }) => {
+  await page.goto('/');
+  const link = badge(page);
+  await expect(link).toBeVisible();
+  await expect(link).toHaveAttribute(
+    'href',
+    'https://startupbase.io/products/gleamit?utm_source=startupbase&utm_medium=badge&utm_campaign=featured-badge-neutral',
+  );
+  await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  await expect(link).toHaveAttribute('target', '_blank');
+});
 
 test('the StartupBase badge follows the theme toggle', async ({ page }) => {
   await page.goto('/');
