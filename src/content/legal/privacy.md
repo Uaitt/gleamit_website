@@ -169,7 +169,7 @@ Your data stays on your device until you remove it: delete items in the app,
 clear the app's storage, or uninstall. If you turned cloud backup on, the copy
 stays in your own cloud storage until you delete it there - on iOS in your
 iCloud settings, on Android by disconnecting Gleamit in your Google Drive
-settings. Our [Support page](/support/#delete-all) walks through each step.
+settings. Our [Support page](/support/) walks through each step.
 
 The one record kept off your device for us is the "Pro" purchase record held by
 RevenueCat, described under "In-app purchases". Uninstalling the app does not

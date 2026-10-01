@@ -171,7 +171,7 @@ test.describe('the privacy policy at v10', () => {
       'href',
       'mailto:support@gleamit.app',
     );
-    await expect(retention.getByRole('link', { name: 'Support page' })).toHaveAttribute('href', '/support/#delete-all');
+    await expect(retention.getByRole('link', { name: 'Support page' })).toHaveAttribute('href', '/support/');
   });
 
   test('still says the backup files are not encrypted by Gleamit', async ({ page }) => {
