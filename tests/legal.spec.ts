@@ -3,7 +3,7 @@ import { expectClearsNav, horizontalOverflow, settleScroll, toc, toggleDark, vie
 import { cardBackground, pageBackground } from './theme';
 
 const pages = [
-  { route: '/privacy/', heading: 'Privacy Policy', version: 9, effective: 'Effective 26 September 2026' },
+  { route: '/privacy/', heading: 'Privacy Policy', version: 10, effective: 'Effective 1 October 2026' },
   { route: '/terms/', heading: 'Terms and conditions', version: 7, effective: 'Effective 17 September 2026' },
 ];
 
@@ -127,7 +127,7 @@ test.describe('the collapsible ToC on mobile', () => {
   });
 });
 
-test.describe('the privacy policy at v9', () => {
+test.describe('the privacy policy at v10', () => {
   test.beforeEach(({ page }) => page.goto('/privacy/'));
 
   test('has a Website section covering logs, cookies, analytics and the theme preference', async ({ page }) => {
@@ -154,6 +154,24 @@ test.describe('the privacy policy at v9', () => {
       'href',
       'https://ad-swap.web.app/privacy.html',
     );
+  });
+
+  test('says how to request deletion of the purchase record, inline in Retention and deletion', async ({ page }) => {
+    const retention = page.locator(
+      'xpath=//h2[@id="retention-and-deletion"]/following-sibling::*[not(self::h2)][preceding-sibling::h2[1][@id="retention-and-deletion"]]',
+    );
+    const text = (await retention.allInnerTexts()).join('\n');
+
+    expect(text).toContain('RevenueCat');
+    expect(text).toContain('Uninstalling the app does not delete it.');
+    expect(text).toContain('order number');
+    expect(text).toContain('does not refund or cancel the purchase');
+    expect(text).toContain('Restore purchase');
+    await expect(retention.getByRole('link', { name: 'support@gleamit.app' })).toHaveAttribute(
+      'href',
+      'mailto:support@gleamit.app',
+    );
+    await expect(retention.getByRole('link', { name: 'Support page' })).toHaveAttribute('href', '/support/#delete-all');
   });
 
   test('still says the backup files are not encrypted by Gleamit', async ({ page }) => {

@@ -1,8 +1,8 @@
 ---
 title: Privacy Policy
 description: 'How Gleamit handles your data: there is no Gleamit account and no Gleamit backend, and everything you record stays on your device.'
-version: 9
-effective: 2026-09-26
+version: 10
+effective: 2026-10-01
 ---
 
 Gleamit helps you track oral hygiene habits. It is developed by **Lorenzo
@@ -169,7 +169,18 @@ Your data stays on your device until you remove it: delete items in the app,
 clear the app's storage, or uninstall. If you turned cloud backup on, the copy
 stays in your own cloud storage until you delete it there - on iOS in your
 iCloud settings, on Android by disconnecting Gleamit in your Google Drive
-settings.
+settings. Our [Support page](/support/#delete-all) walks through each step.
+
+The one record kept off your device for us is the "Pro" purchase record held by
+RevenueCat, described under "In-app purchases". Uninstalling the app does not
+delete it. To have it deleted, email
+[support@gleamit.app](mailto:support@gleamit.app) with the order number from
+your App Store or Google Play receipt, so we can find the record without any
+account.
+
+Deleting the record does not refund or cancel the purchase: it stays with your
+App Store or Google Play account. If you later tap "Restore purchase", Pro
+comes back, and so does a purchase record at RevenueCat.
 
 ## Your rights (EU/GDPR)
 

@@ -107,6 +107,19 @@ test.describe('/support/', () => {
     expect(text).toContain('Restore purchase');
     expect(text).toMatch(/App Store or Google Play/);
     expect(text, 'the cloud copy outliving the app must not be contradicted').toMatch(/If cloud backup was ever on/);
+    expect(text, 'the purchase record is held for us, so it must not be denied').not.toMatch(/nothing of yours is held by us/);
+  });
+
+  test('says how to request deletion of the purchase record', async ({ page }) => {
+    const record = page.locator('#purchase-record');
+
+    await expect(record).toContainText('RevenueCat');
+    await expect(record).toContainText('uninstalling does not delete it');
+    await expect(record).toContainText('order number');
+    await expect(record.getByRole('link', { name: 'support@gleamit.app' })).toHaveAttribute(
+      'href',
+      'mailto:support@gleamit.app',
+    );
   });
 
   for (const viewport of viewports) {
