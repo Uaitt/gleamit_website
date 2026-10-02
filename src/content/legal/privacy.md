@@ -17,7 +17,7 @@ tracking SDKs. The app talks to a third party in only two cases:
 - the optional one-time "Pro" purchase, including the check at start-up for a
   purchase you already own, and
 - the optional **cloud backup**, off until you turn it on, which puts a copy of
-  your data in cloud storage of your own - never in ours.
+  your data in cloud storage of your own, never in ours.
 
 ## What is stored on your device
 
@@ -114,7 +114,7 @@ you which account holds the backup, and an access token kept on your device. It
 can see no other file in your Drive. Gleamit uploads the backup itself, so it
 can tell you when your data actually arrived. Automatic backups run when you
 leave the app and will not start on mobile data unless you turn on "Back up
-using mobile data" - otherwise they wait for the next time you leave the app on
+using mobile data". Otherwise they wait for the next time you leave the app on
 Wi-Fi. An upload already under way finishes on whatever connection the device
 moves to. "Back up now" runs immediately on the connection you have, and a run
 you asked for is retried the same way, mobile data included.
@@ -134,7 +134,7 @@ Worth knowing:
   turns cloud backup off. Nothing in the app deletes a remote backup on its
   own, except the media parts you exclude.
 - **Backups can stop.** Full cloud storage, withdrawn access to your Google
-  account, iCloud Drive off for Gleamit, or - on Android - your device's power
+  account, iCloud Drive off for Gleamit, or (on Android) your device's power
   saving or a manufacturer's app sleep setting can hold them back indefinitely.
   Gleamit surfaces this in the app instead of failing quietly, but it cannot
   fix it for you.
@@ -152,7 +152,7 @@ remote push notifications and no notification server.
 
 Because your data stays on your device, we do not use it: the app uses it
 locally to run its features. We do not profile, advertise, sell, rent, or
-share. The only third parties are the ones above - your app store and
+share. The only third parties are the ones above: your app store and
 RevenueCat for the purchase, and, only if you enable cloud backup, Apple or
 Google holding your copy under your own account and their terms.
 
@@ -167,7 +167,7 @@ you decide who receives them.
 
 Your data stays on your device until you remove it: delete items in the app,
 clear the app's storage, or uninstall. If you turned cloud backup on, the copy
-stays in your own cloud storage until you delete it there - on iOS in your
+stays in your own cloud storage until you delete it there: on iOS in your
 iCloud settings, on Android by disconnecting Gleamit in your Google Drive
 settings. Our [Support page](/support/) walks through each step.
 
@@ -193,7 +193,7 @@ your app store handles payment data under its own terms. The legal basis is
 performance of a contract (Article 6(1)(b) GDPR), the data is limited to what
 is listed above, and it serves no other purpose. You have the rights of access,
 rectification, erasure, restriction, portability and objection over that
-purchase data - write to the address below. You may also complain to a
+purchase data: write to the address below. You may also complain to a
 supervisory authority, in Italy the Garante per la Protezione dei Dati
 Personali.
 

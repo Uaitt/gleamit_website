@@ -106,7 +106,7 @@ error-free, and we may modify, update or discontinue parts of it at any time.
 
 ## Intellectual property
 
-The app - code, design, graphics, branding and content - belongs to the Gleamit
+The app (code, design, graphics, branding and content) belongs to the Gleamit
 developer or its licensors. You may not copy, modify, distribute or
 reverse-engineer any part of it except as applicable law permits.
 
