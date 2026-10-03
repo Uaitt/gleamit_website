@@ -1,8 +1,8 @@
 ---
 title: Terms and conditions
 description: The terms for using Gleamit, including the medical disclaimer, the one-time Pro purchase and what we do and do not guarantee about backups.
-version: 7
-effective: 2026-09-17
+version: 8
+effective: 2026-10-03
 ---
 
 ## Agreement
@@ -91,8 +91,10 @@ your own storage. Keeping your own exported copy remains the safest option.
 "Pro" is a single optional one-time purchase, processed by your app store's
 billing system (Google Play Billing or the Apple App Store) and by RevenueCat.
 Purchases, restores and refunds follow the terms of the store you bought
-through. It is not a recurring subscription. Feature availability may change as
-the app evolves, and we do not guarantee any specific feature indefinitely.
+through. It is not a recurring subscription. We may change features for a valid
+reason, such as security, legal requirements or platform changes, at no extra
+cost to you. If a change significantly reduces what Pro gives you, we will tell
+you in advance and you may ask for a refund.
 
 ## Notifications
 
@@ -117,26 +119,29 @@ clearing its storage may remove locally stored data on that device.
 
 ## Limitation of liability
 
-To the maximum extent permitted by applicable law:
+Nothing in these Terms excludes or limits our liability for death or personal
+injury, for damage caused by our wilful misconduct or gross negligence, under
+product liability law (including the Italian Consumer Code and the EU Product
+Liability Directive), or for anything else the law does not allow us to exclude
+or limit. Nothing in these Terms affects your mandatory rights as a consumer,
+including the legal guarantee of conformity for the Pro purchase.
 
-- the app is provided "as is" and "as available", without warranties of any
-  kind, express or implied
-- we do not warrant that it is error-free, secure or free from data loss
-- we are not liable for indirect, incidental, special, consequential or
-  punitive damages arising from your use of it
-- our total liability for any claim will not exceed what you paid for the app,
-  if anything
+Within those limits:
 
-Nothing here excludes or limits liability that cannot be excluded under
-applicable law, including for death or personal injury caused by negligence,
-and nothing affects your statutory consumer rights.
+- apart from the rights the law gives you, we make no promises about the app
+  beyond those in these Terms
+- we are not liable for loss that was not a foreseeable consequence of our
+  breach when you accepted these Terms
+- where we are liable for ordinary (slight) negligence, our total liability is
+  limited to the amount you paid for Pro or EUR 100, whichever is higher
 
 ## Changes
 
 We may update these Terms. Each change gets a new version number and effective
 date, both shown at the top of this page, and earlier versions stay in the
-public source history of this website. Continuing to use the app after they
-take effect means you accept them.
+public source history of this website. We will tell you in the app before
+material changes take effect. If you do not accept them, you can stop using the
+app.
 
 ## Governing law
 

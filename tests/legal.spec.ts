@@ -4,7 +4,7 @@ import { cardBackground, pageBackground } from './theme';
 
 const pages = [
   { route: '/privacy/', heading: 'Privacy Policy', version: 10, effective: 'Effective 1 October 2026' },
-  { route: '/terms/', heading: 'Terms and conditions', version: 7, effective: 'Effective 17 September 2026' },
+  { route: '/terms/', heading: 'Terms and conditions', version: 8, effective: 'Effective 3 October 2026' },
 ];
 
 for (const { route, heading, version, effective } of pages) {
