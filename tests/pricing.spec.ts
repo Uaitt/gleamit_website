@@ -5,13 +5,13 @@ import { cardBackground, tealTextColor } from './theme';
 /** The free-vs-Pro rules of the app's paywall, as CONTEXT.md states them. */
 const comparison = [
   ['Brushing timer, streaks, reminders, floss', 'Included', 'Included'],
-  ['Full 32-tooth map with conditions and notes', 'Included', 'Included'],
+  ['Full 32-tooth map with your own labels and notes', 'Included', 'Included'],
   ['Dentist contact, appointments, Learn', 'Included', 'Included'],
   ['Cloud backup, full export and import', 'Included', 'Included'],
   ['Tooth history', 'Latest entry', 'Full timeline'],
   ['Brushes you track at once', '1', 'Unlimited'],
   ['Brushing history and trends', '7 days / 4 weeks', 'Unlimited'],
-  ['Streak insights', 'This month', 'All-time plus patterns'],
+  ['Streak insights', 'This month', 'All-time plus hourly counts'],
   ['Smile photos', '1', 'Unlimited plus compare'],
   ['Document vault', '1 file', 'Unlimited'],
   ['Dentist PDF report', 'Sample preview', 'Included'],

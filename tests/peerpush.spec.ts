@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 import { horizontalOverflow, showcase } from './matrix';
 
 const badge = (page: import('@playwright/test').Page) =>
-  showcase(page).getByRole('link', { name: 'Gleamit: Dental Health Tracker on PeerPush' });
+  showcase(page).getByRole('link', { name: 'Gleamit: Oral Hygiene Tracker on PeerPush' });
 
 test('the home page shows the PeerPush badge above the footer', async ({ page }) => {
   await page.goto('/');
