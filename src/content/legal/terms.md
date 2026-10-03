@@ -94,7 +94,8 @@ Purchases, restores and refunds follow the terms of the store you bought
 through. It is not a recurring subscription. We may change features for a valid
 reason, such as security, legal requirements or platform changes, at no extra
 cost to you. If a change significantly reduces what Pro gives you, we will tell
-you in advance and you may ask for a refund.
+you in advance and help you request a refund from the store you bought
+through.
 
 ## Notifications
 
@@ -130,8 +131,8 @@ Within those limits:
 
 - apart from the rights the law gives you, we make no promises about the app
   beyond those in these Terms
-- we are not liable for loss that was not a foreseeable consequence of our
-  breach when you accepted these Terms
+- we are not liable for loss that, when you accepted these Terms, was not a
+  foreseeable consequence of our breach
 - where we are liable for ordinary (slight) negligence, our total liability is
   limited to the amount you paid for Pro or EUR 100, whichever is higher
 
