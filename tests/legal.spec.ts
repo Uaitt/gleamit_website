@@ -3,8 +3,8 @@ import { expectClearsNav, horizontalOverflow, settleScroll, toc, toggleDark, vie
 import { cardBackground, pageBackground } from './theme';
 
 const pages = [
-  { route: '/privacy/', heading: 'Privacy Policy', version: 10, effective: 'Effective 1 October 2026' },
-  { route: '/terms/', heading: 'Terms and conditions', version: 8, effective: 'Effective 3 October 2026' },
+  { route: '/privacy/', heading: 'Privacy Policy', version: 11, effective: 'Effective 7 October 2026' },
+  { route: '/terms/', heading: 'Terms and conditions', version: 9, effective: 'Effective 7 October 2026' },
 ];
 
 for (const { route, heading, version, effective } of pages) {
@@ -127,45 +127,40 @@ test.describe('the collapsible ToC on mobile', () => {
   });
 });
 
-test.describe('the privacy policy at v10', () => {
+test.describe('the privacy policy at v11', () => {
   test.beforeEach(({ page }) => page.goto('/privacy/'));
 
-  test('has a Website section covering logs, cookies, analytics and the theme preference', async ({ page }) => {
+  test('has a Website section covering logs, cookies, analytics, the theme preference and the ad', async ({ page }) => {
     await expect(page.getByRole('heading', { level: 2, name: 'Website' })).toBeVisible();
-    const website = page.locator('.prose h2#website ~ *').filter({ hasNot: page.locator('h2') });
+    const website = page.locator(
+      'xpath=//h2[@id="website"]/following-sibling::*[not(self::h2)][preceding-sibling::h2[1][@id="website"]]',
+    );
     const text = (await website.allInnerTexts()).join('\n');
 
     expect(text).toContain('GitHub Pages');
     expect(text).toMatch(/no cookies/i);
     expect(text).toMatch(/no analytics/i);
     expect(text).toMatch(/local storage/i);
-    expect(text).toMatch(/never leaves your device/i);
-  });
-
-  test('has an Ad Swap section covering the sandboxed ad frame', async ({ page }) => {
-    await expect(page.getByRole('heading', { level: 2, name: 'Ad Swap' })).toBeVisible();
-    const adSwap = page.locator('.prose h2#ad-swap ~ *').filter({ hasNot: page.locator('h2') });
-    const text = (await adSwap.allInnerTexts()).join('\n');
-
+    expect(text).toMatch(/never\s+leaves your device/i);
     expect(text).toMatch(/sandboxed frame/i);
     expect(text).toContain('Google Firebase');
     expect(text).toMatch(/IP address/);
-    await expect(adSwap.getByRole('link', { name: 'ad-swap.web.app/privacy.html' })).toHaveAttribute(
+    await expect(website.getByRole('link', { name: 'ad-swap.web.app/privacy.html' })).toHaveAttribute(
       'href',
       'https://ad-swap.web.app/privacy.html',
     );
   });
 
-  test('says how to request deletion of the purchase record, inline in Retention and deletion', async ({ page }) => {
+  test('says how to request deletion of the purchase record, inline in Deleting your data', async ({ page }) => {
     const retention = page.locator(
-      'xpath=//h2[@id="retention-and-deletion"]/following-sibling::*[not(self::h2)][preceding-sibling::h2[1][@id="retention-and-deletion"]]',
+      'xpath=//h2[@id="deleting-your-data"]/following-sibling::*[not(self::h2)][preceding-sibling::h2[1][@id="deleting-your-data"]]',
     );
     const text = (await retention.allInnerTexts()).join('\n');
 
     expect(text).toContain('RevenueCat');
-    expect(text).toContain('Uninstalling the app does not delete it.');
+    expect(text).toContain('even after you uninstall');
     expect(text).toContain('order number');
-    expect(text).toContain('does not refund or cancel the purchase');
+    expect(text).toContain('does not refund the purchase');
     expect(text).toContain('Restore purchase');
     await expect(retention.getByRole('link', { name: 'support@gleamit.app' })).toHaveAttribute(
       'href',
@@ -186,6 +181,12 @@ test.describe('the terms', () => {
     await expect(page.getByRole('heading', { level: 2, name: 'Medical disclaimer' })).toBeVisible();
     await expect(page.locator('.prose')).toContainText('Gleamit is not a medical device and does not give dental advice.');
     await expect(page.locator('.prose')).toContainText('It is not a recurring subscription.');
+  });
+
+  test('makes clear we are not liable for harm to your teeth', async ({ page }) => {
+    await expect(page.getByRole('heading', { level: 2, name: 'Your teeth are your responsibility' })).toBeVisible();
+    await expect(page.locator('.prose')).toContainText('not liable for any harm to your teeth, gums or health');
+    await expect(page.locator('.prose')).toContainText('Always ask your dentist about your teeth.');
   });
 });
 
