@@ -9,7 +9,8 @@ effective: 2026-10-07
 
 - Gleamit is a diary for your oral hygiene. It is **not a medical device** and
   gives **no dental advice**.
-- **Your teeth are your responsibility.** We are not liable for their health.
+- **Zero liability.** Your teeth are your responsibility. We are not liable for
+  their health.
 - Your data stays on your device. Keeping backups is up to you.
 - Pro is a one-time purchase, not a subscription.
 
