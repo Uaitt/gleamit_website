@@ -10,7 +10,7 @@ import {
 } from './matrix';
 import { pageBackground } from './theme';
 
-const sections = ['Contact', 'Android', 'iOS', 'Delete all Gleamit data'];
+const sections = ['Contact', 'Restore data on a new device', 'Delete the cloud backup', 'Delete all Gleamit data'];
 
 test.describe('/support/', () => {
   test.beforeEach(({ page }) => page.goto('/support/'));
@@ -32,6 +32,12 @@ test.describe('/support/', () => {
     expect(box!.height).toBeGreaterThanOrEqual(48);
   });
 
+  test('keeps a space around every inline label and link', async ({ page }) => {
+    const html = await page.locator('.prose').innerHTML();
+    expect(html).not.toMatch(/[\w,.:]<(kbd|a|strong)\b/);
+    expect(html).not.toMatch(/<\/(kbd|a|strong)>\w/);
+  });
+
   test('keeps the copy guardrails', async ({ page }) => {
     await expectCopyGuardrails(page);
   });
@@ -47,15 +53,52 @@ test.describe('/support/', () => {
     expect(copy, 'the device-backup claim is gone').not.toMatch(/iCloud Backup|built-in backup|Google's cloud backup/i);
   });
 
+  test.describe('new device', () => {
+    test('restoring is additive, so it never wipes the new device', async ({ page }) => {
+      await expect(page.locator('#restore-adds')).toContainText('Nothing is replaced or deleted');
+    });
+
+    for (const [id, label] of [
+      ['#ios-to-ios', 'iOS to iOS'],
+      ['#android-to-android', 'Android to Android'],
+    ]) {
+      test(`${label} restores from the cloud backup on first launch`, async ({ page }) => {
+        await expect(page.locator(id)).toHaveText(label);
+        const steps = page.locator(`${id} + .card ol`);
+        const text = await steps.innerText();
+        expect(text).toContain('Back up now');
+        // The labels the app actually shows: `cloudBackupPromptRestore` and `cloudBackupRestoreConfirm`.
+        expect(text).toContain('I already have a backup');
+        expect(text).toContain('Restore');
+        expect(await steps.locator('li').count()).toBe(4);
+        await expect(page.locator(`${id} + .card + p`)).toContainText('Restore from cloud backup');
+      });
+    }
+
+    test('between iOS and Android goes through the exported file', async ({ page }) => {
+      await expect(page.locator('#cross-platform')).toHaveText('Between iOS and Android');
+      await expect(page.locator('#cross-platform + p')).toContainText('cannot cross over');
+      const text = await page.locator('#cross-platform + p + .card ol').innerText();
+      expect(text).toContain('Export full backup');
+      expect(text).toContain('Import full backup');
+    });
+
+    test('says Pro restores per store and does not cross stores', async ({ page }) => {
+      const pro = page.locator('#pro-restore');
+      await expect(pro).toContainText('Restore purchase');
+      await expect(pro).toContainText('does not carry over to the other');
+    });
+  });
+
   test.describe('Android', () => {
     test('says the switch leaves the Drive copy in place', async ({ page }) => {
-      const note = page.locator('#android-switch ~ .note').first();
+      const note = page.locator('#android-switch');
       await expect(note).toContainText('does not delete the copy already in Drive');
       await expect(note).toContainText('stops new uploads');
     });
 
     test('walks through Drive as a numbered list, and says to repeat it per account', async ({ page }) => {
-      const steps = page.locator('#android-delete ~ * ol').first();
+      const steps = page.locator('#android-delete ol');
       const text = await steps.innerText();
       expect(text).toContain('Google Drive');
       expect(text).toContain('Settings');
@@ -71,13 +114,13 @@ test.describe('/support/', () => {
 
   test.describe('iOS', () => {
     test('says the switch leaves the iCloud copy in place', async ({ page }) => {
-      const note = page.locator('#ios-switch ~ .note').first();
+      const note = page.locator('#ios-switch');
       await expect(note).toContainText('does not delete the copy already in iCloud');
       await expect(note).toContainText('stops new uploads');
     });
 
     test('walks through iOS Settings as a numbered list', async ({ page }) => {
-      const steps = page.locator('#ios-delete ~ * ol').first();
+      const steps = page.locator('#ios-delete ol');
       const text = await steps.innerText();
       expect(text).toContain('Settings');
       expect(text).toContain('iCloud');
@@ -88,7 +131,7 @@ test.describe('/support/', () => {
     });
 
     test('walks through Mac System Settings as its own numbered list', async ({ page }) => {
-      const steps = page.locator('#ios-delete-mac ~ * ol').first();
+      const steps = page.locator('#ios-delete-mac ol');
       const text = await steps.innerText();
       expect(text).toContain('System Settings');
       expect(text).toContain('iCloud');
@@ -102,11 +145,12 @@ test.describe('/support/', () => {
     const section = page.locator('#delete-all ~ *');
     const text = (await section.allInnerTexts()).join('\n');
 
-    expect(text).toMatch(/Deleting the app removes everything stored on the phone/);
+    expect(text).toMatch(/Deleting the app removes everything stored on the device/);
     // The label the app actually shows, singular: `proRestore` in the app repo's l10n.
     expect(text).toContain('Restore purchase');
     expect(text).toMatch(/App Store or Google Play/);
     expect(text, 'the cloud copy outliving the app must not be contradicted').toMatch(/If cloud backup was ever on/);
+    await expect(page.locator('#delete-all ~ p a[href="#delete-backup"]')).toBeVisible();
     expect(text, 'the purchase record is held for us, so it must not be denied').not.toMatch(/nothing of yours is held by us/);
   });
 

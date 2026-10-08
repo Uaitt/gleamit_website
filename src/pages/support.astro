@@ -1,20 +1,21 @@
 ---
 import TextPage from '../layouts/TextPage.astro';
 
-const description = 'Get help with Gleamit, and delete the optional backup from your own Google Drive or iCloud.';
+const description =
+  'Get help with Gleamit, move your data to a new device, and delete the optional backup from your own Google Drive or iCloud.';
 
 const sections = [
   { depth: 2, slug: 'contact', text: 'Contact' },
-  { depth: 2, slug: 'android', text: 'Android' },
-  { depth: 2, slug: 'ios', text: 'iOS' },
+  { depth: 2, slug: 'new-device', text: 'Restore data on a new device' },
+  { depth: 2, slug: 'delete-backup', text: 'Delete the cloud backup' },
   { depth: 2, slug: 'delete-all', text: 'Delete all Gleamit data' },
 ];
 ---
 
 <TextPage title="Support" description={description} eyebrow="Help" sections={sections}>
   <p class="lead" slot="masthead">
-    Gleamit keeps your data on your phone. This page explains what the app does with your optional cloud backup, and how
-    to remove it yourself.
+    Gleamit keeps your data on your device. This page explains how to take it to a new device, and how to remove the
+    optional cloud backup yourself.
   </p>
 
   <h2 id="contact">Contact</h2>
@@ -26,20 +27,96 @@ const sections = [
     <a class="btn" href="mailto:support@gleamit.app">Email support</a>
   </div>
 
-  <h2 id="android"><span class="platform">Android</span></h2>
+  <h2 id="new-device">Restore data on a new device</h2>
+  <p>
+    There is no Gleamit account, so nothing moves to a new device by itself. Your data travels in one of two ways: the
+    cloud backup, which stays on the same platform, or a backup file you export yourself, which works between any two
+    devices.
+  </p>
+  <p class="card note" id="restore-adds">
+    <strong>Restoring adds the backup to what is already on the device.</strong> Nothing is replaced or deleted, so it
+    is safe to restore after you have started using Gleamit on the new device.
+  </p>
 
-  <h3 id="android-switch">What the backup switch does</h3>
+  <h3 id="ios-to-ios">iOS to iOS</h3>
+  <div class="card">
+    <ol class="steps">
+      <li>
+        On the old iPhone or iPad, open Gleamit, go to <kbd>Settings</kbd>, then <kbd>Data Backup</kbd>, and check that <kbd>Cloud backup</kbd> is on. Tap <kbd>Back up now</kbd>.
+      </li>
+      <li>Sign in to the new iPhone or iPad with the same Apple Account, with iCloud Drive on.</li>
+      <li>Install Gleamit and open it. When it offers cloud backup, tap <kbd>I already have a backup</kbd>.</li>
+      <li>Check the date and size of the backup it found, then tap <kbd>Restore</kbd>.</li>
+    </ol>
+  </div>
+  <p class="muted">
+    The restore option only shows up once iCloud has brought the backup to the new device, which can take a few
+    minutes. If you missed it, <kbd>Settings</kbd>, then <kbd>Data Backup</kbd>, then <kbd>Restore from cloud backup</kbd> does the same at any time.
+  </p>
+
+  <h3 id="android-to-android">Android to Android</h3>
+  <div class="card">
+    <ol class="steps">
+      <li>
+        On the old device, open Gleamit, go to <kbd>Settings</kbd>, then <kbd>Data Backup</kbd>, and check that <kbd>Cloud backup</kbd> is on. Tap <kbd>Back up now</kbd>.
+      </li>
+      <li>
+        Install Gleamit on the new device and open it. When it offers cloud backup, tap <kbd>I already have a backup</kbd>.
+      </li>
+      <li>Pick the same Google account the old device backed up to.</li>
+      <li>Check the date and size of the backup it found, then tap <kbd>Restore</kbd>.</li>
+    </ol>
+  </div>
+  <p class="muted">
+    If you missed it, <kbd>Settings</kbd>, then <kbd>Data Backup</kbd>, then <kbd>Restore from cloud backup</kbd> does
+    the same at any time.
+  </p>
+
+  <h3 id="cross-platform">Between iOS and Android</h3>
+  <p>
+    The cloud backup lives in iCloud on iOS and in Google Drive on Android, so it cannot cross over. Move a backup
+    file instead.
+  </p>
+  <div class="card">
+    <ol class="steps">
+      <li>
+        On the old device, open Gleamit, go to <kbd>Settings</kbd>, then <kbd>Data Backup</kbd>, then <kbd>Manual backup</kbd>, and tap <kbd>Export full backup</kbd>.
+      </li>
+      <li>
+        Save or send the <kbd>gleamit-backup.zip</kbd> file somewhere the new device can reach: an email to yourself, or
+        a cloud storage app you use on both devices.
+      </li>
+      <li>Download the file on the new device.</li>
+      <li>
+        Install Gleamit on the new device, go to <kbd>Settings</kbd>, then <kbd>Data Backup</kbd>, then <kbd>Manual backup</kbd>, and tap <kbd>Import full backup</kbd>. Pick the file.
+      </li>
+    </ol>
+  </div>
+  <p class="muted">The same file also works between two devices on the same platform, with or without cloud backup.</p>
+
+  <h3 id="new-device-pro">Your Pro purchase</h3>
+  <p id="pro-restore">
+    Pro belongs to your App Store or Google Play account, not to the app data, so a backup does not carry it. On a new
+    device of the same platform, signed in to the same store account, tap <kbd>Restore purchase</kbd>. A purchase made
+    on one store does not carry over to the other: the App Store and Google Play keep separate purchases.
+  </p>
+
+  <h2 id="delete-backup">Delete the cloud backup</h2>
+  <p>
+    Turning cloud backup off in Gleamit only stops new uploads. The copy already in your cloud stays there until you
+    delete it yourself, following the steps for your platform.
+  </p>
+
+  <h3 id="android"><span class="platform">Android</span></h3>
   <p>
     When cloud backup is on, Gleamit uploads a copy of your data to a private app area of the Google Drive account you
     picked. Only Gleamit can see that area, and it cannot see anything else in your Drive.
   </p>
-  <p class="card note">
+  <p class="card note" id="android-switch">
     <strong>Turning backup off in Gleamit, or disconnecting the Google account in Gleamit, does not delete the copy
     already in Drive.</strong> It only stops new uploads. The copy stays in your Drive until you delete it there.
   </p>
-
-  <h3 id="android-delete">Delete the backup from Google Drive</h3>
-  <div class="card">
+  <div class="card" id="android-delete">
     <ol class="steps">
       <li>Open the <kbd>Google Drive</kbd> app, or go to <kbd>drive.google.com</kbd> in a browser.</li>
       <li>Tap the menu (three lines) or your profile picture, then <kbd>Settings</kbd>.</li>
@@ -54,31 +131,27 @@ const sections = [
   </p>
   <p class="muted">If you connected more than one Google account over time, repeat these steps in each account.</p>
 
-  <h2 id="ios"><span class="platform">iOS</span></h2>
-
-  <h3 id="ios-switch">What the backup switch does</h3>
+  <h3 id="ios"><span class="platform">iOS</span></h3>
   <p>
     When cloud backup is on, Gleamit writes a copy of your data into a private area of your iCloud Drive, hidden from the
     Files app so it cannot be moved or deleted by accident. iCloud does the uploading, following your iCloud settings.
   </p>
-  <p class="card note">
+  <p class="card note" id="ios-switch">
     <strong>Turning backup off does not delete the copy already in iCloud.</strong> It only stops new uploads. The copy
     stays in your iCloud storage until you delete it there.
   </p>
-
-  <h3 id="ios-delete">Delete the backup from iCloud on your iPhone</h3>
-  <div class="card">
+  <p>On your iPhone or iPad:</p>
+  <div class="card" id="ios-delete">
     <ol class="steps">
-      <li>Open <kbd>Settings</kbd> on your iPhone.</li>
+      <li>Open <kbd>Settings</kbd> on your iPhone or iPad.</li>
       <li>Tap your name at the top to open <kbd>Apple Account</kbd>, then <kbd>iCloud</kbd>.</li>
       <li>Tap <kbd>Manage Account Storage</kbd>. On older iOS versions this is <kbd>Manage Storage</kbd>.</li>
       <li>Find <kbd>Gleamit</kbd> in the list of apps using iCloud storage.</li>
       <li>Tap it, then <kbd>Delete Data from iCloud</kbd>. Confirm.</li>
     </ol>
   </div>
-
-  <h3 id="ios-delete-mac">Delete the backup from a Mac</h3>
-  <div class="card">
+  <p>Or on a Mac:</p>
+  <div class="card" id="ios-delete-mac">
     <ol class="steps">
       <li>Open <kbd>System Settings</kbd>, then <kbd>Apple Account</kbd> at the top.</li>
       <li>Click <kbd>iCloud</kbd>, then <kbd>Manage</kbd>.</li>
@@ -86,18 +159,19 @@ const sections = [
       <li>Click it, then <kbd>Delete Documents and Data</kbd>. Confirm.</li>
     </ol>
   </div>
+
   <h2 id="delete-all">Delete all Gleamit data</h2>
   <p>
-    Deleting the app removes everything stored on the phone: brushing sessions, teeth, photos, documents, reminders and
+    Deleting the app removes everything stored on the device: brushing sessions, teeth, photos, documents, reminders and
     settings. There is no Gleamit account and no Gleamit server, so none of what you record ever reaches us.
   </p>
   <p>
-    Your own cloud storage is the one place a copy of that data outlives the app. If cloud backup was ever on, follow
-    the platform steps above as well, so nothing is left in your Google Drive or your iCloud.
+    Your own cloud storage is the one place a copy of that data outlives the app. If cloud backup was ever
+    on, <a href="#delete-backup">delete the cloud backup</a> as well, so nothing is left in your Google Drive or your
+    iCloud.
   </p>
   <p>
-    Your Pro purchase is tied to your App Store or Google Play account, not to the app data. Reinstall Gleamit and tap
-    <kbd>Restore purchase</kbd> to get it back.
+    Your Pro purchase is tied to your App Store or Google Play account, not to the app data. Reinstall Gleamit and tap <kbd>Restore purchase</kbd> to get it back.
   </p>
   <p id="purchase-record">
     If you bought Pro, RevenueCat keeps a purchase record for us, and uninstalling does not delete it. To have it
